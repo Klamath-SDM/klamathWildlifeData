@@ -1,0 +1,46 @@
+---
+title: "eBird Data Exploration"
+author: "Badhia Yunes Katz"
+date: "July 2025"
+output: rmarkdown::github_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.width=15, fig.height=10)
+library(tidyverse)
+library(httr)
+library(jsonlite)
+library(auk)
+```
+
+The purpose of this markdown is to bird data. This data was sourced from [CornellLab eBird Data and Tools Site](https://science.ebird.org/en/use-ebird-data). 
+
+Data product citation:
+Fink, D., T. Auer, A. Johnston, M. Strimas-Mackey, S. Ligocki, O. Robinson, W. Hochachka, L. Jaromczyk, C. Crowley, K. Dunham, A. Stillman, I. Davies, A. Rodewald, V. Ruiz-Gutierrez, C. Wood. 2023. eBird Status and Trends, Data Version: 2022; Released: 2023. Cornell Lab of Ornithology, Ithaca, New York. https://doi.org/10.2173/ebirdst.2022
+
+### Overview
+
+
+```{r}
+bbox_url <- "https://api.ebird.org/v2/data/obs/geo/recent"
+
+api_key = Sys.getenv("ebird_key")
+
+response <- GET(
+  url = bbox_url,
+  query = list(
+    lat = 42.0,
+    lng = -121.5,
+    dist = 50,
+    maxResults = 500
+  ),
+  add_headers("X-eBirdApiToken" = api_key)
+)
+
+# Parse results
+data <- fromJSON(content(response, "text", encoding = "UTF-8"))
+
+# View species
+unique_species <- unique(data$comName)
+print(unique_species)
+```
+
