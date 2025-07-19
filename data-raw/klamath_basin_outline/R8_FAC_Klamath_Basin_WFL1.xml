@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <descript>
+            <abstract>These layers are included in the Klamath Basin web map which is intended to be an interactive map of the Klamath basin, dams present on the upper system and depicted survey reaches of Arcata Fish and Wildlife Service Fisheries and Aquatic Conservation program's adult escapement monitoring on the Upper Klamath River story map.This story map is meant to educate others about carcass surveys performed by Arcata Fish and Wildlife Office Fisheries Program and Yurok Tribe Fisheries Program on the mainstem Klamath River. Crews climb aboard rafts just below Iron Gate Dam to begin the survey and end at the Shasta river confluence (a total of 21.2 km). The data collected from the field is used to estimate annual escapement and characterize age and sex composition and spawning success of adult fall-run Chinook Salmon on the mainstem Klamath River. These estimations guide decisions for water management as well as fishing regulations. </abstract>
+            <purpose>Layers for the Klamath Basin web map. These layers include location of dams, polyline layer of Klamath mainstem and transect breaks of Arcata U.S. Fish and Wildlife Service Fisheries and Aquatic Conservation Program's escapement monitoring. </purpose>
+        </descript>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>klamath</themekey>
+                <themekey>spawn</themekey>
+                <themekey>chinook</themekey>
+                <themekey>rafting management salmon carcass</themekey>
+            </theme>
+        </keywords>
+        <accconst>None</accconst>
+        <useconst>The United States Fish and Wildlife Service (Service) shall not be held liable for improper or incorrect use of the data described and/or contained herein. While the Service makes every reasonable effort to ensure the accuracy and completeness of data provided for distribution, it may not have the necessary accuracy or completeness required for every possible intended use. The Service recommends that data users consult the associated metadata record to understand the quality and possible limitations of the data. The Service creates metadata records in accordance with the standards endorsed by the Federal Geographic Data Committee.As a result of the above considerations, the Service gives no warranty, expressed or implied, as to the accuracy, reliability, or completeness of the data. It is the responsibility of the data user to use the data in a manner consistent with the limitations of geospatial data in general and these data in particular. Although these data have been processed successfully on a computer system at the Service, no warranty, expressed or implied, is made regarding the utility of the data on another system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty. This applies to the use of the data both alone and in aggregate with other data and information.</useconst>
+        <datacred>Samantha Adams, Lead Fisheries and Aquatic Conservation Technician. Arcata US Fish and Wildlife Service field office.</datacred>
+    </idinfo>
+    <metainfo>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

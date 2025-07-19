@@ -1,0 +1,114 @@
+---
+title: "eBird Data Exploration"
+author: "Badhia Yunes Katz"
+date: "July 2025"
+output: rmarkdown::github_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, fig.width=15, fig.height=10)
+library(tidyverse)
+library(httr)
+library(jsonlite)
+library(auk)
+library(dplyr)
+library(rnaturalearth)
+library(sf)
+library(ggplot2)
+library(readr)
+library(viridis)
+Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:/Program Files/Git/usr/bin", sep = ";"))
+
+
+api_key <- "ebird_key"
+radius_km <- 80                 
+sample_size <- 15     
+date <- "2024/06/15"  
+```
+
+
+Some limitations
+
+  - species preference (personal preferences)
+  - spacial and temporal bias (weekends or holidays - May is popular month: near homes or easily accesible areas)
+  - skill level of observer
+  - 
+
+
+
+```{r echo=FALSE}
+# Load Klamath Basin polygon
+klamath_basin <- st_read("data-raw/klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")
+klamath <- st_transform(klamath_basin, crs = 4326)
+
+# picking sample points  
+points <- st_sample(klamath, size = sample_size, type = "random") |> 
+  st_sf() |> 
+  mutate(point_id = row_number())
+
+# query eBird points
+query_point <- function(lat, lng, date, dist, key) {
+  url <- paste0(
+    "https://api.ebird.org/v2/data/obs/geo/historic/",
+    date,
+    "?lat=", lat,
+    "&lng=", lng,
+    "&dist=", dist,
+    "&maxResults=500")
+  
+  resp <- GET(url, add_headers("X-eBirdApiToken" = key))
+  if (http_status(resp)$category != "Success") return(NULL)
+  
+  dat <- fromJSON(content(resp, "text", encoding = "UTF-8"))
+  if (length(dat) == 0) return(NULL)
+  
+  unique_species <- unique(dat$comName)
+  return(unique_species)
+}
+
+# richness 
+results <- lapply(seq_len(nrow(points)), function(i) {
+  coords <- st_coordinates(points[i, ])
+  species <- query_point(
+    lat = coords[2],
+    lng = coords[1],
+    date = date,
+    dist = radius_km,
+    key = api_key
+  )
+  
+  tibble(point_id = i,
+         richness = ifelse(is.null(species), 0, length(species))
+         )
+  })
+
+richness_df <- bind_rows(results)
+
+# serge with spatial points
+points_rich <- points |> 
+  left_join(richness_df, by = "point_id")
+
+ggplot() +
+  geom_sf(data = klamath, fill = NA, color = "gray50") +
+  geom_sf(data = points_rich, aes(color = richness), size = 4) +
+  scale_color_viridis(option = "plasma", direction = -1) +
+  theme_minimal() +
+  labs(title = "Bird Species Richness in the Klamath Basin (API, 10km buffer)",
+       color = "Species Richness")
+```
+
+
+Puling 10 years
+
+```{r}
+
+raw_file <- "data-raw/ebird_data/ebd_US-OR-035_smp_relMay-2025.txt"
+
+filtered_file <- "data-raw/ebird_data/ebd_filtered.txt"
+
+# TODO continue when requested files are available
+
+
+
+
+```
+
