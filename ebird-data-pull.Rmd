@@ -26,6 +26,8 @@ sample_size <- 15
 date <- "2024/06/15"  
 ```
 
+#TODO add klamath county data when ebird delivers the request
+
 
 Some limitations
 
@@ -237,6 +239,62 @@ ebd_klamath |>
   labs(title = "Top 10 Most Observed Species",
        x = "Species", y = "Number of Observations") +
   theme_minimal()
+```
+
+Seasonal Bird Species Richness
+
+  - Note that this can be misinterpreted due to the temporal variability of bird watchers
+
+```{r echo=FALSE}
+ebd_klamath |> 
+  mutate(year = year(observation_date),
+         season = case_when(month(observation_date) %in% 3:5 ~ "Spring",
+                            month(observation_date) %in% 6:8 ~ "Summer",
+                            month(observation_date) %in% 9:11 ~ "Fall",
+                            TRUE ~ "Winter")) |> 
+  group_by(year, season) |> 
+  summarize(richness = n_distinct(common_name), .groups = "drop") |> 
+  ggplot(aes(x = year, y = richness, color = season)) +
+  geom_line(size = 1.1) +
+  geom_point(size = 2) +
+  labs(title = "Seasonal Bird Species Richness in the Klamath Basin",
+       x = "Year", y = "Species Richness") +
+  theme_minimal()
+
+```
+
+
+```{r echo=FALSE}
+# 
+ebd_klamath_species_observed <- ebd_klamath |> 
+  group_by(sampling_event_identifier) |> 
+  mutate(species_observed = n_distinct(common_name))
+
+ggplot(ebd_klamath_species_observed, aes(geometry = geometry, color = species_observed)) +
+  geom_sf(alpha = 1) +
+  scale_color_viridis_c(option = "magma") +
+  labs(title = "Checklist Species Richness in Klamath Basin",
+       color = "Species Observed") +
+  theme_minimal()
+
+```
+
+
+```{r echo=FALSE}
+ebd_klamath |> 
+  mutate(month = month(observation_date, label = TRUE)) |> 
+  group_by(month) |> 
+  summarize(richness = n_distinct(common_name)) |> 
+  ggplot(aes(x = month, y = richness)) +
+  geom_col(fill = "darkgreen") +
+  labs(title = "Monthly Bird Species Richness",
+       x = "Month", y = "Number of Unique Species") +
+  theme_minimal()
+
+```
+
+```{r}
+
 ```
 
 
