@@ -26,15 +26,12 @@ sample_size <- 15
 date <- "2024/06/15"  
 ```
 
-#TODO add klamath county data when ebird delivers the request
-
-
 Some limitations
 
   - species preference (personal preferences)
   - spacial and temporal bias (weekends or holidays - May is popular month: near homes or easily accesible areas)
   - skill level of observer
-  - 
+  - #TODO add more langugage
 
 
 
@@ -119,7 +116,8 @@ counties <- c(
   "ebd_US-CA-093_201501_202507_smp_relJun-2025", # Siskiyou
   "ebd_US-CA-105_201501_202507_smp_relJun-2025", # Trinity
   "ebd_US-OR-029_201501_202507_smp_relJun-2025", # Lake
-  "ebd_US-OR-037_201501_202507_smp_relJun-2025" # Jackson
+  "ebd_US-OR-037_201501_202507_smp_relJun-2025", # Jackson
+  "ebd_US-OR-035_201501_202507_smp_relJun-2025"
 )
 
 # Filter all files (skip this section if already done)
@@ -127,13 +125,13 @@ counties <- c(
 #   ebd_file <- file.path(data_dir, paste0(base, ".txt"))
 #   samp_file <- file.path(data_dir, paste0(base, "_sampling.txt"))
 # 
-#   filt <- auk_ebd(ebd_file, samp_file) |> 
+#   filt <- auk_ebd(ebd_file, samp_file) |>
 #     auk_complete() |>
 #     auk_protocol(protocol = c("Traveling", "Stationary")) |>
 #     auk_duration(duration = c(0, 120)) |>
 #     auk_distance(distance = c(0, 5))
 # 
-#   
+# 
 #    auk_filter(
 #     filt,
 #     file = file.path(data_dir, paste0(base, "_filtered.txt")),
