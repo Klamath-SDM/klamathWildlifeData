@@ -16,6 +16,7 @@ library(sf)
 library(ggplot2)
 library(readr)
 library(viridis)
+library(lubridate)
 Sys.setenv(PATH = paste(Sys.getenv("PATH"), "C:/Program Files/Git/usr/bin", sep = ";"))
 
 
@@ -35,7 +36,9 @@ Some limitations
 
 
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
+# using ebird API
+
 # Load Klamath Basin polygon
 klamath_basin <- st_read("data-raw/klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")
 klamath <- st_transform(klamath_basin, crs = 4326)
@@ -100,15 +103,140 @@ ggplot() +
 Puling 10 years
 
 ```{r}
+# I have downloaded data from 7 different counties where the klamath basin is located
 
-raw_file <- "data-raw/ebird_data/ebd_US-OR-035_smp_relMay-2025.txt"
+# Paths
+data_dir <- "data-raw/ebird_data/new"
+shapefile_path <- "data-raw/ebird_data/klamath_basin_outline.shp"
 
-filtered_file <- "data-raw/ebird_data/ebd_filtered.txt"
+# Define base filenames (no extension)
+counties <- c(
+  "ebd_US-CA-015_201501_202507_smp_relJun-2025", # Del Norte
+  "ebd_US-CA-023_201501_202507_smp_relJun-2025", # Humboldt
+  "ebd_US-CA-049_201501_202507_smp_relJun-2025", # Modoc
+  "ebd_US-CA-093_201501_202507_smp_relJun-2025", # Siskiyou
+  "ebd_US-CA-105_201501_202507_smp_relJun-2025", # Trinity
+  "ebd_US-OR-029_201501_202507_smp_relJun-2025", # Lake
+  "ebd_US-OR-037_201501_202507_smp_relJun-2025" # Jackson
+)
 
-# TODO continue when requested files are available
+# Filter all files (skip this section if already done)
+# for (base in counties) {
+#   ebd_file <- file.path(data_dir, paste0(base, ".txt"))
+#   samp_file <- file.path(data_dir, paste0(base, "_sampling.txt"))
+# 
+#   filt <- auk_ebd(ebd_file, samp_file) |> 
+#     auk_complete() |>
+#     auk_protocol(protocol = c("Traveling", "Stationary")) |>
+#     auk_duration(duration = c(0, 120)) |>
+#     auk_distance(distance = c(0, 5))
+# 
+#   
+#    auk_filter(
+#     filt,
+#     file = file.path(data_dir, paste0(base, "_filtered.txt")),
+#     sampling_file = file.path(data_dir, paste0(base, "_filtered_sampling.txt")),
+#     execute = FALSE,  # Do not run awk from R
+#     awk_file = file.path(data_dir, paste0(base, "_filter.awk"))
+#   )
+# }
+
+# all filtered data
+ebd_all <- purrr::map_dfr(
+  counties,
+  ~ read_ebd(file.path(data_dir, paste0(.x, "_filtered.txt")))
+)
+```
+
+```{r}
+# Read Klamath Basin shapefile
+klamath_basin <- st_read("data-raw/klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp") |>
+  st_transform(4326)
+
+# Convert EBD to sf points
+ebd_all_sf <- ebd_all |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)  # WGS84
+
+# Ensure both are in the same CRS
+klamath_basin <- st_transform(klamath_basin, 4326)
+
+# Keep only points inside the basin
+ebd_klamath <- ebd_all_sf[st_within(ebd_all_sf, klamath_basin, sparse = FALSE), ]
 
 
+ebd_klamath |>
+  mutate(year = year(observation_date)) |>
+  group_by(year) |>
+  summarize(richness = n_distinct(common_name)) |>
+  arrange(year)
+```
 
+```{r}
+# ggplot() +
+#   geom_sf(data = klamath_basin, fill = NA, color = "black") +
+#   geom_sf(data = ebd_klamath, aes(color = common_name), alpha = 0.5) +
+#   theme_minimal()
 
 ```
+
+
+```{r echo=FALSE}
+
+# temporal trend of species richness
+ebd_klamath |>  
+  mutate(year = year(observation_date)) |> 
+  group_by(year) |> 
+  summarize(richness = n_distinct(common_name)) |> 
+  ggplot(aes(x = year, y = richness)) +
+  geom_line(size = 1.2) +
+  geom_point() +
+  labs(title = "Species Richness in Klamath Basin (2015–2024)",
+       x = "Year", y = "Unique Species Observed") +
+  theme_minimal()
+
+# All observations
+ggplot() +
+  geom_sf(data = klamath_basin, fill = NA, color = "black") +
+  geom_sf(data = ebd_klamath, alpha = 0.3, color = "blue", size = 0.5) +
+  labs(title = "Bird Observations in Klamath Basin") +
+  theme_minimal()
+```
+
+Sptial Species Richness
+```{r echo=FALSE}
+# Create hexagonal grid over Klamath Basin
+# hex_grid <- st_make_grid(klamath_basin, cellsize = 0.1, square = FALSE)
+# hex_grid <- st_sf(geometry = hex_grid)
+# 
+# # Spatial join
+# joined <- st_join(ebd_klamath, hex_grid)
+# 
+# # Calculate richness per hex
+# hex_richness <- joined |> 
+#   group_by(geometry) |> 
+#   summarize(richness = n_distinct(common_name)) |> 
+#   ungroup()
+# 
+# # Plot
+# ggplot(hex_richness) +
+#   geom_sf(aes(fill = richness), color = NA) +
+#   scale_fill_viridis_c(option = "plasma") +
+#   labs(title = "Spatial Species Richness in Klamath Basin",
+#        fill = "Richness") +
+#   theme_minimal()
+```
+
+Top species Observed
+```{r}
+ebd_klamath |> 
+  count(common_name, sort = TRUE) |> 
+  slice_max(n, n = 10) |> 
+  ggplot(aes(x = reorder(common_name, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(title = "Top 10 Most Observed Species",
+       x = "Species", y = "Number of Observations") +
+  theme_minimal()
+```
+
 
