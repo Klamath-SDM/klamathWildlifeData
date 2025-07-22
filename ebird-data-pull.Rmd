@@ -161,7 +161,6 @@ ggplot() +
 ```
 
 
-Puling 10 years
 
 ```{r include=FALSE}
 # I have downloaded data from 7 different counties where the klamath basin is located
@@ -253,6 +252,8 @@ ebd_klamath |>
 This plot shows the total number of unique species recorded per year. Peaks may correspond to years with higher survey effort, observer participation, or migration events.
 
 ```{r echo=FALSE}
+
+#TODO fix x axis so years are whole numbers, also show all year tick marks
 # temporal trend of species richness
 ebd_klamath |>  
   mutate(year = year(observation_date)) |> 
@@ -308,7 +309,7 @@ These species are the most commonly reported across all checklists, often due to
 
 The most common species is American Robin
 
-```{r}
+```{r echo=FALSE}
 ebd_klamath |> 
   count(common_name, sort = TRUE) |> 
   slice_max(n, n = 10) |> 
@@ -322,9 +323,12 @@ ebd_klamath |>
 
 Seasonal Bird Species Richness
 
+Spring is the season with more observations from bird watchers, and winter is the lowest. This is not surprising due to the frequency of when people spend time outside during these seasons.
+
   - Note that this can be misinterpreted due to the temporal variability of bird watchers
 
 ```{r echo=FALSE}
+#TODO fix x axis so years are whole numbers and they go by 1 year
 ebd_klamath |> 
   mutate(year = year(observation_date),
          season = case_when(month(observation_date) %in% 3:5 ~ "Spring",
@@ -344,7 +348,7 @@ ebd_klamath |>
 
 
 ```{r echo=FALSE}
-# 
+# TODO play around with color scale
 ebd_klamath_species_observed <- ebd_klamath |> 
   group_by(sampling_event_identifier) |> 
   mutate(species_observed = n_distinct(common_name))
