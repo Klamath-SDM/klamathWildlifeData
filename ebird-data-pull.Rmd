@@ -96,6 +96,7 @@ These factors influence the likelihood of species detection.
   - Species with low detectability or limited seasonal presence may be underrepresented.
 
 
+[This markdown follows ebird best practices](https://ebird.github.io/ebird-best-practices/)
 
 ```{r eval=FALSE, include=FALSE}
 # using ebird API
@@ -239,21 +240,11 @@ ebd_klamath |>
   arrange(year)
 ```
 
-```{r}
-# ggplot() +
-#   geom_sf(data = klamath_basin, fill = NA, color = "black") +
-#   geom_sf(data = ebd_klamath, aes(color = common_name), alpha = 0.5) +
-#   theme_minimal()
-
-```
-
 ## Temporal Trends in Species Richness
 
 This plot shows the total number of unique species recorded per year. Peaks may correspond to years with higher survey effort, observer participation, or migration events.
 
 ```{r echo=FALSE}
-
-#TODO fix x axis so years are whole numbers, also show all year tick marks
 # temporal trend of species richness
 ebd_klamath |>  
   mutate(year = year(observation_date)) |> 
@@ -262,6 +253,9 @@ ebd_klamath |>
   ggplot(aes(x = year, y = richness)) +
   geom_line(size = 1.2) +
   geom_point() +
+  scale_x_continuous(
+    breaks = seq(2015, 2024, by = 1),
+    labels = seq(2015, 2024, by = 1)) +
   labs(title = "Species Richness in Klamath Basin (2015–2024)",
        x = "Year", y = "Unique Species Observed") +
   theme_minimal()
@@ -328,7 +322,6 @@ Spring is the season with more observations from bird watchers, and winter is th
   - Note that this can be misinterpreted due to the temporal variability of bird watchers
 
 ```{r echo=FALSE}
-#TODO fix x axis so years are whole numbers and they go by 1 year
 ebd_klamath |> 
   mutate(year = year(observation_date),
          season = case_when(month(observation_date) %in% 3:5 ~ "Spring",
@@ -340,12 +333,18 @@ ebd_klamath |>
   ggplot(aes(x = year, y = richness, color = season)) +
   geom_line(size = 1.1) +
   geom_point(size = 2) +
+  scale_x_continuous(
+    breaks = seq(2015, 2024, by = 1),
+    labels = seq(2015, 2024, by = 1)) +
   labs(title = "Seasonal Bird Species Richness in the Klamath Basin",
        x = "Year", y = "Species Richness") +
   theme_minimal()
 
 ```
 
+Checklist Species Richness in Klamath Basin
+
+species_observed value in your code represents the number of unique species recorded in each individual eBird checklist
 
 ```{r echo=FALSE}
 # TODO play around with color scale
@@ -353,12 +352,14 @@ ebd_klamath_species_observed <- ebd_klamath |>
   group_by(sampling_event_identifier) |> 
   mutate(species_observed = n_distinct(common_name))
 
+#How many species are typically seen per checklist
 ggplot(ebd_klamath_species_observed, aes(geometry = geometry, color = species_observed)) +
   geom_sf(alpha = 1) +
   scale_color_viridis_c(option = "magma") +
-  labs(title = "Checklist Species Richness in Klamath Basin",
-       color = "Species Observed") +
-  theme_minimal()
+  labs(
+    title = "Checklist Species Richness in the Klamath Basin",
+    subtitle = "Each point represents a complete checklist (2015–2024)") +
+  theme_minimal(base_size = 12)
 
 ```
 
@@ -376,10 +377,6 @@ ebd_klamath |>
   labs(title = "Monthly Bird Species Richness",
        x = "Month", y = "Number of Unique Species") +
   theme_minimal()
-
-```
-
-```{r}
 
 ```
 

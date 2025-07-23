@@ -94,14 +94,8 @@ These factors influence the likelihood of species detection.
   - Species with low detectability or limited seasonal presence may be
     underrepresented.
 
-Puling 10 years
-
-``` r
-# ggplot() +
-#   geom_sf(data = klamath_basin, fill = NA, color = "black") +
-#   geom_sf(data = ebd_klamath, aes(color = common_name), alpha = 0.5) +
-#   theme_minimal()
-```
+[This markdown follows ebird best
+practices](https://ebird.github.io/ebird-best-practices/)
 
 ## Temporal Trends in Species Richness
 
@@ -109,7 +103,7 @@ This plot shows the total number of unique species recorded per year.
 Peaks may correspond to years with higher survey effort, observer
 participation, or migration events.
 
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ## Spatial coverage map
 
@@ -117,7 +111,7 @@ This map displays all checklists within the Klamath Basin. Denser
 clusters likely reflect accessibility (e.g., roads, hotspots) and
 observer preferences.
 
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ## Top 10 Most Frequently Observed Species
 
@@ -126,32 +120,29 @@ often due to being common, conspicuous, or resident year-round.
 
 The most common species is American Robin
 
-``` r
-ebd_klamath |> 
-  count(common_name, sort = TRUE) |> 
-  slice_max(n, n = 10) |> 
-  ggplot(aes(x = reorder(common_name, n), y = n)) +
-  geom_col(fill = "steelblue") +
-  coord_flip() +
-  labs(title = "Top 10 Most Observed Species",
-       x = "Species", y = "Number of Observations") +
-  theme_minimal()
-```
-
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Seasonal Bird Species Richness
+
+Spring is the season with more observations from bird watchers, and
+winter is the lowest. This is not surprising due to the frequency of
+when people spend time outside during these seasons.
 
 - Note that this can be misinterpreted due to the temporal variability
   of bird watchers
 
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+Checklist Species Richness in Klamath Basin
+
+species_observed value in your code represents the number of unique
+species recorded in each individual eBird checklist
+
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## Monthly Richness Trends
 
 Richness peaks in spring and early summer, again corresponding to
 migration and peak observation periods
 
-![](ebird-data-pull_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](ebird-data-pull_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
