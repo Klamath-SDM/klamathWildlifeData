@@ -14,7 +14,7 @@ library(lubridate)
 knitr::opts_chunk$set(
   echo = FALSE,
   message = FALSE,
-  warning = FALSE, 
+  warning = FALSE,
   fig.width = 12, 
   fig.height = 12
 )
@@ -22,16 +22,21 @@ knitr::opts_chunk$set(
 theme_set(
   theme_minimal() +
     theme(
-      plot.title = element_text(size = 11, face = "bold"),
+      plot.title = element_text(size = 16, face = "bold"),
       axis.title.x = element_text(size = 14),
       axis.title.y = element_text(size = 14)
     )
 )
 ```
 
-### Build Dataset
+## Questions
 
-1.  Pull in eBird data:
+1. Do we want individual species tracked to guild?
+2. Should we add a geographic component to the dataset?
+
+## Build Dataset
+
+### 1.  Pull in eBird data:
 
 \*see: `ebird-data-pull.Rmd` \* for details on ebird data
 
@@ -39,11 +44,13 @@ theme_set(
 ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds")) |> glimpse()
 ```
 
-2.  Pull in BIRDBASE[^1]:
+### 2.  Pull in BIRDBASE[^1]:
 
 [^1]: Şekercioğlu, Çağan H; Kittelberger, Kyle D.; Mota, Flávia; Buxton, Amy N.; Orton, Nikolas; DeNiro, Adara; et al. (2025). BIRDBASE: A Global Database of Avian Biogeography, Conservation, Ecology and Life History Traits. figshare. Dataset. <https://doi.org/10.6084/m9.figshare.27051040.v1>
 
 This dataset provides a thorough, literature based review of all bird species and includes habitat and foraging information that can be used to assign birds to guilds.
+
+The `primary habitat` and `primary diet` values were used but it's worth noting that BIRDBASE provides information on how each bird species fits into each type. This could help if a more involved analysis is requested. 
 
 ```{r}
 birdbase <- readxl::read_excel(here::here('data-raw', 'BIRDBASE v2025.1 Sekercioglu et al. Final.xlsx'), sheet = "Data", skip = 1) |> 
@@ -65,12 +72,12 @@ ebd_birdbase <- ebd_trunc |>
   left_join(birdbase_trunc) |> glimpse()
 ```
 
-### Habitat Guild
+### Habitat
 
-Grouping the Klamath bird species by the primary habitat type. Habitat types include: `r paste0(unique(ebd_birdbase$primary_habitat), collapse = ", ")`. The number of species across months and years are grouped by each habitat type to create the `habitat_guild` dataset. 
+Grouping the Klamath bird species by the primary habitat type. Habitat types include: `r paste0(unique(ebd_birdbase$primary_habitat), collapse = ", ")`. The number of species across months and years are grouped by each habitat type to create the `habitat` dataset. 
 
 ```{r}
-habitat_guild <- ebd_birdbase |> 
+habitat <- ebd_birdbase |> 
   group_by(primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
@@ -79,7 +86,7 @@ habitat_guild <- ebd_birdbase |>
 ```
 
 ```{r}
-habitat_guild |> 
+habitat |> 
   ggplot(aes(x = as.factor(month), y = factor(year), fill = n_species)) +
   geom_tile(color = "white") +
   facet_wrap(~ primary_habitat) +
@@ -97,7 +104,7 @@ habitat_guild |>
 
 ```{r}
 
-habitat_guild |> 
+habitat |> 
   ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
   geom_line(alpha = 0.6) +
   geom_point(size = 1) +
@@ -116,12 +123,12 @@ habitat_guild |>
 
 ```
 
-### Foraging Guild
+### Foraging 
 
-Grouping the Klamath bird species by the primary diet type. Diet types include: `r paste0(unique(ebd_birdbase$primary_diet), collapse = ", ")`. The number of species across months and years are grouped by each diet type to create the `foraging_guild` dataset. 
+Grouping the Klamath bird species by the primary diet type. Diet types include: `r paste0(unique(ebd_birdbase$primary_diet), collapse = ", ")`. The number of species across months and years are grouped by each diet type to create the `foraging` dataset. 
 
 ```{r}
-foraging_guild <- ebd_birdbase |> 
+foraging <- ebd_birdbase |> 
   group_by(primary_diet, year = year(observation_date), month = month(observation_date)) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
@@ -130,7 +137,7 @@ foraging_guild <- ebd_birdbase |>
 ```
 
 ```{r}
-foraging_guild |> 
+foraging |> 
   ggplot(aes(x = as.factor(month), y = factor(year), fill = n_species)) +
   geom_tile(color = "white") +
   facet_wrap(~ primary_diet) +
@@ -148,7 +155,7 @@ foraging_guild |>
 
 ```{r}
 
-foraging_guild |> 
+foraging |> 
   ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
   geom_line(alpha = 0.6) +
   geom_point(size = 1) +
@@ -166,3 +173,137 @@ foraging_guild |>
   )
 
 ```
+
+### Build Guild based on diet and habitat 
+
+Bird species were grouped into functional guilds based on a combination of primary diet and primary habitat. Diet × habitat guilds were defined for each observation by pairing the species’ primary diet category with its primary habitat category. Species richness was summarized by guild across months and years, and guilds were ranked by total species richness. 
+
+```{r}
+habitat_diet_guild <- ebd_birdbase |> 
+  mutate(guild = paste(primary_diet, primary_habitat, sep = " – ")) |> 
+  group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, guild) |> 
+  summarize(n_species = length(unique(common_name))) |> 
+  ungroup() 
+
+```
+There are `r length(unique(habitat_diet_guild$guild))` guilds. The top 10 are: 
+
+```{r}
+habitat_diet_guild |> 
+  group_by(guild) |> 
+  summarise(
+    total_species = sum(n_species),
+    .groups = "drop"
+  ) |> 
+  slice_max(total_species, n = 10) |> 
+ggplot(
+       aes(x = fct_reorder(guild, total_species),
+           y = total_species)) +
+  geom_col(fill = "darkgreen") +
+  coord_flip() +
+  labs(
+    title = "Top 10 diet × habitat guilds by species richness",
+    x = "Guild",
+    y = "Total number of species"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+habitat_diet_guild |> 
+  group_by(guild) |> 
+  summarise(total_species = sum(n_species)) |> 
+  arrange(desc(total_species)) |> 
+  ggplot(aes(x = fct_reorder(guild, total_species), y = total_species)) +
+  geom_col() + 
+  labs(
+    x = "Guild",
+    y = "Total number of species"
+  ) + 
+  coord_flip() 
+
+```
+
+```{r}
+top_guilds <- habitat_diet_guild |> 
+  group_by(guild) |> 
+  summarise(
+    total_species = sum(n_species),
+    .groups = "drop"
+  ) |> 
+  slice_max(total_species, n = 10) 
+top10_names <- top_guilds$guild
+
+habitat_diet_guild |>
+  mutate(
+    guild = paste(primary_diet, primary_habitat, sep = " – "),
+    month = factor(month, levels = 1:12, labels = month.abb)
+  ) |>
+  filter(guild %in% top10_names) |> 
+  group_by(month, guild) |>
+  summarise(n_species = sum(n_species), .groups = "drop") |> 
+ggplot(
+       aes(x = month, y = n_species, group = guild, color = guild)) +
+  geom_line() +
+  labs(
+    title = "Seasonal dynamics of the top 10 diet × habitat guilds",
+    x = "Month",
+    y = "Number of species",
+    color = "Guild"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "right")
+
+```
+
+```{r}
+knitr::knit_exit()
+```
+
+## Other figures 
+
+```{r}
+
+ggplot(habitat_diet_guild, aes(x = as.factor(month), y = primary_habitat, fill = n_species)) +
+  geom_tile(color = "white", linewidth = 0.3) +
+  facet_wrap(~ primary_diet, scales = "free_y") +
+  scale_fill_viridis_c(name = "N species") +
+  labs(
+    title = "Species richness by habitat and month, faceted by primary diet",
+    x = "Month",
+    y = "Primary habitat"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.spacing = unit(1, "lines"),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+```
+
+```{r}
+habitat_diet_guild |> 
+  ggplot(aes(
+    x = primary_diet,
+    y = primary_habitat,
+    fill = n_species
+  )) +
+  geom_tile(color = "white", linewidth = 0.3) +
+  facet_wrap(~ year) +
+  scale_fill_viridis_c(name = "N species") +
+  labs(
+    title = "Diet × Habitat species richness (guild candidates)",
+    x = "Primary diet",
+    y = "Primary habitat"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.spacing = unit(1, "lines")
+  )
+
+```
+
+
+
