@@ -31,12 +31,12 @@ theme_set(
 
 ## Questions
 
-1. Do we want individual species tracked to guild?
-2. Should we add a geographic component to the dataset?
+1.  Do we want individual species tracked to guild?
+2.  Should we add a geographic component to the dataset?
 
 ## Build Dataset
 
-### 1.  Pull in eBird data:
+### 1. Pull in eBird data:
 
 \*see: `ebird-data-pull.Rmd` \* for details on ebird data
 
@@ -44,13 +44,13 @@ theme_set(
 ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds")) |> glimpse()
 ```
 
-### 2.  Pull in BIRDBASE[^1]:
+### 2. Pull in BIRDBASE[^1]:
 
 [^1]: Şekercioğlu, Çağan H; Kittelberger, Kyle D.; Mota, Flávia; Buxton, Amy N.; Orton, Nikolas; DeNiro, Adara; et al. (2025). BIRDBASE: A Global Database of Avian Biogeography, Conservation, Ecology and Life History Traits. figshare. Dataset. <https://doi.org/10.6084/m9.figshare.27051040.v1>
 
 This dataset provides a thorough, literature based review of all bird species and includes habitat and foraging information that can be used to assign birds to guilds.
 
-The `primary habitat` and `primary diet` values were used but it's worth noting that BIRDBASE provides information on how each bird species fits into each type. This could help if a more involved analysis is requested. 
+The `primary habitat` and `primary diet` values were used but it's worth noting that BIRDBASE provides information on how each bird species fits into each type. This could help if a more involved analysis is requested.
 
 ```{r}
 birdbase <- readxl::read_excel(here::here('data-raw', 'BIRDBASE v2025.1 Sekercioglu et al. Final.xlsx'), sheet = "Data", skip = 1) |> 
@@ -69,15 +69,127 @@ birdbase_trunc <- birdbase |>
   select(scientific_name = e_bird_clements_v2024b, primary_diet, primary_habitat, species, genus, order)
 
 ebd_birdbase <- ebd_trunc |> 
-  left_join(birdbase_trunc) |> glimpse()
+  left_join(birdbase_trunc) 
+```
+
+### 3. Add waterbird niche
+
+Based off of table 2 of Donnelly et al., 2022[^2]
+
+[^2]: Donnelly, J. P., Moore, J. N., Casazza, M. L., & Coons, S. P. (2022). Functional wetland loss drives emerging risks to waterbird migration networks. *Frontiers in Ecology and Evolution, 10*, 844278. <https://doi.org/10.3389/fevo.2022.844278>
+
+```{r}
+waterbirds <- tribble(
+  ~waterbird_niche,              ~common_name,
+  # Shorebirds
+  "Shorebirds",        "American Avocet",
+  "Shorebirds",        "Black-necked Stilt",
+  "Shorebirds",        "Dunlin",
+  "Shorebirds",        "Greater Yellowlegs",
+  "Shorebirds",        "Lesser Yellowlegs",
+  "Shorebirds",        "Long-billed Dowitcher",
+  "Shorebirds",        "Marbled Godwit",
+  "Shorebirds",        "Western Sandpiper",
+  "Shorebirds",        "Willet",
+  "Shorebirds",        "Wilson's Phalarope",
+  "Shorebirds",        "Wilson's Snipe",
+  "Shorebirds",        "Whimbrel",
+  
+  # Dabbling ducks
+  "Dabbling ducks",    "American Wigeon",
+  "Dabbling ducks",    "Cinnamon Teal",
+  "Dabbling ducks",    "Gadwall",
+  "Dabbling ducks",    "Green-winged Teal",
+  "Dabbling ducks",    "Mallard",
+  "Dabbling ducks",    "Northern Pintail",
+  "Dabbling ducks",    "Northern Shoveler",
+  
+  # Diving ducks
+  "Diving ducks",      "Barrow's Goldeneye", 
+  "Diving Ducks",      "Common Goldeneye",
+  "Diving ducks",      "Bufflehead",
+  "Diving ducks",      "Canvasback",
+  "Diving ducks",      "Greater Scaup", 
+  "Diving ducks",      "Lesser Scaup",
+  "Diving ducks",      "Redhead",
+  "Diving ducks",      "Ring-necked Duck",
+  "Diving ducks",      "Ruddy Duck",
+  
+  # Other waterbirds
+  "Other waterbirds",  "American Bittern",
+  "Other waterbirds",  "American Coot",
+  "Other waterbirds",  "Black Tern",
+  "Other waterbirds",  "Eared Grebe",
+  "Other waterbirds",  "Least Bittern",
+  "Other waterbirds",  "Western Grebe",
+  "Other waterbirds",  "White-faced Ibis"
+) 
+
+knitr::kable(waterbirds)
+
+```
+
+```{r}
+ebd_birdbase_with_waterbirds <- ebd_birdbase |> 
+  left_join(waterbirds) 
+```
+
+### Waterbirds 
+
+Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. 
+
+```{r}
+waterbird_guild <- ebd_birdbase_with_waterbirds |> 
+  filter(!is.na(waterbird_niche)) |> 
+  group_by(waterbird_niche, primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
+  summarize(n_species = length(unique(common_name))) |> 
+  glimpse()
+
+```
+
+```{r}
+waterbird_guild |> 
+  ggplot(aes(x = as.factor(month), y = factor(year), fill = n_species)) +
+  geom_tile(color = "white") +
+  facet_wrap(~ waterbird_niche + primary_habitat) +
+  scale_fill_viridis_c(name = "n_species") +
+  labs(
+    x = "Month",
+    y = "Year",
+    title = "Species Richness by Month and Year Across Waterbird and Primary Habitat Guilds"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.spacing = unit(1, "lines")
+  )
+```
+
+```{r eval=FALSE, include=FALSE}
+
+waterbird_guild |> 
+  ggplot(aes(x = as.factor(month), y = n_species, group = year, fill = factor(year))) +
+  geom_col(alpha = 0.6, stat = "identity", position = "dodge") +
+  facet_wrap(~ wetland_niche, scales = "free_y") +
+  labs(
+    x = "Month",
+    y = "Number of Species",
+    color = "Year",
+    title = "Monthly Species Richness by Waterbird Guild"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.spacing = unit(1, "lines")
+  )
+
 ```
 
 ### Habitat
 
-Grouping the Klamath bird species by the primary habitat type. Habitat types include: `r paste0(unique(ebd_birdbase$primary_habitat), collapse = ", ")`. The number of species across months and years are grouped by each habitat type to create the `habitat` dataset. 
+Grouping the Klamath bird species by the primary habitat type. Habitat types include: `r paste0(unique(ebd_birdbase_with_waterbirds$primary_habitat), collapse = ", ")`. The number of species across months and years are grouped by each habitat type to create the `habitat` dataset.
 
 ```{r}
-habitat <- ebd_birdbase |> 
+habitat <- ebd_birdbase_with_waterbirds |> 
   group_by(primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
@@ -102,7 +214,7 @@ habitat |>
   )
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 
 habitat |> 
   ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
@@ -123,12 +235,12 @@ habitat |>
 
 ```
 
-### Foraging 
+### Foraging
 
-Grouping the Klamath bird species by the primary diet type. Diet types include: `r paste0(unique(ebd_birdbase$primary_diet), collapse = ", ")`. The number of species across months and years are grouped by each diet type to create the `foraging` dataset. 
+Grouping the Klamath bird species by the primary diet type. Diet types include: `r paste0(unique(ebd_birdbase_with_waterbirds$primary_diet), collapse = ", ")`. The number of species across months and years are grouped by each diet type to create the `foraging` dataset.
 
 ```{r}
-foraging <- ebd_birdbase |> 
+foraging <- ebd_birdbase_with_waterbirds |> 
   group_by(primary_diet, year = year(observation_date), month = month(observation_date)) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
@@ -153,7 +265,7 @@ foraging |>
   )
 ```
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 
 foraging |> 
   ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
@@ -174,19 +286,20 @@ foraging |>
 
 ```
 
-### Build Guild based on diet and habitat 
+### Build Guild based on diet and habitat
 
-Bird species were grouped into functional guilds based on a combination of primary diet and primary habitat. Diet × habitat guilds were defined for each observation by pairing the species’ primary diet category with its primary habitat category. Species richness was summarized by guild across months and years, and guilds were ranked by total species richness. 
+Bird species were grouped into functional guilds based on a combination of primary diet and primary habitat. Diet × habitat guilds were defined for each observation by pairing the species’ primary diet category with its primary habitat category. Species richness was summarized by guild across months and years, and guilds were ranked by total species richness.
 
 ```{r}
-habitat_diet_guild <- ebd_birdbase |> 
+habitat_diet_guild <- ebd_birdbase_with_waterbirds |> 
   mutate(guild = paste(primary_diet, primary_habitat, sep = " – ")) |> 
   group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, guild) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() 
 
 ```
-There are `r length(unique(habitat_diet_guild$guild))` guilds. The top 10 are: 
+
+There are `r length(unique(habitat_diet_guild$guild))` guilds. The top 10 are:
 
 ```{r}
 habitat_diet_guild |> 
@@ -196,9 +309,9 @@ habitat_diet_guild |>
     .groups = "drop"
   ) |> 
   slice_max(total_species, n = 10) |> 
-ggplot(
-       aes(x = fct_reorder(guild, total_species),
-           y = total_species)) +
+  ggplot(
+    aes(x = fct_reorder(guild, total_species),
+        y = total_species)) +
   geom_col(fill = "darkgreen") +
   coord_flip() +
   labs(
@@ -243,8 +356,8 @@ habitat_diet_guild |>
   filter(guild %in% top10_names) |> 
   group_by(month, guild) |>
   summarise(n_species = sum(n_species), .groups = "drop") |> 
-ggplot(
-       aes(x = month, y = n_species, group = guild, color = guild)) +
+  ggplot(
+    aes(x = month, y = n_species, group = guild, color = guild)) +
   geom_line() +
   labs(
     title = "Seasonal dynamics of the top 10 diet × habitat guilds",
@@ -261,7 +374,7 @@ ggplot(
 knitr::knit_exit()
 ```
 
-## Other figures 
+## Other figures
 
 ```{r}
 
@@ -304,6 +417,3 @@ habitat_diet_guild |>
   )
 
 ```
-
-
-
