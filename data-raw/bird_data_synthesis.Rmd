@@ -33,12 +33,13 @@ theme_set(
 
 1.  Do we want individual species tracked to guild?
 2.  Should we add a geographic component to the dataset?
+3,  Can we provide more speficity in guild structure?
 
 ## Build Dataset
 
 ### 1. Pull in eBird data:
 
-\*see: `ebird-data-pull.Rmd` \* for details on ebird data
+\*see: `ebird-data-pull.Rmd` \* for details on ebird data. This data is filtererd to the Klamath Basin. 
 
 ```{r}
 ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds")) |> glimpse()
@@ -71,7 +72,6 @@ birdbase_trunc <- birdbase |>
 ebd_birdbase <- ebd_trunc |> 
   left_join(birdbase_trunc) 
 ```
-
 ### 3. Add waterbird niche
 
 Based off of table 2 of Donnelly et al., 2022[^2]
@@ -128,22 +128,22 @@ waterbirds <- tribble(
 knitr::kable(waterbirds)
 
 ```
-
 ```{r}
 ebd_birdbase_with_waterbirds <- ebd_birdbase |> 
-  left_join(waterbirds) 
+  left_join(waterbirds) |> glimpse()
 ```
+
+## Explore potential groupings
 
 ### Waterbirds 
 
-Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. 
+Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've included primary habitat as well because the waterbirds are associated with multiple. 
 
 ```{r}
 waterbird_guild <- ebd_birdbase_with_waterbirds |> 
   filter(!is.na(waterbird_niche)) |> 
   group_by(waterbird_niche, primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
-  summarize(n_species = length(unique(common_name))) |> 
-  glimpse()
+  summarize(n_species = length(unique(common_name))) |> glimpse()
 
 ```
 
@@ -293,7 +293,7 @@ Bird species were grouped into functional guilds based on a combination of prima
 ```{r}
 habitat_diet_guild <- ebd_birdbase_with_waterbirds |> 
   mutate(guild = paste(primary_diet, primary_habitat, sep = " – ")) |> 
-  group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, guild) |> 
+  group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, waterbird_niche, guild) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() 
 
@@ -367,6 +367,21 @@ habitat_diet_guild |>
   ) +
   theme_minimal() +
   theme(legend.position = "right")
+
+```
+
+## This is the final dataset:
+
+Bird species richness can be grouped by their primary habitat, diet or a combination of the two (`guild`). Also included is the waterbird niche, which can be used when applicable. Data is provided for the number of species from 2015 to 2025 for every month. 
+
+We are happy to provide a more granular representation of `guild` with suggested input on grouping.
+
+```{r}
+
+klamath_birds <- habitat_diet_guild
+klamath_birds |> glimpse()
+
+usethis::use_data(klamath_birds)
 
 ```
 
