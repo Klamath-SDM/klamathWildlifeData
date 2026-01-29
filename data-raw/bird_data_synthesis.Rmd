@@ -46,7 +46,7 @@ theme_set(
 
 ## Build Dataset {.tabset}
 
-We compiled eBird observations from 2015–2025 for the Klamath Basin watershed. These data were merged with BIRDBASE, which provides information on each species’ primary habitat and diet. Additional information on waterbirds was drawn from Donnelly et al. (2022). Further details on each dataset are provided in the following tabs. 
+We compiled eBird observations from 2015–2025 for the Klamath Basin watershed. These data were merged with BIRDBASE, which provides information on each species’ primary habitat and diet. Additional information on waterbirds was drawn from Donnelly et al. (2022). Further details on each dataset are provided in the following tabs.
 
 Below, we explore potential groupings of bird species based on these combined sources [in the Bird Groupings section](#bird-groupings)
 
@@ -56,26 +56,25 @@ Below, we explore potential groupings of bird species based on these combined so
 
 Data were obtained from the [eBird Basic Dataset (EBD)](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products) via custom downloads. The following counties intersecting the Klamath Basin were included:
 
-  - California: Del Norte (CA-015), Humboldt (CA-023), Modoc (CA-049), Siskiyou (CA-093), Trinity (CA-105)
+-   California: Del Norte (CA-015), Humboldt (CA-023), Modoc (CA-049), Siskiyou (CA-093), Trinity (CA-105)
 
-  - Oregon: Jackson (OR-029), Lake (OR-037), Klamath (OR-035)
+-   Oregon: Jackson (OR-029), Lake (OR-037), Klamath (OR-035)
 
 Each download included:
 
-  - Observation data (.txt)
+-   Observation data (.txt)
 
-  - Sampling event metadata (_sampling.txt)
+-   Sampling event metadata (\_sampling.txt)
 
-  - Data filtered using the [auk](https://cornelllabofornithology.github.io/auk/) R package
-
+-   Data filtered using the [auk](https://cornelllabofornithology.github.io/auk/) R package
 
 ##### Spatial Filtering
 
 A shapefile representing the Klamath Basin watershed boundary was used to:
 
-  - Limit observations to only those falling within the basin
+-   Limit observations to only those falling within the basin
 
-  - Ensure accurate spatial representation of species richness and effort
+-   Ensure accurate spatial representation of species richness and effort
 
 Spatial filtering was performed using the sf R package, with observations reprojected and subset using spatial joins.
 
@@ -85,40 +84,37 @@ While eBird provides a vast and valuable source of bird observation data, severa
 
 #### Spatial and Temporal Bias
 
-- **Uneven geographic coverage**: Observations are concentrated near roads, towns, protected areas, or known birding hotspots rather than being evenly distributed across the basin.
-- **Accessibility**: Remote, rugged, or private lands are under-surveyed due to difficulty of access.
-- **Temporal bias**: Observations are skewed toward **weekends**, holidays, and the **month of May**, when birding activity typically increases due to spring migration and favorable weather.
+-   **Uneven geographic coverage**: Observations are concentrated near roads, towns, protected areas, or known birding hotspots rather than being evenly distributed across the basin.
+-   **Accessibility**: Remote, rugged, or private lands are under-surveyed due to difficulty of access.
+-   **Temporal bias**: Observations are skewed toward **weekends**, holidays, and the **month of May**, when birding activity typically increases due to spring migration and favorable weather.
 
 #### Observer Skill and Experience
 
-- Bird detection and identification are highly dependent on the skill level of the observer:
-  - **Novice observers** may miss or misidentify species, especially cryptic or similar-looking birds.
-  - **Experienced birders** may detect more species per checklist, leading to inflated richness in certain areas.
-
+-   Bird detection and identification are highly dependent on the skill level of the observer:
+-   **Novice observers** may miss or misidentify species, especially cryptic or similar-looking birds.
+-   **Experienced birders** may detect more species per checklist, leading to inflated richness in certain areas.
 
 #### Personal Preference and Targeting
 
-- Observer decisions introduce subjectivity:
-  - Birders may intentionally seek out **rare** or **charismatic** species.
-  - Areas near homes, parks, or favorite hotspots may be surveyed more often.
-  - “Chasing” behavior (targeting recent rare sightings) may artificially inflate species counts at specific locations.
-
+-   Observer decisions introduce subjectivity:
+-   Birders may intentionally seek out **rare** or **charismatic** species.
+-   Areas near homes, parks, or favorite hotspots may be surveyed more often.
+-   “Chasing” behavior (targeting recent rare sightings) may artificially inflate species counts at specific locations.
 
 ##### Checklist Effort and Metadata Variability
 
-- Despite quality filters (complete checklists, effort constraints), variability remains in:
-  - **Number of observers**
-  - **Start time of surveys**
-  - **Use of playback, feeders, or attractants**
+-   Despite quality filters (complete checklists, effort constraints), variability remains in:
+-   **Number of observers**
+-   **Start time of surveys**
+-   **Use of playback, feeders, or attractants**
 
 These factors influence the likelihood of species detection.
 
 #### Presence-Only Limitations
 
-- eBird is a **presence-only** dataset.
-  - A species not reported on a checklist does **not imply absence**—it may simply have gone undetected.
-  - Species with low detectability or limited seasonal presence may be underrepresented.
-
+-   eBird is a **presence-only** dataset.
+-   A species not reported on a checklist does **not imply absence**—it may simply have gone undetected.
+-   Species with low detectability or limited seasonal presence may be underrepresented.
 
 [This markdown follows ebird best practices](https://ebird.github.io/ebird-best-practices/)
 
@@ -167,8 +163,8 @@ results <- lapply(seq_len(nrow(points)), function(i) {
   
   tibble(point_id = i,
          richness = ifelse(is.null(species), 0, length(species))
-         )
-  })
+  )
+})
 
 richness_df <- bind_rows(results)
 
@@ -184,8 +180,6 @@ ggplot() +
   labs(title = "Bird Species Richness in the Klamath Basin (API, 10km buffer)",
        color = "Species Richness")
 ```
-
-
 
 ```{r include=FALSE}
 # I have downloaded data from 7 different counties where the klamath basin is located
@@ -343,7 +337,7 @@ Seasonal Bird Species Richness
 
 Spring is the season with more observations from bird watchers, and winter is the lowest. This is not surprising due to the frequency of when people spend time outside during these seasons.
 
-  - Note that this can be misinterpreted due to the temporal variability of bird watchers
+-   Note that this can be misinterpreted due to the temporal variability of bird watchers
 
 ```{r echo=FALSE}
 ebd_klamath |> 
@@ -435,9 +429,10 @@ birdbase_trunc <- birdbase |>
 ebd_birdbase <- ebd_trunc |> 
   left_join(birdbase_trunc) 
 ```
+
 ### Waterbird Niche
 
-Based off of table 2 of Donnelly et al., 2022[^2]. This provides additional information for waterbirds. 
+Based off of table 2 of Donnelly et al., 2022[^2]. This provides additional information for waterbirds.
 
 [^2]: Donnelly, J. P., Moore, J. N., Casazza, M. L., & Coons, S. P. (2022). Functional wetland loss drives emerging risks to waterbird migration networks. *Frontiers in Ecology and Evolution, 10*, 844278. <https://doi.org/10.3389/fevo.2022.844278>
 
@@ -491,16 +486,282 @@ waterbirds <- tribble(
 knitr::kable(waterbirds)
 
 ```
+
 ```{r}
 ebd_birdbase_with_waterbirds <- ebd_birdbase |> 
   left_join(waterbirds) |> glimpse()
 ```
 
-## Bird Groupings
+### RTR/USGS Piscivorous waterbirds counts
 
-### Waterbirds 
+Herons =  Great Blue Herons, Great Egrets, and Black-crowned Night
+Gulls = California and Ring-billed gulls 
 
-Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've included primary habitat as well because the waterbirds are associated with multiple. 
+**Sources:**
+
+-   2009 - 2020: Table S.1 of Evans et al., 2022[^3]
+-   2021-2023: Table 1 of Banet et al., 2024[^4]
+-   2024: Table 1 of Banet et al., 2025[^5]
+
+[^3]: Evans, A. F., Payton, Q., Banet, N., Cramer, B. M., Kelsey, C., & Hewitt, D. A. (2022). Avian predation on juvenile and adult Lost River and Shortnose suckers: An updated multi-predator species evaluation. North American Journal of Fisheries Management. <https://doi.org/10.1002/nafm.10838>; <https://birdresearchnw.org/wp-content/uploads/2025/11/Evans20et20al20202220Sucker20Predation.pdf>
+
+[^4]: Banet, N., Payton, Q., Evans, A., Krause, J., Hayes, B., Paul-Wilson, R., & Benham, E. (2024). Predation of Lost River and Shortnose suckers by piscivorous colonial waterbirds in the Upper Klamath Basin: An analysis of predation effects in 2021-2023. U.S. Bureau of Reclamation https://birdresearchnw.org/wp-content/uploads/2025/11/Avian20Predation20on20UKB20Suckers_Summary20Report202021-2023.pdf
+
+[^5]: Banet, N., Payton, Q., Devincenzi, D., Evans, A., Krause, J., Hayes, B., Paul-Wilson, R., & Benham, E. (2025). Predation of Lost River and Shortnose suckers by piscivorous colonial waterbirds in the Upper Klamath Basin: An analysis of predation effects in 2024 (Final report). U.S. Bureau of Reclamation https://birdresearchnw.org/wp-content/uploads/2025/11/Avian-Predation-Final-Summary-Report_2024.pdf
+
+
+
+```{r}
+piscivorous_waterbirds  <- tribble(
+  ~nesting_location,     ~common_name,          ~year,    ~count, ~source,
+  
+  # UKL
+  "Upper Klamath Lake", "American White Pelican",  2009, 438, "Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2009, 1538,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican",  2010, 81,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2010, 293,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2011 , 14,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2011 ,373 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican",2012  ,255 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2012 , 885,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2013 ,152 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2013 ,1071 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2014 ,247 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2014 ,1133 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican",  2015,492 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2015 ,515 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2018 ,510 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2018 ,544 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican",  2019, 129,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2019, 710,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2020 ,391 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "Double-crested Cormorant",2020 ,416 ,"Table S.1 of Evans et al., 2022",
+  "Upper Klamath Lake", "American White Pelican", 2022 , 97,"Table 1 of Banet et al., 2024",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2022, 158,"Table 1 of Banet et al., 2024",
+  "Upper Klamath Lake", "Herons", 2022, NA,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Upper Klamath Lake", "American White Pelican", 2023 , 232,"Table 1 of Banet et al., 2024",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2023, 370,"Table 1 of Banet et al., 2024",
+  "Upper Klamath Lake", "Herons", 2023, 574,"Table 1 of Banet et al., 2024",
+  "Upper Klamath Lake", "American White Pelican", 2024 , 312,"Table 1 of Banet et al., 2025",
+  "Upper Klamath Lake", "Double-crested Cormorant", 2024, 301,"Table 1 of Banet et al., 2025",
+  "Upper Klamath Lake", "Herons", 2024, 450,"Table 1 of Banet et al., 2025",
+
+  
+  # Clear Lake  
+  "Clear Lake Reservoir", "American White Pelican", 2009, 2325,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2009, 172,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican",2010 ,722 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2010,0 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2011,128 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2011 ,77 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican",2012 ,510 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2012 ,286 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican",2013 ,1175 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2013 ,82 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2014,296 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2014 ,197 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2015, 503,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2015 ,71 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican",2018 ,631 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2018 ,162 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2019,58 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2019 ,136 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2020,1166 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "Double-crested Cormorant",2020 ,200 ,"Table S.1 of Evans et al., 2022",
+  "Clear Lake Reservoir", "American White Pelican", 2021 ,1094 ,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2021,110 ,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Caspian Tern", 2021, 152,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Herons", 2021, NA ,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Clear Lake Reservoir", "Gulls", 2021, NA ,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Clear Lake Reservoir", "American White Pelican", 2022 , 509,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2022,114 ,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Caspian Tern", 2022, 0,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Herons", 2022, NA,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Gulls", 2022, NA,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Clear Lake Reservoir", "American White Pelican", 2023 , 1621,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2023,163 ,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Caspian Tern", 2023, 202,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Herons", 2023, 15,"Table 1 of Banet et al., 2024",
+  "Clear Lake Reservoir", "Gulls", 2023, NA,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Clear Lake Reservoir", "American White Pelican", 2024 ,1422 ,"Table 1 of Banet et al., 2025",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 2024,182 ,"Table 1 of Banet et al., 2025",
+  "Clear Lake Reservoir", "Herons", 2024,29 ,"Table 1 of Banet et al., 2025",
+  "Clear Lake Reservoir", "Caspian Tern", 2024,610 ,"Table 1 of Banet et al., 2025",
+  "Clear Lake Reservoir", "Gulls", 2024, 3872,"Table 1 of Banet et al., 2025",
+  
+  # Sheepy Lake
+  "Sheepy Lake", "American White Pelican",2018 , 199,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Double-crested Cormorant",2018 ,435 ,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Caspian Tern",2018 , 319,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "American White Pelican", 2019,34 ,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Double-crested Cormorant",2019 ,412 ,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Caspian Tern",2019 , 270,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "American White Pelican", 2020,415 ,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Double-crested Cormorant",2020 , 366,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "Caspian Tern",2020 , 544,"Table S.1 of Evans et al., 2022",
+  "Sheepy Lake", "American White Pelican", 2021 ,169 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Double-crested Cormorant", 2021,420 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Caspian Tern", 2021, 324,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Gulls", 2021,NA ,"Table 1 of Banet et al., 2024", # colony was active but not counted
+  "Sheepy Lake", "American White Pelican", 2022 ,40 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Double-crested Cormorant", 2022,723 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Caspian Tern", 2022, 277,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Gulls", 2022,NA ,"Table 1 of Banet et al., 2024",# colony was active but not counted
+  "Sheepy Lake", "American White Pelican", 2023 ,239 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Double-crested Cormorant", 2023,680 ,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Caspian Tern", 2023, 290,"Table 1 of Banet et al., 2024",
+  "Sheepy Lake", "Gulls", 2023,NA ,"Table 1 of Banet et al., 2024",# colony was active but not counted
+  "Sheepy Lake", "American White Pelican", 2024 ,302 ,"Table 1 of Banet et al., 2025",
+  "Sheepy Lake", "Double-crested Cormorant", 2024,787 ,"Table 1 of Banet et al., 2025",
+  "Sheepy Lake", "Caspian Tern", 2024, 154,"Table 1 of Banet et al., 2025",
+  "Sheepy Lake", "Gulls", 2024,3611 ,"Table 1 of Banet et al., 2025",
+  
+  # Klamath River
+   "Klamath River", "Herons", 2024, 140,"Table 1 of Banet et al., 2025",
+
+  # Tule Lake
+  "Tule Lake", "American White Pelican",2018 ,36 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Double-crested Cormorant",2018 ,517 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Caspian Tern",2018 , 775,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "American White Pelican", 2019,15 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Double-crested Cormorant",2019 ,263 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Caspian Tern",2019 , 228,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "American White Pelican", 2020,15 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Double-crested Cormorant",2020 ,489 ,"Table S.1 of Evans et al., 2022",
+  "Tule Lake", "Caspian Tern",2020 , 72, "Table S.1 of Evans et al., 2022",
+  "Tule Lake", "American White Pelican", 2021 ,338 ,"Table 1 of Banet et al., 2024",
+  "Tule Lake", "Double-crested Cormorant", 2021,326 ,"Table 1 of Banet et al., 2024",
+  "Tule Lake", "Caspian Tern", 2021, 0,"Table 1 of Banet et al., 2024",
+  "Tule Lake", "Gulls", 2021,NA ,"Table 1 of Banet et al., 2024",
+  "Tule Lake", "American White Pelican", 2024 ,73 ,"Table 1 of Banet et al., 2025",
+  "Tule Lake", "Double-crested Cormorant", 2024,2044 ,"Table 1 of Banet et al., 2025"
+  )
+
+```
+
+
+```{r}
+piscivorous_waterbirds |> 
+  filter(!is.na(count)) |> 
+  ggplot(aes(x = year, y = count, color = common_name)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~ nesting_location, scales = "free_y") +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Piscivorous Waterbird Counts Over Time",
+    x = "Year",
+    y = "Nest count",
+    color = "Species"
+  )
+
+piscivorous_waterbirds |> 
+  filter(!is.na(count)) |> 
+  ggplot(aes(x = common_name, y = count, fill = common_name)) +
+  geom_boxplot(alpha = 0.7) +
+  coord_flip() +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Distribution of Nest Counts by Species",
+    x = NULL,
+    y = "Count"
+  ) +
+  theme(legend.position = "none")
+
+
+
+```
+##### Compare RTR/USGS data to eBird 
+
+
+Aggregate piscivorous birds from eBird 
+```{r}
+pisci_birds <- c( "American White Pelican","Double-crested Cormorant", "Caspian Tern",  'Great Blue Herons', 'Great Egrets','Black-crowned Night Heron', 'California Gull', 'Ring-billed Gull')
+
+ebd_pisci <- ebd_trunc |> 
+  filter(common_name %in% pisci_birds) |> 
+  filter(year(observation_date) %in% c(2009:2024)) |> 
+  mutate(count = ifelse(observation_count == "X", 1, observation_count)) |> # if X mark it as 1
+  mutate(count = as.numeric(count)) |> 
+  select(-observation_count)
+
+gulls <- ebd_pisci |> 
+  filter(common_name %in% c('California Gull', 'Ring-billed Gull')) |> 
+  group_by(year(observation_date)) |> 
+  summarise(count = sum(count)) |> 
+  mutate(common_name = "Gulls")
+
+herons <- ebd_pisci |> 
+  filter(common_name %in% c('Great Blue Herons', 'Great Egrets','Black-crowned Night Heron')) |> 
+  group_by(year(observation_date)) |> 
+  summarise(count = sum(count)) |> 
+  mutate(common_name = "Herons")
+
+rest_of_birds <- ebd_pisci |> 
+  filter(common_name %in% c("American White Pelican","Double-crested Cormorant", "Caspian Tern")) |>
+  group_by(common_name, year(observation_date)) |> 
+  summarise(count = sum(count)) 
+
+all_ebd_summary <- rest_of_birds |> 
+  bind_rows(herons) |> 
+  bind_rows(gulls) |> 
+  rename(year = `year(observation_date)`) |> 
+  mutate(dataset = "eBird")
+```
+
+Compare
+
+```{r}
+rtr_usgs_summary <- piscivorous_waterbirds |> 
+  group_by(year, common_name) |> 
+  summarise(count = sum(count)) |> 
+  mutate(dataset = "RTR/USGS") 
+
+bird_compare <- bind_rows(rtr_usgs_summary, all_ebd_summary)
+
+
+ggplot(bird_compare, aes(x = year, y = count, color = dataset)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~ common_name, scales = "free_y") +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Comparison of Waterbird Counts: RTR/USGS vs eBird",
+    x = "Year",
+    y = "Count",
+    color = "Dataset"
+  )
+
+```
+
+Compare relative change; since eBird counts are much larger 
+
+```{r}
+bird_compare_index <- bird_compare |> 
+  group_by(common_name, dataset) |> 
+  mutate(index = count / mean(count, na.rm = TRUE)) |> 
+  ungroup()
+
+ggplot(bird_compare_index, aes(x = year, y = index, color = dataset)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  facet_wrap(~ common_name) +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Relative Trends in Waterbird Counts (Indexed)",
+    x = "Year",
+    y = "Index (mean = 1)",
+    color = "Dataset"
+  )
+
+```
+
+
+## Bird Groupings {#bird-groupings}
+
+### Waterbirds
+
+Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've included primary habitat as well because the waterbirds are associated with multiple.
 
 ```{r}
 waterbird_guild <- ebd_birdbase_with_waterbirds |> 
@@ -735,7 +996,7 @@ habitat_diet_guild |>
 
 ## This is the final *draft* dataset:
 
-Bird species richness can be grouped by their primary habitat, diet or a combination of the two (`guild`). Also included is the waterbird niche, which can be used when applicable. Data is provided for the number of species from 2015 to 2025 for every month. 
+Bird species richness can be grouped by their primary habitat, diet or a combination of the two (`guild`). Also included is the waterbird niche, which can be used when applicable. Data is provided for the number of species from 2015 to 2025 for every month.
 
 We are happy to provide a more granular representation of `guild` with suggested input on grouping.
 
