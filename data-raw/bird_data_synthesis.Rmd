@@ -756,6 +756,27 @@ ggplot(bird_compare_index, aes(x = year, y = index, color = dataset)) +
 
 ```
 
+### Intermountain Shorebirds
+
+https://www.imwss.org/
+
+**Source**
+-   Table 1: https://static1.squarespace.com/static/66b5066527e47020d0e0b7b0/t/673d0bf4ca1419202f3e9a2e/1732054007209/Intermountain+West+Shorebirds+-+Preliminary+Data+Summary+-+November+2024+Updated.pdf
+
+```{r}
+shorebirds <-  tribble(
+  ~location,     ~common_name,          ~year,   ~season, ~count, 
+
+  "Klamath Basin, CA and Oregon", "Shorebirds",  2022, "Fall", 10254,
+  "Klamath Basin, CA and Oregon", "Shorebirds",  2023, "Spring", 155,
+  "Klamath Basin, CA and Oregon", "Shorebirds",  2023, "Fall", 1678,
+  "Klamath Basin, CA and Oregon", "Shorebirds",  2024, "Spring", 7297,
+  "Klamath Basin, CA and Oregon", "Shorebirds",  2024, "Fall", 9625)
+  
+  
+
+```
+
 
 ## Bird Groupings {#bird-groupings}
 
