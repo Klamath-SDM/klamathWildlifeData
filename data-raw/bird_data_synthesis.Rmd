@@ -33,7 +33,8 @@ theme_set(
     theme(
       plot.title = element_text(size = 16, face = "bold"),
       axis.title.x = element_text(size = 14),
-      axis.title.y = element_text(size = 14)
+      axis.title.y = element_text(size = 14), 
+      legend.position = "bottom"
     )
 )
 ```
@@ -492,16 +493,82 @@ ebd_birdbase_with_waterbirds <- ebd_birdbase |>
   left_join(waterbirds) |> glimpse()
 ```
 
-### RTR/USGS Piscivorous waterbirds counts
+### Birds by Refuge
+
+Use the same bounding boxes used in the dynamic surface water elevation to assign locations to the eBird/BIRDBASE dataset. 
+
+```{r}
+upper_klamath_lake_bbox <-c(-122.107301,42.214015,-121.787324,42.602368) 
+clear_lake_bbox <- c(-121.289207, 41.781010,-121.015256, 41.995292)
+tule_lake_bbox <- c(-121.598288, 41.800411, -121.347044, 41.995232)
+bear_valley_bbox <- c(-121.979966,42.034977,-121.889353,42.096687)
+lower_klamath_sheepy_bbox <- c(-121.851156,41.883384,-121.591674,42.033576)
+klamath_marsh_bbox <- c(-121.806202,42.827148,-121.517889,43.072530)
+```
+
+```{r}
+bird_by_refuge <- ebd_birdbase_with_waterbirds |>
+  mutate(
+    area = case_when(
+      longitude >= -122.107301 & longitude <= -121.787324 &
+        latitude  >=  42.214015 & latitude  <=  42.602368 ~ "Upper Klamath Lake",
+
+      longitude >= -121.289207 & longitude <= -121.015256 &
+        latitude  >=  41.781010 & latitude  <=  41.995292 ~ "Clear Lake",
+
+      longitude >= -121.598288 & longitude <= -121.347044 &
+        latitude  >=  41.800411 & latitude  <=  41.995232 ~ "Tule Lake",
+
+      longitude >= -121.979966 & longitude <= -121.889353 &
+        latitude  >=  42.034977 & latitude  <=  42.096687 ~ "Bear Valley",
+
+      longitude >= -121.851156 & longitude <= -121.591674 &
+        latitude  >=  41.883384 & latitude  <=  42.033576 ~ "Lower Klamath - Sheepy",
+
+      longitude >= -121.806202 & longitude <= -121.517889 &
+        latitude  >=  42.827148 & latitude  <=  43.072530 ~ "Klamath Marsh",
+
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(area))
+
+bird_by_refuge |> glimpse()
+```
+
+```{r}
+pts_sf <- bird_by_refuge |>
+  st_as_sf(coords = c("longitude", "latitude"),
+           crs = 4326,
+           remove = FALSE)
+
+ggplot() +
+  geom_sf(data = pts_sf,
+          aes(color = area),
+          size = 0.8) +
+  theme_minimal() +
+  labs(
+    title = "Bird Counts by Region",
+    color = "Region"
+  ) 
+```
+
+### Piscivorous waterbirds counts
+
+TODO: summarize methods
 
 Herons =  Great Blue Herons, Great Egrets, and Black-crowned Night
 Gulls = California and Ring-billed gulls 
 
 **Sources:**
 
+RTR/USGS: 2009 - 2024
 -   2009 - 2020: Table S.1 of Evans et al., 2022[^3]
 -   2021-2023: Table 1 of Banet et al., 2024[^4]
 -   2024: Table 1 of Banet et al., 2025[^5]
+
+Clear Lake: 1952 - 1956
+-   USFWS 1957 Clear Lake Refuge Report; table 8
 
 [^3]: Evans, A. F., Payton, Q., Banet, N., Cramer, B. M., Kelsey, C., & Hewitt, D. A. (2022). Avian predation on juvenile and adult Lost River and Shortnose suckers: An updated multi-predator species evaluation. North American Journal of Fisheries Management. <https://doi.org/10.1002/nafm.10838>; <https://birdresearchnw.org/wp-content/uploads/2025/11/Evans20et20al20202220Sucker20Predation.pdf>
 
@@ -513,7 +580,7 @@ Gulls = California and Ring-billed gulls
 
 ```{r}
 piscivorous_waterbirds  <- tribble(
-  ~nesting_location,     ~common_name,          ~year,    ~count, ~source,
+  ~nesting_location,     ~common_name,          ~year,    ~count, ~source, 
   
   # UKL
   "Upper Klamath Lake", "American White Pelican",  2009, 438, "Table S.1 of Evans et al., 2022",
@@ -548,6 +615,31 @@ piscivorous_waterbirds  <- tribble(
 
   
   # Clear Lake  
+  "Clear Lake Reservoir", "American White Pelican", 1952, 2500,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 1952,150 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Herons", 1952,315 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Gulls", 1952, 2150,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Caspian Tern", 1952,100 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "American White Pelican", 1953, 650,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 1953,125 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Herons", 1953,195 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Gulls", 1953, 1850,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Caspian Tern", 1953,0 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "American White Pelican", 1954, 1750,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 1954, 164,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Herons", 1954,223 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Gulls", 1954,3580 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Caspian Tern", 1954, 86,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "American White Pelican", 1955,919 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 1955, 189,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Herons", 1955,228 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Gulls", 1955,2319 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Caspian Tern", 1955, 223,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "American White Pelican", 1956,900 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Double-crested Cormorant", 1956,125 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Herons", 1956, 61,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Gulls", 1956, 470,"USFWS 1957 Clear Lake Refuge Report; table 8",
+  "Clear Lake Reservoir", "Caspian Tern", 1956,125 ,"USFWS 1957 Clear Lake Refuge Report; table 8",
   "Clear Lake Reservoir", "American White Pelican", 2009, 2325,"Table S.1 of Evans et al., 2022",
   "Clear Lake Reservoir", "Double-crested Cormorant", 2009, 172,"Table S.1 of Evans et al., 2022",
   "Clear Lake Reservoir", "American White Pelican",2010 ,722 ,"Table S.1 of Evans et al., 2022",
@@ -635,7 +727,12 @@ piscivorous_waterbirds  <- tribble(
   "Tule Lake", "Gulls", 2021,NA ,"Table 1 of Banet et al., 2024",
   "Tule Lake", "American White Pelican", 2024 ,73 ,"Table 1 of Banet et al., 2025",
   "Tule Lake", "Double-crested Cormorant", 2024,2044 ,"Table 1 of Banet et al., 2025"
-  )
+  ) |> 
+  mutate(area = case_when(nesting_location == "Upper Klamath Lake" ~ "Upper Klamath Lake",
+                          nesting_location ==  "Sheepy Lake" ~ "Lower Klamath - Sheepy",
+                          nesting_location == "Clear Lake Reservoir" ~ "Clear Lake",
+                          nesting_location == "Tule Lake" ~ "Tule Lake", 
+                           .default = as.character(nesting_location)))
 
 ```
 
@@ -643,6 +740,7 @@ piscivorous_waterbirds  <- tribble(
 ```{r}
 piscivorous_waterbirds |> 
   filter(!is.na(count)) |> 
+  filter(year > 1956) |> 
   ggplot(aes(x = year, y = count, color = common_name)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
@@ -678,55 +776,85 @@ Aggregate piscivorous birds from eBird
 ```{r}
 pisci_birds <- c( "American White Pelican","Double-crested Cormorant", "Caspian Tern",  'Great Blue Herons', 'Great Egrets','Black-crowned Night Heron', 'California Gull', 'Ring-billed Gull')
 
-ebd_pisci <- ebd_trunc |> 
+ebd_pisci <- bird_by_refuge |> 
   filter(common_name %in% pisci_birds) |> 
   filter(year(observation_date) %in% c(2009:2024)) |> 
   mutate(count = ifelse(observation_count == "X", 1, observation_count)) |> # if X mark it as 1
   mutate(count = as.numeric(count)) |> 
-  select(-observation_count)
+  select(-observation_count) |> 
+  filter(area %in% unique(piscivorous_waterbirds$area))
 
 gulls <- ebd_pisci |> 
   filter(common_name %in% c('California Gull', 'Ring-billed Gull')) |> 
-  group_by(year(observation_date)) |> 
+  group_by(year(observation_date), area) |> 
   summarise(count = sum(count)) |> 
   mutate(common_name = "Gulls")
 
 herons <- ebd_pisci |> 
   filter(common_name %in% c('Great Blue Herons', 'Great Egrets','Black-crowned Night Heron')) |> 
-  group_by(year(observation_date)) |> 
+  group_by(year(observation_date), area) |> 
   summarise(count = sum(count)) |> 
   mutate(common_name = "Herons")
 
 rest_of_birds <- ebd_pisci |> 
   filter(common_name %in% c("American White Pelican","Double-crested Cormorant", "Caspian Tern")) |>
-  group_by(common_name, year(observation_date)) |> 
+  group_by(common_name, year(observation_date), area) |> 
   summarise(count = sum(count)) 
 
 all_ebd_summary <- rest_of_birds |> 
   bind_rows(herons) |> 
   bind_rows(gulls) |> 
   rename(year = `year(observation_date)`) |> 
-  mutate(dataset = "eBird")
+  mutate(dataset = "eBird") 
 ```
 
 Compare
 
 ```{r}
 rtr_usgs_summary <- piscivorous_waterbirds |> 
-  group_by(year, common_name) |> 
+  group_by(year, common_name, area) |> 
   summarise(count = sum(count)) |> 
-  mutate(dataset = "RTR/USGS") 
+  mutate(dataset = "RTR/USGS") |> 
+  filter(year > 2000) 
 
 bird_compare <- bind_rows(rtr_usgs_summary, all_ebd_summary)
 
 
-ggplot(bird_compare, aes(x = year, y = count, color = dataset)) +
+ggplot(bird_compare |> 
+         filter(area != "Klamath River"), aes(x = year, y = count, color = dataset)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
-  facet_wrap(~ common_name, scales = "free_y") +
+  facet_grid(area ~ common_name, scales = "free_y") +
   theme_minimal(base_size = 13) +
   labs(
     title = "Comparison of Waterbird Counts: RTR/USGS vs eBird",
+    x = "Year",
+    y = "Count",
+    color = "Dataset"
+  )
+
+# ggplot(bird_compare |> 
+#          filter(area != "Klamath River"),
+#        aes(x = year, y = dataset, fill = count)) +
+#   geom_tile() +
+#   facet_grid(common_name ~ area) +
+#   theme_minimal() +
+#   labs(
+#     title = "Heatmap of Yearly Totals by Species, Area, and Dataset",
+#     x = "Year",
+#     y = "Area"
+#   )
+
+ggplot(bird_compare |> 
+         filter(area != "Klamath River") |> 
+         group_by(year, common_name, dataset) |> 
+         summarise(total_count = sum(count)), aes(x = year, y = total_count, color = dataset)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  theme_minimal(base_size = 13) +
+  facet_wrap(~common_name) + 
+  labs(
+    title = "Comparison of Waterbird Counts Across all Areas: RTR/USGS vs eBird",
     x = "Year",
     y = "Count",
     color = "Dataset"
@@ -755,6 +883,40 @@ ggplot(bird_compare_index, aes(x = year, y = index, color = dataset)) +
   )
 
 ```
+#### Compare Clear Lake 1950s data to present trends
+
+```{r}
+piscivorous_waterbirds |> 
+  filter(!is.na(count)) |> 
+  filter(nesting_location == "Clear Lake Reservoir") |> 
+  filter(
+    (year >= 1952 & year <= 1956) |
+    (year >= 2009)
+  ) |> 
+  mutate(
+    period = case_when(
+      year <= 1956 ~ "1952–1956",
+      year >= 2009 ~ "2009–Present"
+    )
+  ) |> 
+  ggplot(aes(x = factor(year), y = count, fill = common_name)) +
+  geom_col(position = "dodge", alpha = 0.8) +
+  facet_grid(common_name ~ period, scales = "free") +
+  theme_minimal(base_size = 13) +
+  labs(
+    title = "Piscivorous Waterbird Nest Counts – Clear Lake Reservoir",
+    x = "Year",
+    y = "Nest count",
+    fill = "Species"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none"
+  )
+
+
+```
+
 
 ### Intermountain Shorebirds
 
@@ -777,7 +939,6 @@ shorebirds <-  tribble(
 
 ```
 
-
 ## Bird Groupings {#bird-groupings}
 
 ### Waterbirds
@@ -785,7 +946,7 @@ shorebirds <-  tribble(
 Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've included primary habitat as well because the waterbirds are associated with multiple.
 
 ```{r}
-waterbird_guild <- ebd_birdbase_with_waterbirds |> 
+waterbird_guild <- bird_by_refuge |> 
   filter(!is.na(waterbird_niche)) |> 
   group_by(waterbird_niche, primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
   summarize(n_species = length(unique(common_name))) |> glimpse()
