@@ -1,10 +1,15 @@
 ---
-title: "Klamath Bird Data - Synthesized"
-author: "Maddee Rubenson (FlowWest)"
+title: "Klamath Basin Bird Data"
+author: "Maddee Wiggins (FlowWest)"
 date: "`r Sys.Date()`"
-output: 
+output:
   html_document:
-    code_folding: hide
+    toc: true
+    toc_depth: 3      
+    toc_float: true   
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -19,6 +24,7 @@ library(ggplot2)
 library(readr)
 library(viridis)
 library(lubridate)
+library(ggrepel)
 
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -39,25 +45,87 @@ theme_set(
 )
 ```
 
-## Questions
+## Define Geographies
 
-1.  Do we want individual species tracked to guild?
-2.  Should we add a geographic component to the dataset?
-3.  Can we provide more specificity in guild structure?
+```{r}
+klamath_basin <- st_read(here::here("data-raw", "klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")) |>
+  st_transform(4326)
 
-## Build Dataset {.tabset}
+upper_klamath_lake_bbox <-c(-122.107301,42.214015,-121.787324,42.602368) 
+clear_lake_bbox <- c(-121.289207, 41.781010,-121.015256, 41.995292)
+tule_lake_bbox <- c(-121.598288, 41.800411, -121.347044, 41.995232)
+bear_valley_bbox <- c(-121.979966,42.034977,-121.889353,42.096687)
+lower_klamath_sheepy_bbox <- c(-121.851156,41.883384,-121.591674,42.033576)
+klamath_marsh_bbox <- c(-121.806202,42.827148,-121.517889,43.072530)
+```
 
-We compiled eBird observations from 2015–2025 for the Klamath Basin watershed. These data were merged with BIRDBASE, which provides information on each species’ primary habitat and diet. Additional information on waterbirds was drawn from Donnelly et al. (2022). Further details on each dataset are provided in the following tabs.
+```{r}
+bbox_to_sfg <- function(b) {
+  st_as_sfc(
+    st_bbox(c(xmin = b[1], ymin = b[2], xmax = b[3], ymax = b[4]), crs = 4326)
+  )[[1]]
+}
 
-Below, we explore potential groupings of bird species based on these combined sources [in the Bird Groupings section](#bird-groupings)
+bboxes_df <- tibble(
+  site = c(
+    "Upper Klamath Lake",
+    "Clear Lake",
+    "Tule Lake",
+    "Bear Valley",
+    "Lower Klamath (Sheepy)",
+    "Klamath Marsh"
+  ),
+  bbox = list(
+    upper_klamath_lake_bbox,
+    clear_lake_bbox,
+    tule_lake_bbox,
+    bear_valley_bbox,
+    lower_klamath_sheepy_bbox,
+    klamath_marsh_bbox
+  )
+)
+
+# build sf object correctly
+bboxes_sf <- st_sf(
+  site = bboxes_df$site,
+  geometry = st_sfc(map(bboxes_df$bbox, bbox_to_sfg), crs = 4326)
+)
+
+labels_sf <- bboxes_sf |> mutate(geometry = st_point_on_surface(geometry))
+
+
+ggplot() +
+  geom_sf(data = klamath_basin) + 
+  geom_sf(data = bboxes_sf, fill = NA, linewidth = 1) +
+  geom_sf_text(data = labels_sf, aes(label = site), size = 3) +
+  coord_sf(expand = FALSE) +
+  theme_minimal() +
+  labs(title = "Bounding boxes of the Klamath Marsh areas", x = NULL, y = NULL)
+
+```
+
+## Build Dataset {#dataset-details .tabset}
+
+We compiled eBird observations from 2015–2025 for the Klamath Basin
+watershed. These data were merged with BIRDBASE, which provides
+information on each species’ primary habitat and diet. Additional
+information on waterbirds was drawn from Donnelly et al. (2022). Further
+details on each dataset are provided in the following tabs.
+
+Below, we explore potential groupings of bird species based on these
+combined sources [in the Bird Groupings section](#bird-groupings)
 
 ### eBird
 
 ##### Data Source
 
-Data were obtained from the [eBird Basic Dataset (EBD)](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products) via custom downloads. The following counties intersecting the Klamath Basin were included:
+Data were obtained from the [eBird Basic Dataset
+(EBD)](https://science.ebird.org/en/use-ebird-data/download-ebird-data-products)
+via custom downloads. The following counties intersecting the Klamath
+Basin were included:
 
--   California: Del Norte (CA-015), Humboldt (CA-023), Modoc (CA-049), Siskiyou (CA-093), Trinity (CA-105)
+-   California: Del Norte (CA-015), Humboldt (CA-023), Modoc (CA-049),
+    Siskiyou (CA-093), Trinity (CA-105)
 
 -   Oregon: Jackson (OR-029), Lake (OR-037), Klamath (OR-035)
 
@@ -67,44 +135,53 @@ Each download included:
 
 -   Sampling event metadata (\_sampling.txt)
 
--   Data filtered using the [auk](https://cornelllabofornithology.github.io/auk/) R package
+-   Data filtered using the
+    [auk](https://cornelllabofornithology.github.io/auk/) R package
 
 ##### Spatial Filtering
 
-A shapefile representing the Klamath Basin watershed boundary was used to:
-
--   Limit observations to only those falling within the basin
-
--   Ensure accurate spatial representation of species richness and effort
-
-Spatial filtering was performed using the sf R package, with observations reprojected and subset using spatial joins.
+All eBird data was clipped to the bounding boxes of the refuges.
 
 #### Limitations and Biases
 
-While eBird provides a vast and valuable source of bird observation data, several **limitations and biases** must be considered when interpreting species richness in the Klamath Basin:
+While eBird provides a vast and valuable source of bird observation
+data, several **limitations and biases** must be considered when
+interpreting species richness in the Klamath Basin:
 
 #### Spatial and Temporal Bias
 
--   **Uneven geographic coverage**: Observations are concentrated near roads, towns, protected areas, or known birding hotspots rather than being evenly distributed across the basin.
--   **Accessibility**: Remote, rugged, or private lands are under-surveyed due to difficulty of access.
--   **Temporal bias**: Observations are skewed toward **weekends**, holidays, and the **month of May**, when birding activity typically increases due to spring migration and favorable weather.
+-   **Uneven geographic coverage**: Observations are concentrated near
+    roads, towns, protected areas, or known birding hotspots rather than
+    being evenly distributed across the basin.
+-   **Accessibility**: Remote, rugged, or private lands are
+    under-surveyed due to difficulty of access.
+-   **Temporal bias**: Observations are skewed toward **weekends**,
+    holidays, and the **month of May**, when birding activity typically
+    increases due to spring migration and favorable weather.
 
 #### Observer Skill and Experience
 
--   Bird detection and identification are highly dependent on the skill level of the observer:
--   **Novice observers** may miss or misidentify species, especially cryptic or similar-looking birds.
--   **Experienced birders** may detect more species per checklist, leading to inflated richness in certain areas.
+-   Bird detection and identification are highly dependent on the skill
+    level of the observer:
+-   **Novice observers** may miss or misidentify species, especially
+    cryptic or similar-looking birds.
+-   **Experienced birders** may detect more species per checklist,
+    leading to inflated richness in certain areas.
 
 #### Personal Preference and Targeting
 
 -   Observer decisions introduce subjectivity:
--   Birders may intentionally seek out **rare** or **charismatic** species.
--   Areas near homes, parks, or favorite hotspots may be surveyed more often.
--   “Chasing” behavior (targeting recent rare sightings) may artificially inflate species counts at specific locations.
+-   Birders may intentionally seek out **rare** or **charismatic**
+    species.
+-   Areas near homes, parks, or favorite hotspots may be surveyed more
+    often.
+-   “Chasing” behavior (targeting recent rare sightings) may
+    artificially inflate species counts at specific locations.
 
 ##### Checklist Effort and Metadata Variability
 
--   Despite quality filters (complete checklists, effort constraints), variability remains in:
+-   Despite quality filters (complete checklists, effort constraints),
+    variability remains in:
 -   **Number of observers**
 -   **Start time of surveys**
 -   **Use of playback, feeders, or attractants**
@@ -114,10 +191,13 @@ These factors influence the likelihood of species detection.
 #### Presence-Only Limitations
 
 -   eBird is a **presence-only** dataset.
--   A species not reported on a checklist does **not imply absence**—it may simply have gone undetected.
--   Species with low detectability or limited seasonal presence may be underrepresented.
+-   A species not reported on a checklist does **not imply absence**—it
+    may simply have gone undetected.
+-   Species with low detectability or limited seasonal presence may be
+    underrepresented.
 
-[This markdown follows ebird best practices](https://ebird.github.io/ebird-best-practices/)
+[This markdown follows ebird best
+practices](https://ebird.github.io/ebird-best-practices/)
 
 ```{r eval=FALSE, include=FALSE}
 # using ebird API
@@ -236,6 +316,63 @@ ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds"))
 
 ```
 
+```{r}
+ebird_by_refuge <- ebd_all |>
+  mutate(
+    area = case_when(
+      longitude >= -122.107301 & longitude <= -121.787324 &
+        latitude  >=  42.214015 & latitude  <=  42.602368 ~ "Upper Klamath Lake",
+      
+      longitude >= -121.289207 & longitude <= -121.015256 &
+        latitude  >=  41.781010 & latitude  <=  41.995292 ~ "Clear Lake",
+      
+      longitude >= -121.598288 & longitude <= -121.347044 &
+        latitude  >=  41.800411 & latitude  <=  41.995232 ~ "Tule Lake",
+      
+      longitude >= -121.979966 & longitude <= -121.889353 &
+        latitude  >=  42.034977 & latitude  <=  42.096687 ~ "Bear Valley",
+      
+      longitude >= -121.851156 & longitude <= -121.591674 &
+        latitude  >=  41.883384 & latitude  <=  42.033576 ~ "Lower Klamath - Sheepy",
+      
+      longitude >= -121.806202 & longitude <= -121.517889 &
+        latitude  >=  42.827148 & latitude  <=  43.072530 ~ "Klamath Marsh",
+      
+      TRUE ~ NA_character_
+    )
+  ) |>
+  filter(!is.na(area))
+
+```
+
+```{r}
+pts_sf <- ebird_by_refuge |>
+  st_as_sf(coords = c("longitude", "latitude"),
+           crs = 4326,
+           remove = FALSE)
+
+lab_xy <- st_coordinates(st_centroid(labels_sf))
+
+ggplot() +
+  geom_sf(data = klamath_basin) +
+  geom_sf(data = bboxes_sf, fill = NA, linewidth = 1) +
+  geom_sf(data = pts_sf, size = 0.8) +
+  geom_label_repel(
+    data = cbind(st_drop_geometry(labels_sf), lab_xy),
+    aes(x = X, y = Y, label = site),
+    size = 3,
+    label.size = 0.2,
+    box.padding = 0.5,
+    point.padding = 0.4,
+    min.segment.length = 0,
+    arrow = arrow(length = unit(0.02, "npc"), type = "closed")
+  ) +
+  theme_minimal() +
+  labs(
+    title = "eBird Counts by Refuge Area",
+  ) 
+```
+
 ```{r include=FALSE}
 # Read Klamath Basin shapefile
 klamath_basin <- st_read(here::here("data-raw", "klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")) |>
@@ -261,11 +398,13 @@ ebd_klamath |>
 
 #### Temporal Trends in Species Richness
 
-This plot shows the total number of unique species recorded per year. Peaks may correspond to years with higher survey effort, observer participation, or migration events.
+This plot shows the total number of unique species recorded per year.
+Peaks may correspond to years with higher survey effort, observer
+participation, or migration events.
 
 ```{r echo=FALSE}
 # temporal trend of species richness
-ebd_klamath |>  
+ebird_by_refuge |>  
   mutate(year = year(observation_date)) |> 
   group_by(year) |> 
   summarize(richness = n_distinct(common_name)) |> 
@@ -275,55 +414,20 @@ ebd_klamath |>
   scale_x_continuous(
     breaks = seq(2015, 2024, by = 1),
     labels = seq(2015, 2024, by = 1)) +
-  labs(title = "Species Richness in Klamath Basin (2015–2024)",
+  labs(title = "Species Richness in Klamath Refuges (2015–2024)",
        x = "Year", y = "Unique Species Observed") +
   theme_minimal()
 ```
 
-#### Spatial coverage map
-
-This map displays all checklists within the Klamath Basin. Denser clusters likely reflect accessibility (e.g., roads, hotspots) and observer preferences.
-
-```{r echo=FALSE}
-# All observations
-ggplot() +
-  geom_sf(data = klamath_basin, fill = NA, color = "black") +
-  geom_sf(data = ebd_klamath, alpha = 0.3, color = "blue", size = 0.5) +
-  labs(title = "Bird Observations in Klamath Basin") +
-  theme_minimal()
-```
-
-```{r echo=FALSE}
-# Create hexagonal grid over Klamath Basin
-# hex_grid <- st_make_grid(klamath_basin, cellsize = 0.1, square = FALSE)
-# hex_grid <- st_sf(geometry = hex_grid)
-# 
-# # Spatial join
-# joined <- st_join(ebd_klamath, hex_grid)
-# 
-# # Calculate richness per hex
-# hex_richness <- joined |> 
-#   group_by(geometry) |> 
-#   summarize(richness = n_distinct(common_name)) |> 
-#   ungroup()
-# 
-# # Plot
-# ggplot(hex_richness) +
-#   geom_sf(aes(fill = richness), color = NA) +
-#   scale_fill_viridis_c(option = "plasma") +
-#   labs(title = "Spatial Species Richness in Klamath Basin",
-#        fill = "Richness") +
-#   theme_minimal()
-```
-
 #### Top 10 Most Frequently Observed Species
 
-These species are the most commonly reported across all checklists, often due to being common, conspicuous, or resident year-round.
+These species are the most commonly reported across all checklists,
+often due to being common, conspicuous, or resident year-round.
 
 The most common species is American Robin
 
 ```{r echo=FALSE}
-ebd_klamath |> 
+ebird_by_refuge |> 
   count(common_name, sort = TRUE) |> 
   slice_max(n, n = 10) |> 
   ggplot(aes(x = reorder(common_name, n), y = n)) +
@@ -336,12 +440,15 @@ ebd_klamath |>
 
 Seasonal Bird Species Richness
 
-Spring is the season with more observations from bird watchers, and winter is the lowest. This is not surprising due to the frequency of when people spend time outside during these seasons.
+Spring is the season with more observations from bird watchers, and
+winter is the lowest. This is not surprising due to the frequency of
+when people spend time outside during these seasons.
 
--   Note that this can be misinterpreted due to the temporal variability of bird watchers
+-   Note that this can be misinterpreted due to the temporal variability
+    of bird watchers
 
 ```{r echo=FALSE}
-ebd_klamath |> 
+ebird_by_refuge |> 
   mutate(year = year(observation_date),
          season = case_when(month(observation_date) %in% 3:5 ~ "Spring",
                             month(observation_date) %in% 6:8 ~ "Summer",
@@ -355,7 +462,7 @@ ebd_klamath |>
   scale_x_continuous(
     breaks = seq(2015, 2024, by = 1),
     labels = seq(2015, 2024, by = 1)) +
-  labs(title = "Seasonal Bird Species Richness in the Klamath Basin",
+  labs(title = "Seasonal Bird Species Richness within the Klamath Basin refuges",
        x = "Year", y = "Species Richness") +
   theme_minimal()
 
@@ -363,16 +470,19 @@ ebd_klamath |>
 
 Checklist Species Richness in Klamath Basin
 
-species_observed value in your code represents the number of unique species recorded in each individual eBird checklist
+species_observed value in your code represents the number of unique
+species recorded in each individual eBird checklist
 
 ```{r echo=FALSE}
 # TODO play around with color scale
-ebd_klamath_species_observed <- ebd_klamath |> 
+ebd_klamath_species_observed <- ebird_by_refuge |> 
   group_by(sampling_event_identifier) |> 
   mutate(species_observed = n_distinct(common_name))
 
 #How many species are typically seen per checklist
-ggplot(ebd_klamath_species_observed, aes(geometry = geometry, color = species_observed)) +
+ggplot(ebd_klamath_species_observed |> st_as_sf(coords = c("longitude", "latitude"),
+                                                crs = 4326), 
+       aes(geometry = geometry, color = species_observed)) +
   geom_sf(alpha = 1) +
   scale_color_viridis_c(option = "magma") +
   labs(
@@ -384,10 +494,11 @@ ggplot(ebd_klamath_species_observed, aes(geometry = geometry, color = species_ob
 
 #### Monthly Richness Trends
 
-Richness peaks in spring and early summer, again corresponding to migration and peak observation periods
+Richness peaks in spring and early summer, again corresponding to
+migration and peak observation periods
 
 ```{r echo=FALSE}
-ebd_klamath |> 
+ebird_by_refuge |> 
   mutate(month = month(observation_date, label = TRUE)) |> 
   group_by(month) |> 
   summarize(richness = n_distinct(common_name)) |> 
@@ -399,30 +510,37 @@ ebd_klamath |>
 
 ```
 
-```{r}
-ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds")) |> glimpse()
-```
-
 ### BIRDBASE
 
-BIRDBASE [^1] provides a thorough, literature based review of all bird species and includes habitat and foraging information that can be used to assign birds to guilds.
+BIRDBASE [^1] provides a thorough, literature based review of all bird
+species and includes habitat and foraging information that can be used
+to assign birds to guilds.
 
-[^1]: Şekercioğlu, Çağan H; Kittelberger, Kyle D.; Mota, Flávia; Buxton, Amy N.; Orton, Nikolas; DeNiro, Adara; et al. (2025). BIRDBASE: A Global Database of Avian Biogeography, Conservation, Ecology and Life History Traits. figshare. Dataset. <https://doi.org/10.6084/m9.figshare.27051040.v1>
+[^1]: Şekercioğlu, Çağan H; Kittelberger, Kyle D.; Mota, Flávia; Buxton,
+    Amy N.; Orton, Nikolas; DeNiro, Adara; et al. (2025). BIRDBASE: A
+    Global Database of Avian Biogeography, Conservation, Ecology and
+    Life History Traits. figshare. Dataset.
+    <https://doi.org/10.6084/m9.figshare.27051040.v1>
 
-The `primary habitat` and `primary diet` values were used but it's worth noting that BIRDBASE provides information on how each bird species fits into each type. This could help if a more involved analysis is requested.
+The `primary habitat` and `primary diet` values were used but it's worth
+noting that BIRDBASE provides information on how each bird species fits
+into each type. This could help if a more involved analysis is
+requested.
 
 ```{r}
 birdbase <- readxl::read_excel(here::here('data-raw', 'BIRDBASE v2025.1 Sekercioglu et al. Final.xlsx'), sheet = "Data", skip = 1) |> 
   janitor::clean_names() |> glimpse()
 ```
 
-3.  Merge ebird with BIRDBASE to get guild information:
+Merge ebird with BIRDBASE to get guild information:
 
-The two datasets can easily be merged by the `scientific name`. The final dataset was heavily truncated to include on the data that is needed for this analysis.
+The two datasets can easily be merged by the `scientific name`. The
+final dataset was heavily truncated to include on the data that is
+needed for this analysis.
 
 ```{r}
-ebd_trunc <- ebd_all |> 
-  select(common_name, scientific_name, observation_count, latitude, longitude, observation_date)
+ebd_trunc <- ebird_by_refuge |> 
+  select(common_name, scientific_name, observation_count, latitude, longitude, observation_date, area)
 
 birdbase_trunc <- birdbase |> 
   select(scientific_name = e_bird_clements_v2024b, primary_diet, primary_habitat, species, genus, order)
@@ -431,11 +549,16 @@ ebd_birdbase <- ebd_trunc |>
   left_join(birdbase_trunc) 
 ```
 
-### Waterbird Niche
+### Waterbirds Definitions
 
-Based off of table 2 of Donnelly et al., 2022[^2]. This provides additional information for waterbirds.
+This table provides definitions for the `waterbird niche` which we will
+add as a potential grouping characteristic to the final dataset. Based
+off of table 2 of Donnelly et al., 2022[^2].
 
-[^2]: Donnelly, J. P., Moore, J. N., Casazza, M. L., & Coons, S. P. (2022). Functional wetland loss drives emerging risks to waterbird migration networks. *Frontiers in Ecology and Evolution, 10*, 844278. <https://doi.org/10.3389/fevo.2022.844278>
+[^2]: Donnelly, J. P., Moore, J. N., Casazza, M. L., & Coons, S. P.
+    (2022). Functional wetland loss drives emerging risks to waterbird
+    migration networks. *Frontiers in Ecology and Evolution, 10*,
+    844278. <https://doi.org/10.3389/fevo.2022.844278>
 
 ```{r}
 waterbirds <- tribble(
@@ -493,90 +616,64 @@ ebd_birdbase_with_waterbirds <- ebd_birdbase |>
   left_join(waterbirds) |> glimpse()
 ```
 
-### Birds by Refuge
-
-Use the same bounding boxes used in the dynamic surface water elevation to assign locations to the eBird/BIRDBASE dataset. 
-
-```{r}
-upper_klamath_lake_bbox <-c(-122.107301,42.214015,-121.787324,42.602368) 
-clear_lake_bbox <- c(-121.289207, 41.781010,-121.015256, 41.995292)
-tule_lake_bbox <- c(-121.598288, 41.800411, -121.347044, 41.995232)
-bear_valley_bbox <- c(-121.979966,42.034977,-121.889353,42.096687)
-lower_klamath_sheepy_bbox <- c(-121.851156,41.883384,-121.591674,42.033576)
-klamath_marsh_bbox <- c(-121.806202,42.827148,-121.517889,43.072530)
-```
-
-```{r}
-bird_by_refuge <- ebd_birdbase_with_waterbirds |>
-  mutate(
-    area = case_when(
-      longitude >= -122.107301 & longitude <= -121.787324 &
-        latitude  >=  42.214015 & latitude  <=  42.602368 ~ "Upper Klamath Lake",
-
-      longitude >= -121.289207 & longitude <= -121.015256 &
-        latitude  >=  41.781010 & latitude  <=  41.995292 ~ "Clear Lake",
-
-      longitude >= -121.598288 & longitude <= -121.347044 &
-        latitude  >=  41.800411 & latitude  <=  41.995232 ~ "Tule Lake",
-
-      longitude >= -121.979966 & longitude <= -121.889353 &
-        latitude  >=  42.034977 & latitude  <=  42.096687 ~ "Bear Valley",
-
-      longitude >= -121.851156 & longitude <= -121.591674 &
-        latitude  >=  41.883384 & latitude  <=  42.033576 ~ "Lower Klamath - Sheepy",
-
-      longitude >= -121.806202 & longitude <= -121.517889 &
-        latitude  >=  42.827148 & latitude  <=  43.072530 ~ "Klamath Marsh",
-
-      TRUE ~ NA_character_
-    )
-  ) |>
-  filter(!is.na(area))
-
-bird_by_refuge |> glimpse()
-```
-
-```{r}
-pts_sf <- bird_by_refuge |>
-  st_as_sf(coords = c("longitude", "latitude"),
-           crs = 4326,
-           remove = FALSE)
-
-ggplot() +
-  geom_sf(data = pts_sf,
-          aes(color = area),
-          size = 0.8) +
-  theme_minimal() +
-  labs(
-    title = "Bird Counts by Region",
-    color = "Region"
-  ) 
-```
-
 ### Piscivorous waterbirds counts
 
-TODO: summarize methods
+Piscivorous waterbirds were surveyed by Real Time Research and the USGS
+throughout the Klamath Basin between 2009 and 2024. In addition, the
+USFWS conducted comparable surveys in the same region from 1952 to 1956,
+providing a valuable historical baseline for evaluating long-term
+temporal trends in these species.
 
-Herons =  Great Blue Herons, Great Egrets, and Black-crowned Night
-Gulls = California and Ring-billed gulls 
+**Methods**
+
+RTR estimates were based on the number of adult birds visible on-colony
+in oblique aerial photographs taken during the breeding season, with one
+to three aerial surveys conducted each year. Colony size was based on
+the total number of adults present during the late egg incubation/early
+chick rearing period, the stage of nesting cycle when the greatest
+number of breeding adults is generally found on-colony. Numbers provided
+in the table below represent "peak numbers".
+
+![](images/clipboard-1175381501.png){width="626"}
+
+**Definitions**
+
+-   Herons = Great Blue Herons, Great Egrets, and Black-crowned Night
+-   Gulls = California and Ring-billed gulls
 
 **Sources:**
 
 RTR/USGS: 2009 - 2024
+
 -   2009 - 2020: Table S.1 of Evans et al., 2022[^3]
--   2021-2023: Table 1 of Banet et al., 2024[^4]
--   2024: Table 1 of Banet et al., 2025[^5]
+
+-   2021-2023: Table 1 of Banet et al., 2024[^4] - 2024: Table 1 of
+    Banet et al., 2025[^5]
+
+[^3]: Evans, A. F., Payton, Q., Banet, N., Cramer, B. M., Kelsey, C., &
+    Hewitt, D. A. (2022). Avian predation on juvenile and adult Lost
+    River and Shortnose suckers: An updated multi-predator species
+    evaluation. North American Journal of Fisheries Management.
+    <https://doi.org/10.1002/nafm.10838>;
+    <https://birdresearchnw.org/wp-content/uploads/2025/11/Evans20et20al20202220Sucker20Predation.pdf>
+
+[^4]: Banet, N., Payton, Q., Evans, A., Krause, J., Hayes, B.,
+    Paul-Wilson, R., & Benham, E. (2024). Predation of Lost River and
+    Shortnose suckers by piscivorous colonial waterbirds in the Upper
+    Klamath Basin: An analysis of predation effects in 2021-2023. U.S.
+    Bureau of Reclamation
+    <https://birdresearchnw.org/wp-content/uploads/2025/11/Avian20Predation20on20UKB20Suckers_Summary20Report202021-2023.pdf>
+
+[^5]: Banet, N., Payton, Q., Devincenzi, D., Evans, A., Krause, J.,
+    Hayes, B., Paul-Wilson, R., & Benham, E. (2025). Predation of Lost
+    River and Shortnose suckers by piscivorous colonial waterbirds in
+    the Upper Klamath Basin: An analysis of predation effects in 2024
+    (Final report). U.S. Bureau of Reclamation
+    <https://birdresearchnw.org/wp-content/uploads/2025/11/Avian-Predation-Final-Summary-Report_2024.pdf>
 
 Clear Lake: 1952 - 1956
+
 -   USFWS 1957 Clear Lake Refuge Report; table 8
-
-[^3]: Evans, A. F., Payton, Q., Banet, N., Cramer, B. M., Kelsey, C., & Hewitt, D. A. (2022). Avian predation on juvenile and adult Lost River and Shortnose suckers: An updated multi-predator species evaluation. North American Journal of Fisheries Management. <https://doi.org/10.1002/nafm.10838>; <https://birdresearchnw.org/wp-content/uploads/2025/11/Evans20et20al20202220Sucker20Predation.pdf>
-
-[^4]: Banet, N., Payton, Q., Evans, A., Krause, J., Hayes, B., Paul-Wilson, R., & Benham, E. (2024). Predation of Lost River and Shortnose suckers by piscivorous colonial waterbirds in the Upper Klamath Basin: An analysis of predation effects in 2021-2023. U.S. Bureau of Reclamation https://birdresearchnw.org/wp-content/uploads/2025/11/Avian20Predation20on20UKB20Suckers_Summary20Report202021-2023.pdf
-
-[^5]: Banet, N., Payton, Q., Devincenzi, D., Evans, A., Krause, J., Hayes, B., Paul-Wilson, R., & Benham, E. (2025). Predation of Lost River and Shortnose suckers by piscivorous colonial waterbirds in the Upper Klamath Basin: An analysis of predation effects in 2024 (Final report). U.S. Bureau of Reclamation https://birdresearchnw.org/wp-content/uploads/2025/11/Avian-Predation-Final-Summary-Report_2024.pdf
-
-
 
 ```{r}
 piscivorous_waterbirds  <- tribble(
@@ -612,7 +709,7 @@ piscivorous_waterbirds  <- tribble(
   "Upper Klamath Lake", "American White Pelican", 2024 , 312,"Table 1 of Banet et al., 2025",
   "Upper Klamath Lake", "Double-crested Cormorant", 2024, 301,"Table 1 of Banet et al., 2025",
   "Upper Klamath Lake", "Herons", 2024, 450,"Table 1 of Banet et al., 2025",
-
+  
   
   # Clear Lake  
   "Clear Lake Reservoir", "American White Pelican", 1952, 2500,"USFWS 1957 Clear Lake Refuge Report; table 8",
@@ -709,8 +806,8 @@ piscivorous_waterbirds  <- tribble(
   "Sheepy Lake", "Gulls", 2024,3611 ,"Table 1 of Banet et al., 2025",
   
   # Klamath River
-   "Klamath River", "Herons", 2024, 140,"Table 1 of Banet et al., 2025",
-
+  "Klamath River", "Herons", 2024, 140,"Table 1 of Banet et al., 2025",
+  
   # Tule Lake
   "Tule Lake", "American White Pelican",2018 ,36 ,"Table S.1 of Evans et al., 2022",
   "Tule Lake", "Double-crested Cormorant",2018 ,517 ,"Table S.1 of Evans et al., 2022",
@@ -727,15 +824,14 @@ piscivorous_waterbirds  <- tribble(
   "Tule Lake", "Gulls", 2021,NA ,"Table 1 of Banet et al., 2024",
   "Tule Lake", "American White Pelican", 2024 ,73 ,"Table 1 of Banet et al., 2025",
   "Tule Lake", "Double-crested Cormorant", 2024,2044 ,"Table 1 of Banet et al., 2025"
-  ) |> 
+) |> 
   mutate(area = case_when(nesting_location == "Upper Klamath Lake" ~ "Upper Klamath Lake",
                           nesting_location ==  "Sheepy Lake" ~ "Lower Klamath - Sheepy",
                           nesting_location == "Clear Lake Reservoir" ~ "Clear Lake",
                           nesting_location == "Tule Lake" ~ "Tule Lake", 
-                           .default = as.character(nesting_location)))
+                          .default = as.character(nesting_location)))
 
 ```
-
 
 ```{r}
 piscivorous_waterbirds |> 
@@ -747,7 +843,7 @@ piscivorous_waterbirds |>
   facet_wrap(~ nesting_location, scales = "free_y") +
   theme_minimal(base_size = 13) +
   labs(
-    title = "Piscivorous Waterbird Counts Over Time",
+    title = "Piscivorous Waterbird Counts Over Time by Refuge",
     x = "Year",
     y = "Nest count",
     color = "Species"
@@ -769,14 +865,15 @@ piscivorous_waterbirds |>
 
 
 ```
-##### Compare RTR/USGS data to eBird 
 
+##### Compare RTR/USGS data to eBird
 
-Aggregate piscivorous birds from eBird 
+Aggregate piscivorous birds from eBird
+
 ```{r}
 pisci_birds <- c( "American White Pelican","Double-crested Cormorant", "Caspian Tern",  'Great Blue Herons', 'Great Egrets','Black-crowned Night Heron', 'California Gull', 'Ring-billed Gull')
 
-ebd_pisci <- bird_by_refuge |> 
+ebd_pisci <- ebd_birdbase_with_waterbirds |> 
   filter(common_name %in% pisci_birds) |> 
   filter(year(observation_date) %in% c(2009:2024)) |> 
   mutate(count = ifelse(observation_count == "X", 1, observation_count)) |> # if X mark it as 1
@@ -808,8 +905,6 @@ all_ebd_summary <- rest_of_birds |>
   mutate(dataset = "eBird") 
 ```
 
-Compare
-
 ```{r}
 rtr_usgs_summary <- piscivorous_waterbirds |> 
   group_by(year, common_name, area) |> 
@@ -820,30 +915,24 @@ rtr_usgs_summary <- piscivorous_waterbirds |>
 bird_compare <- bind_rows(rtr_usgs_summary, all_ebd_summary)
 
 
-ggplot(bird_compare |> 
-         filter(area != "Klamath River"), aes(x = year, y = count, color = dataset)) +
+ggplot(
+  bird_compare |> filter(area != "Klamath River"),
+  aes(x = year, y = count, color = dataset)
+) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
   facet_grid(area ~ common_name, scales = "free_y") +
+  scale_color_manual(values = c(
+    "RTR/USGS" = "#1B9E77",
+    "eBird"    = "#D95F02"
+  )) +
   theme_minimal(base_size = 13) +
   labs(
-    title = "Comparison of Waterbird Counts: RTR/USGS vs eBird",
+    title = "Comparison of Waterbird Counts across Refuges: RTR/USGS vs eBird",
     x = "Year",
     y = "Count",
     color = "Dataset"
   )
-
-# ggplot(bird_compare |> 
-#          filter(area != "Klamath River"),
-#        aes(x = year, y = dataset, fill = count)) +
-#   geom_tile() +
-#   facet_grid(common_name ~ area) +
-#   theme_minimal() +
-#   labs(
-#     title = "Heatmap of Yearly Totals by Species, Area, and Dataset",
-#     x = "Year",
-#     y = "Area"
-#   )
 
 ggplot(bird_compare |> 
          filter(area != "Klamath River") |> 
@@ -851,10 +940,14 @@ ggplot(bird_compare |>
          summarise(total_count = sum(count)), aes(x = year, y = total_count, color = dataset)) +
   geom_line(linewidth = 1) +
   geom_point(size = 2) +
+  scale_color_manual(values = c(
+    "RTR/USGS" = "#1B9E77",
+    "eBird"    = "#D95F02"
+  )) +
   theme_minimal(base_size = 13) +
   facet_wrap(~common_name) + 
   labs(
-    title = "Comparison of Waterbird Counts Across all Areas: RTR/USGS vs eBird",
+    title = "Comparison of Cumulative Waterbird Counts Across all Areas: RTR/USGS vs eBird",
     x = "Year",
     y = "Count",
     color = "Dataset"
@@ -862,27 +955,6 @@ ggplot(bird_compare |>
 
 ```
 
-Compare relative change; since eBird counts are much larger 
-
-```{r}
-bird_compare_index <- bird_compare |> 
-  group_by(common_name, dataset) |> 
-  mutate(index = count / mean(count, na.rm = TRUE)) |> 
-  ungroup()
-
-ggplot(bird_compare_index, aes(x = year, y = index, color = dataset)) +
-  geom_line(linewidth = 1) +
-  geom_point(size = 2) +
-  facet_wrap(~ common_name) +
-  theme_minimal(base_size = 13) +
-  labs(
-    title = "Relative Trends in Waterbird Counts (Indexed)",
-    x = "Year",
-    y = "Index (mean = 1)",
-    color = "Dataset"
-  )
-
-```
 #### Compare Clear Lake 1950s data to present trends
 
 ```{r}
@@ -891,7 +963,7 @@ piscivorous_waterbirds |>
   filter(nesting_location == "Clear Lake Reservoir") |> 
   filter(
     (year >= 1952 & year <= 1956) |
-    (year >= 2009)
+      (year >= 2009)
   ) |> 
   mutate(
     period = case_when(
@@ -909,6 +981,7 @@ piscivorous_waterbirds |>
     y = "Nest count",
     fill = "Species"
   ) +
+  scale_fill_brewer(palette = "Set1") +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.position = "none"
@@ -917,38 +990,42 @@ piscivorous_waterbirds |>
 
 ```
 
-
 ### Intermountain Shorebirds
 
-https://www.imwss.org/
+<https://www.imwss.org/>
 
-**Source**
--   Table 1: https://static1.squarespace.com/static/66b5066527e47020d0e0b7b0/t/673d0bf4ca1419202f3e9a2e/1732054007209/Intermountain+West+Shorebirds+-+Preliminary+Data+Summary+-+November+2024+Updated.pdf
+**Source** - Table 1:
+<https://static1.squarespace.com/static/66b5066527e47020d0e0b7b0/t/673d0bf4ca1419202f3e9a2e/1732054007209/Intermountain+West+Shorebirds+-+Preliminary+Data+Summary+-+November+2024+Updated.pdf>
 
 ```{r}
 shorebirds <-  tribble(
   ~location,     ~common_name,          ~year,   ~season, ~count, 
-
+  
   "Klamath Basin, CA and Oregon", "Shorebirds",  2022, "Fall", 10254,
   "Klamath Basin, CA and Oregon", "Shorebirds",  2023, "Spring", 155,
   "Klamath Basin, CA and Oregon", "Shorebirds",  2023, "Fall", 1678,
   "Klamath Basin, CA and Oregon", "Shorebirds",  2024, "Spring", 7297,
   "Klamath Basin, CA and Oregon", "Shorebirds",  2024, "Fall", 9625)
-  
-  
+
+
 
 ```
 
-## Bird Groupings {#bird-groupings}
+------------------------------------------------------------------------
+
+## Potential Bird Groupings {#bird-groupings}
 
 ### Waterbirds
 
-Grouping birds identified as part of the waterbird guild - including shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've included primary habitat as well because the waterbirds are associated with multiple.
+Grouping birds identified as part of the waterbird guild - including
+shorebirds, diving ducks, dabbling ducks, and other waterbirds. I've
+included primary habitat as well because the waterbirds are associated
+with multiple.
 
 ```{r}
-waterbird_guild <- bird_by_refuge |> 
+waterbird_guild <- ebd_birdbase_with_waterbirds |> 
   filter(!is.na(waterbird_niche)) |> 
-  group_by(waterbird_niche, primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
+  group_by(waterbird_niche, primary_habitat, year = year(observation_date), month = month(observation_date), area) |>
   summarize(n_species = length(unique(common_name))) |> glimpse()
 
 ```
@@ -957,46 +1034,31 @@ waterbird_guild <- bird_by_refuge |>
 waterbird_guild |> 
   ggplot(aes(x = as.factor(month), y = factor(year), fill = n_species)) +
   geom_tile(color = "white") +
-  facet_wrap(~ waterbird_niche + primary_habitat) +
+  facet_wrap(~ waterbird_niche + area) +
   scale_fill_viridis_c(name = "n_species") +
   labs(
     x = "Month",
     y = "Year",
-    title = "Species Richness by Month and Year Across Waterbird and Primary Habitat Guilds"
+    title = "eBird Species Richness by Month and Year Across Waterbird and Refuges",
+    caption = "Waterbird definitions provided by Donnely et al."
   ) +
   theme_minimal() +
   theme(
     panel.spacing = unit(1, "lines")
   )
-```
-
-```{r eval=FALSE, include=FALSE}
-
-waterbird_guild |> 
-  ggplot(aes(x = as.factor(month), y = n_species, group = year, fill = factor(year))) +
-  geom_col(alpha = 0.6, stat = "identity", position = "dodge") +
-  facet_wrap(~ wetland_niche, scales = "free_y") +
-  labs(
-    x = "Month",
-    y = "Number of Species",
-    color = "Year",
-    title = "Monthly Species Richness by Waterbird Guild"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    panel.spacing = unit(1, "lines")
-  )
-
 ```
 
 ### Habitat
 
-Grouping the Klamath bird species by the primary habitat type. Habitat types include: `r paste0(unique(ebd_birdbase_with_waterbirds$primary_habitat), collapse = ", ")`. The number of species across months and years are grouped by each habitat type to create the `habitat` dataset.
+Grouping the Klamath bird species by the primary habitat type. Habitat
+types include:
+`r paste0(unique(ebd_birdbase_with_waterbirds$primary_habitat), collapse = ", ")`.
+The number of species across months and years are grouped by each
+habitat type to create the `habitat` dataset.
 
 ```{r}
 habitat <- ebd_birdbase_with_waterbirds |> 
-  group_by(primary_habitat, year = year(observation_date), month = month(observation_date)) |> 
+  group_by(primary_habitat, year = year(observation_date), month = month(observation_date), area) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
   glimpse()
@@ -1012,42 +1074,25 @@ habitat |>
   labs(
     x = "Month",
     y = "Year",
-    title = "Species Richness by Month and Year Across Habitat Guilds"
+    title = "Species Richness by Month and Year Across Habitats"
   ) +
   theme_minimal() +
   theme(
     panel.spacing = unit(1, "lines")
   )
-```
-
-```{r eval=FALSE, include=FALSE}
-
-habitat |> 
-  ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
-  geom_line(alpha = 0.6) +
-  geom_point(size = 1) +
-  facet_wrap(~ primary_habitat, scales = "free_y") +
-  labs(
-    x = "Month",
-    y = "Number of Species",
-    color = "Year",
-    title = "Monthly Species Richness by Habitat Guild"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    panel.spacing = unit(1, "lines")
-  )
-
 ```
 
 ### Foraging
 
-Grouping the Klamath bird species by the primary diet type. Diet types include: `r paste0(unique(ebd_birdbase_with_waterbirds$primary_diet), collapse = ", ")`. The number of species across months and years are grouped by each diet type to create the `foraging` dataset.
+Grouping the Klamath bird species by the primary diet type. Diet types
+include:
+`r paste0(unique(ebd_birdbase_with_waterbirds$primary_diet), collapse = ", ")`.
+The number of species across months and years are grouped by each diet
+type to create the `foraging` dataset.
 
 ```{r}
 foraging <- ebd_birdbase_with_waterbirds |> 
-  group_by(primary_diet, year = year(observation_date), month = month(observation_date)) |> 
+  group_by(primary_diet, year = year(observation_date), month = month(observation_date), area) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() |> 
   glimpse()
@@ -1063,7 +1108,7 @@ foraging |>
   labs(
     x = "Month",
     y = "Year",
-    title = "Species Richness by Month and Year Across Foraging Guilds"
+    title = "Species Richness by Month and Year Across Foraging Types"
   ) +
   theme_minimal() +
   theme(
@@ -1071,41 +1116,25 @@ foraging |>
   )
 ```
 
-```{r eval=FALSE, include=FALSE}
+### Potential groupings based on diet and habitat
 
-foraging |> 
-  ggplot(aes(x = as.factor(month), y = n_species, group = year, color = factor(year))) +
-  geom_line(alpha = 0.6) +
-  geom_point(size = 1) +
-  facet_wrap(~ primary_diet, scales = "free_y") +
-  labs(
-    x = "Month",
-    y = "Number of Species",
-    color = "Year",
-    title = "Monthly Species Richness by Foraging Guild"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    panel.spacing = unit(1, "lines")
-  )
-
-```
-
-### Build Guild based on diet and habitat
-
-Bird species were grouped into functional guilds based on a combination of primary diet and primary habitat. Diet × habitat guilds were defined for each observation by pairing the species’ primary diet category with its primary habitat category. Species richness was summarized by guild across months and years, and guilds were ranked by total species richness.
+Bird species were grouped based on a combination of primary diet and
+primary habitat. Diet × habitat guilds were defined for each observation
+by pairing the species’ primary diet category with its primary habitat
+category. Species richness was summarized by grouping across months and
+years, and groupings were ranked by total species richness.
 
 ```{r}
 habitat_diet_guild <- ebd_birdbase_with_waterbirds |> 
   mutate(guild = paste(primary_diet, primary_habitat, sep = " – ")) |> 
-  group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, waterbird_niche, guild) |> 
+  group_by(year = year(observation_date), month = month(observation_date), primary_diet, primary_habitat, waterbird_niche, guild, area) |> 
   summarize(n_species = length(unique(common_name))) |> 
   ungroup() 
 
 ```
 
-There are `r length(unique(habitat_diet_guild$guild))` guilds. The top 10 are:
+There are `r length(unique(habitat_diet_guild$guild))` guilds. The top
+10 are:
 
 ```{r}
 habitat_diet_guild |> 
@@ -1121,7 +1150,7 @@ habitat_diet_guild |>
   geom_col(fill = "darkgreen") +
   coord_flip() +
   labs(
-    title = "Top 10 diet × habitat guilds by species richness",
+    title = "Top 10 diet × habitat groupings by species richness",
     x = "Guild",
     y = "Total number of species"
   ) +
@@ -1137,7 +1166,7 @@ habitat_diet_guild |>
   ggplot(aes(x = fct_reorder(guild, total_species), y = total_species)) +
   geom_col() + 
   labs(
-    x = "Guild",
+    x = "Grouping",
     y = "Total number of species"
   ) + 
   coord_flip() 
@@ -1166,30 +1195,78 @@ habitat_diet_guild |>
     aes(x = month, y = n_species, group = guild, color = guild)) +
   geom_line() +
   labs(
-    title = "Seasonal dynamics of the top 10 diet × habitat guilds",
+    title = "Seasonal dynamics of the top 10 diet × habitat groupings",
     x = "Month",
     y = "Number of species",
-    color = "Guild"
+    color = "Grouping"
   ) +
   theme_minimal() +
   theme(legend.position = "right")
 
 ```
 
-## This is the final *draft* dataset:
+## Final *draft* datasets:
 
-Bird species richness can be grouped by their primary habitat, diet or a combination of the two (`guild`). Also included is the waterbird niche, which can be used when applicable. Data is provided for the number of species from 2015 to 2025 for every month.
+Two datasets are produced:
 
-We are happy to provide a more granular representation of `guild` with suggested input on grouping.
+1.  `klamath_ebird` - Bird species (source: eBird) by primary habitat,
+    diet. Also included is the waterbird niche, which can be used when
+    applicable. Data is provided for observed species from 2015 to 2025.
+    Dataset is clipped to each Klamath Basin refuge boundary.
 
-Data can be accessed as `klamathWildlifeData::klamath_birds`
+Data can be accessed as `klamathWildlifeData::klamath_ebird`
+
+**Data Dictionary**
+
+| Column            | Definition                                                                           |
+|-------------------------------------|-----------------------------------|
+| common_name       | Bird species                                                                         |
+| observation_count | Number of species counted in observation                                             |
+| latitude          | Latitude of observation                                                              |
+| longitude         | Longitude of observation                                                             |
+| observation_date  | Date of bird observation                                                             |
+| area              | Corresponding refuge area; this column aligns with DSWE and `piscivorous_waterbirds` |
+| primary_habitat   | Species primary habitat; used as a grouping variable (source: BIRDBASE)              |
+| primary_diet      | Species primary diet; used as a grouping variable (source: BIRDBASE)                 |
+| waterbird_niche   | Waterbird guild (source: Donnelly et al., 2022)                                      |
 
 ```{r}
 
-klamath_birds <- habitat_diet_guild
-klamath_birds |> glimpse()
+klamath_ebird <- ebd_birdbase_with_waterbirds |> 
+  select(common_name, observation_count, latitude, longitude, observation_date, area, 
+         primary_habitat, primary_diet, waterbird_niche) |> 
+  mutate(observation_count = as.numeric(observation_count)) |> 
+  glimpse()
 
-usethis::use_data(klamath_birds, overwrite = TRUE)
+usethis::use_data(klamath_ebird, overwrite = TRUE)
+
+```
+
+2.  `piscivorous_waterbirds` - this dataset spans 2009 to 2025 and
+    includes piscivorous waterbirds within the Klamath basin refuges.
+    The dataset was aggregated and synthesized by Real Time Research and
+    will continue to be updated.
+
+Data can be accessed as `klamathWildlifeData::piscivorous_waterbirds`
+
+**Data Dictionary**
+
+| Column           | Definition                                                                                                                                 |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| nesting_location | Name of nesting location provided in original dataset/documentation                                                                        |
+| common_name      | Bird species (note that `Gulls` = California and Ring-billed gulls and `Herons` = Great Blue Herons, Great Egrets, and Black-crowned Night |
+| year             | Year data was collected                                                                                                                    |
+| count            | Number of nests                                                                                                                            |
+| source           | Source of data                                                                                                                             |
+| area             | Corresponding refuge area; this column aligns with DSWE and `klamath_ebird`                                                                |
+
+```{r}
+
+piscivorous_waterbirds <- piscivorous_waterbirds |> 
+  filter(year >= 2009) |> 
+  glimpse()
+
+usethis::use_data(piscivorous_waterbirds, overwrite = TRUE)
 
 ```
 
