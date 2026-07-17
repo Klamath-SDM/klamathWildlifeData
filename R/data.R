@@ -1,0 +1,56 @@
+#' Oregon Spotted Frog Observations in Klamath County, Oregon
+#'
+#' Point observations of Oregon spotted frog (\emph{Rana pretiosa}) within
+#' Klamath County, Oregon, filtered from a statewide USGS dataset of
+#' observations spanning 2016-2024. Records are drawn from monitoring and
+#' research projects including breeding surveys, trapping, telemetry, and
+#' genetics studies. Each record was matched to a HUC8 subbasin from its
+#' PLSS Township/Range/Section location.
+#'
+#' @format An \code{sf} object with 379 rows and 10 variables:
+#' \describe{
+#'   \item{date}{Date of observation, 2016-04-26 to 2024-06-27.}
+#'   \item{species}{Species observed, lowercased (\code{"rana pretiosa"}).}
+#'   \item{count}{Number of individuals/egg masses observed, 1-91.}
+#'   \item{life_stage}{Life stage observed: \code{"egg mass"}, \code{"larva"},
+#'     \code{"metamorph"}, \code{"juvenile"}, \code{"subadult"}, or
+#'     \code{"adult"}.}
+#'   \item{sex}{Sex of the individual(s): \code{"male"}, \code{"female"}, or
+#'     \code{"unknown"}.}
+#'   \item{township}{PLSS Township, normalized to \code{"NNS"} form (e.g.
+#'     \code{"33S"}).}
+#'   \item{range}{PLSS Range, normalized to \code{"NNE"} / \code{"NN.NE"}
+#'     form (e.g. \code{"07.5E"}).}
+#'   \item{section}{PLSS Section number.}
+#'   \item{project}{Project or survey type under which the observation was
+#'     recorded, lowercased (e.g. \code{"breeding"}, \code{"trapping"},
+#'     \code{"telemetry"}, \code{"genetics"}, \code{"apex"}, \code{"mid-level"},
+#'     \code{"water quality"}).}
+#'   \item{geometry}{Point geometry (\code{sfc_POINT}) giving the centroid of
+#'     the observation's PLSS section, in NAD83 (EPSG:4269).}
+#' }
+#'
+#' @details
+#' Only rows whose Township/Range fall within a manually compiled list of
+#' Klamath County PLSS combinations are retained, and only rows that could
+#' be matched to a HUC8 subbasin (via spatial join of the PLSS section
+#' centroid against Klamath basin HUCs) are included. See
+#' \code{data-raw/osf-frog/compile_osf_klamath.R} for the full compilation
+#' script.
+#'
+#' @source Oregon spotted frog (\emph{Rana pretiosa}) observations in Oregon
+#'   (ver. 6.0, March 2025), U.S. Geological Survey data release.
+#'   \doi{10.5066/P940A4DW}
+#'
+#' @examples
+#' \dontrun{
+#' oregon_spotted_frog
+#'
+#' # Egg mass counts by year
+#' library(dplyr)
+#' oregon_spotted_frog |>
+#'   filter(life_stage == "egg mass") |>
+#'   mutate(year = lubridate::year(date)) |>
+#'   count(year, wt = count)
+#' }
+"oregon_spotted_frog"
