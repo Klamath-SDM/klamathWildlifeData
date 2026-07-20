@@ -1,0 +1,5063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>CABPOP_LINES.shp</name>
+	<Schema name="CABPOP_LINES" id="S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+		<SimpleField type="int" name="OBJECTID"><displayName>&lt;b&gt;OBJECTID&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Idx"><displayName>&lt;b&gt;Idx&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Str"><displayName>&lt;b&gt;Str&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Trn"><displayName>&lt;b&gt;Trn&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Seg"><displayName>&lt;b&gt;Seg&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="AGName"><displayName>&lt;b&gt;AGName&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="Segment"><displayName>&lt;b&gt;Segment&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="BegLng"><displayName>&lt;b&gt;BegLng&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="BegLat"><displayName>&lt;b&gt;BegLat&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="EndLng"><displayName>&lt;b&gt;EndLng&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="EndLat"><displayName>&lt;b&gt;EndLat&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="FltDir"><displayName>&lt;b&gt;FltDir&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="SqMi"><displayName>&lt;b&gt;SqMi&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="Comment"><displayName>&lt;b&gt;Comment&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="VCF"><displayName>&lt;b&gt;VCF&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="CVJV_Str"><displayName>&lt;b&gt;CVJV_Str&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="CVJV_Trn"><displayName>&lt;b&gt;CVJV_Trn&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="CVJV_Seg"><displayName>&lt;b&gt;CVJV_Seg&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="Length_mi"><displayName>&lt;b&gt;Length_mi&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="New_VCF__1"><displayName>&lt;b&gt;New_VCF__1&lt;/b&gt;</displayName>
+</SimpleField>
+	</Schema>
+	<Style id="style4">
+		<BalloonStyle>
+			<text><![CDATA[<table border="0">
+  <tr><td><b>OBJECTID</b></td><td>$[CABPOP_LINES/OBJECTID]</td></tr>
+  <tr><td><b>Idx</b></td><td>$[CABPOP_LINES/Idx]</td></tr>
+  <tr><td><b>Str</b></td><td>$[CABPOP_LINES/Str]</td></tr>
+  <tr><td><b>Trn</b></td><td>$[CABPOP_LINES/Trn]</td></tr>
+  <tr><td><b>Seg</b></td><td>$[CABPOP_LINES/Seg]</td></tr>
+  <tr><td><b>AGName</b></td><td>$[CABPOP_LINES/AGName]</td></tr>
+  <tr><td><b>Segment</b></td><td>$[CABPOP_LINES/Segment]</td></tr>
+  <tr><td><b>BegLng</b></td><td>$[CABPOP_LINES/BegLng]</td></tr>
+  <tr><td><b>BegLat</b></td><td>$[CABPOP_LINES/BegLat]</td></tr>
+  <tr><td><b>EndLng</b></td><td>$[CABPOP_LINES/EndLng]</td></tr>
+  <tr><td><b>EndLat</b></td><td>$[CABPOP_LINES/EndLat]</td></tr>
+  <tr><td><b>FltDir</b></td><td>$[CABPOP_LINES/FltDir]</td></tr>
+  <tr><td><b>SqMi</b></td><td>$[CABPOP_LINES/SqMi]</td></tr>
+  <tr><td><b>Comment</b></td><td>$[CABPOP_LINES/Comment]</td></tr>
+  <tr><td><b>VCF</b></td><td>$[CABPOP_LINES/VCF]</td></tr>
+  <tr><td><b>CVJV_Str</b></td><td>$[CABPOP_LINES/CVJV_Str]</td></tr>
+  <tr><td><b>CVJV_Trn</b></td><td>$[CABPOP_LINES/CVJV_Trn]</td></tr>
+  <tr><td><b>CVJV_Seg</b></td><td>$[CABPOP_LINES/CVJV_Seg]</td></tr>
+  <tr><td><b>Length_mi</b></td><td>$[CABPOP_LINES/Length_mi]</td></tr>
+  <tr><td><b>New_VCF__1</b></td><td>$[CABPOP_LINES/New_VCF__1]</td></tr>
+</table>
+]]></text>
+		</BalloonStyle>
+		<PolyStyle>
+			<color>ffffff00</color>
+		</PolyStyle>
+	</Style>
+	<Folder id="layer 0">
+		<name>CABPOP_LINES</name>
+		<Placemark>
+			<name>010101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">1</SimpleData>
+					<SimpleData name="Idx">3084</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010101</SimpleData>
+					<SimpleData name="BegLng">122.085</SimpleData>
+					<SimpleData name="BegLat">40.0428</SimpleData>
+					<SimpleData name="EndLng">122.319</SimpleData>
+					<SimpleData name="EndLat">39.8542</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.2463</SimpleData>
+					<SimpleData name="Comment">N of Los Molinos to Black Butte Res.(1-2)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">1</SimpleData>
+					<SimpleData name="Length_mi">23.417</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0849990848141,40.04283332851297,0 -122.3184986108855,39.85416984538678,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010202</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">2</SimpleData>
+					<SimpleData name="Idx">3085</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010202</SimpleData>
+					<SimpleData name="BegLng">122.242</SimpleData>
+					<SimpleData name="BegLat">39.6875</SimpleData>
+					<SimpleData name="EndLng">122.01</SimpleData>
+					<SimpleData name="EndLat">39.8762</SimpleData>
+					<SimpleData name="FltDir">309</SimpleData>
+					<SimpleData name="SqMi">2.24585</SimpleData>
+					<SimpleData name="Comment">SW of Orland to NW of Chico(RR)(3-4)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">2</SimpleData>
+					<SimpleData name="Length_mi">23.3554</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.2423324581531,39.68750190692247,0 -122.009498596248,39.87616920447448,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010303</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">3</SimpleData>
+					<SimpleData name="Idx">3086</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010303</SimpleData>
+					<SimpleData name="BegLng">121.919</SimpleData>
+					<SimpleData name="BegLat">39.7187</SimpleData>
+					<SimpleData name="EndLng">122.151</SimpleData>
+					<SimpleData name="EndLat">39.53</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.24599</SimpleData>
+					<SimpleData name="Comment">W of Chico to NE Willows(5-6)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">3</SimpleData>
+					<SimpleData name="Length_mi">23.3035</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.9188327791261,39.71866798358258,0 -122.1511669157324,39.53000068625615,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010404</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">4</SimpleData>
+					<SimpleData name="Idx">3087</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">4</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010404</SimpleData>
+					<SimpleData name="BegLng">122.259</SimpleData>
+					<SimpleData name="BegLat">39.2292</SimpleData>
+					<SimpleData name="EndLng">122.029</SimpleData>
+					<SimpleData name="EndLat">39.4187</SimpleData>
+					<SimpleData name="FltDir">309</SimpleData>
+					<SimpleData name="SqMi">2.24664</SimpleData>
+					<SimpleData name="Comment">SW of Maxwell to N of Princeton(7-8)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">4</SimpleData>
+					<SimpleData name="Length_mi">23.2087</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.2589988709632,39.22916984564263,0 -122.0286674499243,39.4186687470959,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010405</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">5</SimpleData>
+					<SimpleData name="Idx">3088</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010405</SimpleData>
+					<SimpleData name="BegLng">122.029</SimpleData>
+					<SimpleData name="BegLat">39.4187</SimpleData>
+					<SimpleData name="EndLng">121.799</SimpleData>
+					<SimpleData name="EndLat">39.6087</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24617</SimpleData>
+					<SimpleData name="Comment">N of Princeton to S of Durham(RR)(8-9)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">5</SimpleData>
+					<SimpleData name="Length_mi">23.2672</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0286674499243,39.4186687470959,0 -121.7985000615114,39.60866737364563,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010506</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">6</SimpleData>
+					<SimpleData name="Idx">3089</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">6</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010506</SimpleData>
+					<SimpleData name="BegLng">121.656</SimpleData>
+					<SimpleData name="BegLat">39.4878</SimpleData>
+					<SimpleData name="EndLng">121.887</SimpleData>
+					<SimpleData name="EndLat">39.2987</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.24501</SimpleData>
+					<SimpleData name="Comment">Thermalito to N of Sutter Butte(10-11)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">6</SimpleData>
+					<SimpleData name="Length_mi">23.2152</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6561660767921,39.48783302281718,0 -121.8868331905131,39.29866981536155,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010507</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">7</SimpleData>
+					<SimpleData name="Idx">3090</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">7</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010507</SimpleData>
+					<SimpleData name="BegLng">121.887</SimpleData>
+					<SimpleData name="BegLat">39.2987</SimpleData>
+					<SimpleData name="EndLng">122.116</SimpleData>
+					<SimpleData name="EndLat">39.1083</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24761</SimpleData>
+					<SimpleData name="Comment">N of Sutter Butte to SE of Williams(I-15)(11-12)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">7</SimpleData>
+					<SimpleData name="Length_mi">23.1785</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.8868331905131,39.29866981536155,0 -122.1158332830456,39.10833549513037,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010608</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">8</SimpleData>
+					<SimpleData name="Idx">3091</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">8</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010608</SimpleData>
+					<SimpleData name="BegLng">122.016</SimpleData>
+					<SimpleData name="BegLat">38.9588</SimpleData>
+					<SimpleData name="EndLng">121.785</SimpleData>
+					<SimpleData name="EndLat">39.1477</SimpleData>
+					<SimpleData name="FltDir">309</SimpleData>
+					<SimpleData name="SqMi">2.24653</SimpleData>
+					<SimpleData name="Comment">SW of College City to Sutter(13-14)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">6</SimpleData>
+					<SimpleData name="CVJV_Seg">8</SimpleData>
+					<SimpleData name="Length_mi">23.1186</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0158329010788,38.95883369481893,0 -121.7854995726222,39.14766883848023,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010609</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">9</SimpleData>
+					<SimpleData name="Idx">3092</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">9</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010609</SimpleData>
+					<SimpleData name="BegLng">121.785</SimpleData>
+					<SimpleData name="BegLat">39.1477</SimpleData>
+					<SimpleData name="EndLng">121.554</SimpleData>
+					<SimpleData name="EndLat">39.3363</SimpleData>
+					<SimpleData name="FltDir">309</SimpleData>
+					<SimpleData name="SqMi">2.24647</SimpleData>
+					<SimpleData name="Comment">Sutter to NW of Honcut(14-15)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">6</SimpleData>
+					<SimpleData name="CVJV_Seg">9</SimpleData>
+					<SimpleData name="Length_mi">23.1801</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.7854995726222,39.14766883848023,0 -121.5543327326239,39.33633232128408,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010710</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">10</SimpleData>
+					<SimpleData name="Idx">3093</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">10</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010710</SimpleData>
+					<SimpleData name="BegLng">121.676</SimpleData>
+					<SimpleData name="BegLat">39.0178</SimpleData>
+					<SimpleData name="EndLng">121.906</SimpleData>
+					<SimpleData name="EndLat">38.8292</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.24589</SimpleData>
+					<SimpleData name="Comment">SW of Yuba City to N of Zamora(16-17)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">10</SimpleData>
+					<SimpleData name="Length_mi">23.0695</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6761665340558,39.01783561739945,0 -121.906166076489,38.82916832000399,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010811</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">11</SimpleData>
+					<SimpleData name="Idx">3094</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">8</SimpleData>
+					<SimpleData name="Seg">11</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010811</SimpleData>
+					<SimpleData name="BegLng">121.876</SimpleData>
+					<SimpleData name="BegLat">38.625</SimpleData>
+					<SimpleData name="EndLng">121.65</SimpleData>
+					<SimpleData name="EndLat">38.8162</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24778</SimpleData>
+					<SimpleData name="Comment">SW of Woodland to N of Verona(18-19)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">17</SimpleData>
+					<SimpleData name="Length_mi">23.0216</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.8758316040822,38.62500190740816,0 -121.6494998933939,38.81616783129364,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010812</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">12</SimpleData>
+					<SimpleData name="Idx">3095</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">8</SimpleData>
+					<SimpleData name="Seg">12</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010812</SimpleData>
+					<SimpleData name="BegLng">121.65</SimpleData>
+					<SimpleData name="BegLat">38.8162</SimpleData>
+					<SimpleData name="EndLng">121.422</SimpleData>
+					<SimpleData name="EndLat">39.0065</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.2443</SimpleData>
+					<SimpleData name="Comment">N of Verona to SE of Wheatland(19-20)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">8</SimpleData>
+					<SimpleData name="CVJV_Seg">11</SimpleData>
+					<SimpleData name="Length_mi">23.0483</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6494998933939,38.81616783129364,0 -121.422166824817,39.00650215133961,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010913</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">13</SimpleData>
+					<SimpleData name="Idx">3096</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">9</SimpleData>
+					<SimpleData name="Seg">13</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010913</SimpleData>
+					<SimpleData name="BegLng">121.344</SimpleData>
+					<SimpleData name="BegLat">38.8122</SimpleData>
+					<SimpleData name="EndLng">121.573</SimpleData>
+					<SimpleData name="EndLat">38.6235</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.24588</SimpleData>
+					<SimpleData name="Comment">N of Roseville to SW of Natomas(21-22)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">9</SimpleData>
+					<SimpleData name="CVJV_Seg">12</SimpleData>
+					<SimpleData name="Length_mi">23.0023</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.3438320154888,38.81216621422045,0 -121.5731658930188,38.62350273177292,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>010914</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">14</SimpleData>
+					<SimpleData name="Idx">3097</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">9</SimpleData>
+					<SimpleData name="Seg">14</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">010914</SimpleData>
+					<SimpleData name="BegLng">121.573</SimpleData>
+					<SimpleData name="BegLat">38.6235</SimpleData>
+					<SimpleData name="EndLng">121.802</SimpleData>
+					<SimpleData name="EndLat">38.4348</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24635</SimpleData>
+					<SimpleData name="Comment">SW of Natomas to Dixon(22-23)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">18</SimpleData>
+					<SimpleData name="Length_mi">22.9468</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.5731658930188,38.62350273177292,0 -121.8020000459071,38.43483543428986,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>011015</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">15</SimpleData>
+					<SimpleData name="Idx">3098</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">10</SimpleData>
+					<SimpleData name="Seg">15</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">011015</SimpleData>
+					<SimpleData name="BegLng">121.728</SimpleData>
+					<SimpleData name="BegLat">38.2722</SimpleData>
+					<SimpleData name="EndLng">121.5</SimpleData>
+					<SimpleData name="EndLat">38.4608</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24642</SimpleData>
+					<SimpleData name="Comment">SW Sacramento to Freeport(24-25)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">20</SimpleData>
+					<SimpleData name="Length_mi">22.8953</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.7283325198522,38.27216911351768,0 -121.500000000515,38.46083259583204,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>011116</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">16</SimpleData>
+					<SimpleData name="Idx">3099</SimpleData>
+					<SimpleData name="Str">1</SimpleData>
+					<SimpleData name="Trn">11</SimpleData>
+					<SimpleData name="Seg">16</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">011116</SimpleData>
+					<SimpleData name="BegLng">121.128</SimpleData>
+					<SimpleData name="BegLat">38.5263</SimpleData>
+					<SimpleData name="EndLng">121.356</SimpleData>
+					<SimpleData name="EndLat">38.3377</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24623</SimpleData>
+					<SimpleData name="Comment">Rancho Murieta to NW of Franklin(26-27)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">21</SimpleData>
+					<SimpleData name="Length_mi">22.9144</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1280002594919,38.52633476260563,0 -121.3564987184412,38.33766746525918,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>020117</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">17</SimpleData>
+					<SimpleData name="Idx">3100</SimpleData>
+					<SimpleData name="Str">2</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">17</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">020117</SimpleData>
+					<SimpleData name="BegLng">121.682</SimpleData>
+					<SimpleData name="BegLat">38.1872</SimpleData>
+					<SimpleData name="EndLng">121.454</SimpleData>
+					<SimpleData name="EndLat">38.3758</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24611</SimpleData>
+					<SimpleData name="Comment">N of Rio Vista to Franklin Blvd.(28-29)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">6</SimpleData>
+					<SimpleData name="CVJV_Seg">22</SimpleData>
+					<SimpleData name="Length_mi">22.8655</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6816673283839,38.18716621394614,0 -121.4536666867114,38.37583351093048,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>020218</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">18</SimpleData>
+					<SimpleData name="Idx">3101</SimpleData>
+					<SimpleData name="Str">2</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">18</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">020218</SimpleData>
+					<SimpleData name="BegLng">121.431</SimpleData>
+					<SimpleData name="BegLat">38.2455</SimpleData>
+					<SimpleData name="EndLng">121.659</SimpleData>
+					<SimpleData name="EndLat">38.0568</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24646</SimpleData>
+					<SimpleData name="Comment">N of Thornton to W of Franks Tract(30-31)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">23</SimpleData>
+					<SimpleData name="Length_mi">22.828</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.4311656957336,38.24550056453142,0 -121.6588325501142,38.05683326751762,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>020319</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">19</SimpleData>
+					<SimpleData name="Idx">3102</SimpleData>
+					<SimpleData name="Str">2</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">19</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">020319</SimpleData>
+					<SimpleData name="BegLng">121.622</SimpleData>
+					<SimpleData name="BegLat">37.9438</SimpleData>
+					<SimpleData name="EndLng">121.394</SimpleData>
+					<SimpleData name="EndLat">38.1325</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24655</SimpleData>
+					<SimpleData name="Comment">E of Brentwood to W of Woodbridge(RR)(32-33)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">8</SimpleData>
+					<SimpleData name="CVJV_Seg">24</SimpleData>
+					<SimpleData name="Length_mi">22.7934</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6218318942104,37.94383430440546,0 -121.394498824925,38.13250160252521,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>020420</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">20</SimpleData>
+					<SimpleData name="Idx">3103</SimpleData>
+					<SimpleData name="Str">2</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">20</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">020420</SimpleData>
+					<SimpleData name="BegLng">121.359</SimpleData>
+					<SimpleData name="BegLat">38.013</SimpleData>
+					<SimpleData name="EndLng">121.586</SimpleData>
+					<SimpleData name="EndLat">37.8243</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24595</SimpleData>
+					<SimpleData name="Comment">Wright Tract to SE of Byron(RR)(34-35)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">9</SimpleData>
+					<SimpleData name="CVJV_Seg">25</SimpleData>
+					<SimpleData name="Length_mi">22.75</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.3588333127252,38.01300239552449,0 -121.5856666567898,37.82433509811273,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040121</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">21</SimpleData>
+					<SimpleData name="Idx">3104</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">21</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040121</SimpleData>
+					<SimpleData name="BegLng">121.54</SimpleData>
+					<SimpleData name="BegLat">37.7343</SimpleData>
+					<SimpleData name="EndLng">121.313</SimpleData>
+					<SimpleData name="EndLat">37.923</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24646</SimpleData>
+					<SimpleData name="Comment">Bethany to Stockton(36-37)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">10</SimpleData>
+					<SimpleData name="CVJV_Seg">26</SimpleData>
+					<SimpleData name="Length_mi">22.7274</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.5396671292391,37.7343349458766,0 -121.3129997248587,37.92300224293292,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040222</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">22</SimpleData>
+					<SimpleData name="Idx">3105</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">22</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040222</SimpleData>
+					<SimpleData name="BegLng">121.105</SimpleData>
+					<SimpleData name="BegLat">37.8655</SimpleData>
+					<SimpleData name="EndLng">121.331</SimpleData>
+					<SimpleData name="EndLat">37.6768</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24651</SimpleData>
+					<SimpleData name="Comment">NE of Five Corners(RR) to NW of Vernalis(Hwy 33)(38-39)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">11</SimpleData>
+					<SimpleData name="CVJV_Seg">27</SimpleData>
+					<SimpleData name="Length_mi">22.71</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1044998165195,37.865499496623,0 -121.3309993740833,37.67683219888702,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040323</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">23</SimpleData>
+					<SimpleData name="Idx">3106</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">23</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040323</SimpleData>
+					<SimpleData name="BegLng">121.239</SimpleData>
+					<SimpleData name="BegLat">37.5238</SimpleData>
+					<SimpleData name="EndLng">121.013</SimpleData>
+					<SimpleData name="EndLat">37.7125</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24635</SimpleData>
+					<SimpleData name="Comment">W of Westly to N of Modesto(Hwy 219)(40-41)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">33</SimpleData>
+					<SimpleData name="Length_mi">22.6614</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.2391662595125,37.52383232110929,0 -121.0131664281015,37.71249961813496,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040424</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">24</SimpleData>
+					<SimpleData name="Idx">3107</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">24</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040424</SimpleData>
+					<SimpleData name="BegLng">120.867</SimpleData>
+					<SimpleData name="BegLat">37.6037</SimpleData>
+					<SimpleData name="EndLng">121.093</SimpleData>
+					<SimpleData name="EndLat">37.415</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24634</SimpleData>
+					<SimpleData name="Comment">E of Ceres (RR) to N of Crows Landing(42-43)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">34</SimpleData>
+					<SimpleData name="Length_mi">22.6279</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8669986729314,37.6036663055954,0 -121.0926666262786,37.41500282278999,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040525</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">25</SimpleData>
+					<SimpleData name="Idx">3108</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">25</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040525</SimpleData>
+					<SimpleData name="BegLng">121.07</SimpleData>
+					<SimpleData name="BegLat">37.1985</SimpleData>
+					<SimpleData name="EndLng">120.845</SimpleData>
+					<SimpleData name="EndLat">37.3872</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24705</SimpleData>
+					<SimpleData name="Comment">SW of Gustine (Aqueduct) to SW of Irwin(44-45)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">35</SimpleData>
+					<SimpleData name="Length_mi">22.5697</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.0701656336198,37.19849967979459,0 -120.8449993130851,37.38716697655742,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040526</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">26</SimpleData>
+					<SimpleData name="Idx">3109</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">26</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040526</SimpleData>
+					<SimpleData name="BegLng">120.845</SimpleData>
+					<SimpleData name="BegLat">37.3872</SimpleData>
+					<SimpleData name="EndLng">120.62</SimpleData>
+					<SimpleData name="EndLat">37.5758</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24594</SimpleData>
+					<SimpleData name="Comment">SW of Irwin to SW of Turlock Lake(45-46)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">36</SimpleData>
+					<SimpleData name="Length_mi">22.6156</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8449993130851,37.38716697655742,0 -120.6194992066413,37.57583427408613,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040627</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">27</SimpleData>
+					<SimpleData name="Idx">3110</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">27</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040627</SimpleData>
+					<SimpleData name="BegLng">120.646</SimpleData>
+					<SimpleData name="BegLat">37.3312</SimpleData>
+					<SimpleData name="EndLng">120.871</SimpleData>
+					<SimpleData name="EndLat">37.1425</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24627</SimpleData>
+					<SimpleData name="Comment">SW of Atwater to W of Santa Fe Canal(47-48)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">37</SimpleData>
+					<SimpleData name="Length_mi">22.545</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.6458320618133,37.33116722150764,0 -120.8706665034241,37.1424999234227,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040728</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">28</SimpleData>
+					<SimpleData name="Idx">3111</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">28</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040728</SimpleData>
+					<SimpleData name="BegLng">120.842</SimpleData>
+					<SimpleData name="BegLat">36.9418</SimpleData>
+					<SimpleData name="EndLng">120.624</SimpleData>
+					<SimpleData name="EndLat">37.1358</SimpleData>
+					<SimpleData name="FltDir">312</SimpleData>
+					<SimpleData name="SqMi">2.24786</SimpleData>
+					<SimpleData name="Comment">S of Los Banos(Aqueduct) to Sand Slough(49-50)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">38</SimpleData>
+					<SimpleData name="Length_mi">22.4989</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8416671757888,36.94183540304954,0 -120.624332428029,37.13583564721881,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040729</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">29</SimpleData>
+					<SimpleData name="Idx">3112</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">29</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040729</SimpleData>
+					<SimpleData name="BegLng">120.624</SimpleData>
+					<SimpleData name="BegLat">37.1358</SimpleData>
+					<SimpleData name="EndLng">120.406</SimpleData>
+					<SimpleData name="EndLat">37.329</SimpleData>
+					<SimpleData name="FltDir">312</SimpleData>
+					<SimpleData name="SqMi">2.24453</SimpleData>
+					<SimpleData name="Comment">Sand Slough to E of Merced(50-51)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">39</SimpleData>
+					<SimpleData name="Length_mi">22.5235</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.624332428029,37.13583564721881,0 -120.4060001372947,37.32900047267432,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040932</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">30</SimpleData>
+					<SimpleData name="Idx">3115</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">9</SimpleData>
+					<SimpleData name="Seg">32</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040932</SimpleData>
+					<SimpleData name="BegLng">120.49</SimpleData>
+					<SimpleData name="BegLat">36.5498</SimpleData>
+					<SimpleData name="EndLng">120.258</SimpleData>
+					<SimpleData name="EndLat">36.7445</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.32633</SimpleData>
+					<SimpleData name="Comment">N of Panoche Jct. to N Hwy 180(55-56)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">47</SimpleData>
+					<SimpleData name="Length_mi">23.1681</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.4900038230096,36.54983007513038,0 -120.2580034719803,36.74449789181588,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040933</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">31</SimpleData>
+					<SimpleData name="Idx">3116</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">9</SimpleData>
+					<SimpleData name="Seg">33</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040933</SimpleData>
+					<SimpleData name="BegLng">120.258</SimpleData>
+					<SimpleData name="BegLat">36.7445</SimpleData>
+					<SimpleData name="EndLng">120.027</SimpleData>
+					<SimpleData name="EndLat">36.9272</SimpleData>
+					<SimpleData name="FltDir">308</SimpleData>
+					<SimpleData name="SqMi">2.24645</SimpleData>
+					<SimpleData name="Comment">N Hwy 180 to E of Madera(Hwy 99)(56-57)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">8</SimpleData>
+					<SimpleData name="CVJV_Seg">46</SimpleData>
+					<SimpleData name="Length_mi">22.4307</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.2579992979522,36.7444988942266,0 -120.0266665188195,36.92716567323284,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030134</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">32</SimpleData>
+					<SimpleData name="Idx">3117</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">34</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030134</SimpleData>
+					<SimpleData name="BegLng">119.765</SimpleData>
+					<SimpleData name="BegLat">36.6878</SimpleData>
+					<SimpleData name="EndLng">119.988</SimpleData>
+					<SimpleData name="EndLat">36.4992</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24652</SimpleData>
+					<SimpleData name="Comment">S of Fresno (Hwy 99) to NW of Burrel(58-59)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">48</SimpleData>
+					<SimpleData name="Length_mi">22.3573</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.764833450514,36.68783378576477,0 -119.9878330227272,36.49916648902259,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030135</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">33</SimpleData>
+					<SimpleData name="Idx">3118</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">35</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030135</SimpleData>
+					<SimpleData name="BegLng">119.988</SimpleData>
+					<SimpleData name="BegLat">36.4992</SimpleData>
+					<SimpleData name="EndLng">120.21</SimpleData>
+					<SimpleData name="EndLat">36.3105</SimpleData>
+					<SimpleData name="FltDir">130</SimpleData>
+					<SimpleData name="SqMi">2.24594</SimpleData>
+					<SimpleData name="Comment">NW of Burrel to SE of Harris Ranch(Aq)(59-60)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">49</SimpleData>
+					<SimpleData name="Length_mi">22.2968</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.9878330227272,36.49916648902259,0 -120.2101669310444,36.31049919103925,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030236</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">34</SimpleData>
+					<SimpleData name="Idx">3119</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">36</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030236</SimpleData>
+					<SimpleData name="BegLng">119.965</SimpleData>
+					<SimpleData name="BegLat">36.0722</SimpleData>
+					<SimpleData name="EndLng">119.744</SimpleData>
+					<SimpleData name="EndLat">36.2615</SimpleData>
+					<SimpleData name="FltDir">311</SimpleData>
+					<SimpleData name="SqMi">2.24777</SimpleData>
+					<SimpleData name="Comment">NW of Kettleman City to S of Lemoore(61-62)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">50</SimpleData>
+					<SimpleData name="Length_mi">22.2463</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.9651660920039,36.07216835023921,0 -119.7439994810697,36.26149940528943,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030237</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">35</SimpleData>
+					<SimpleData name="Idx">3120</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">37</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030237</SimpleData>
+					<SimpleData name="BegLng">119.744</SimpleData>
+					<SimpleData name="BegLat">36.2615</SimpleData>
+					<SimpleData name="EndLng">119.522</SimpleData>
+					<SimpleData name="EndLat">36.4502</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24501</SimpleData>
+					<SimpleData name="Comment">S of Lemoore to Traver(Hwy 99)(62-63)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">51</SimpleData>
+					<SimpleData name="Length_mi">22.2734</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.7439994810697,36.26149940528943,0 -119.5219993596032,36.45016670191949,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030338</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">36</SimpleData>
+					<SimpleData name="Idx">3121</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">38</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030338</SimpleData>
+					<SimpleData name="BegLng">119.295</SimpleData>
+					<SimpleData name="BegLat">36.154</SimpleData>
+					<SimpleData name="EndLng">119.532</SimpleData>
+					<SimpleData name="EndLat">35.9648</SimpleData>
+					<SimpleData name="FltDir">129</SimpleData>
+					<SimpleData name="SqMi">2.32302</SimpleData>
+					<SimpleData name="Comment">S of Tulare (Hwy 99) to NE of Homeland Canal(64-65)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">52</SimpleData>
+					<SimpleData name="Length_mi">22.9631</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.295166015854,36.15400123596361,0 -119.5316658021568,35.96483421337693,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030339</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">37</SimpleData>
+					<SimpleData name="Idx">3122</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">39</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030339</SimpleData>
+					<SimpleData name="BegLng">119.532</SimpleData>
+					<SimpleData name="BegLat">35.9648</SimpleData>
+					<SimpleData name="EndLng">119.751</SimpleData>
+					<SimpleData name="EndLat">35.775</SimpleData>
+					<SimpleData name="FltDir">131</SimpleData>
+					<SimpleData name="SqMi">2.24771</SimpleData>
+					<SimpleData name="Comment">NE of Homeland Canal to Antelope Plain(SW I-5)(65-66)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">4</SimpleData>
+					<SimpleData name="CVJV_Seg">53</SimpleData>
+					<SimpleData name="Length_mi">22.1616</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.5316658021568,35.96483421337693,0 -119.7513332368677,35.77499961861024,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>030440</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">38</SimpleData>
+					<SimpleData name="Idx">3123</SimpleData>
+					<SimpleData name="Str">3</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">40</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">030440</SimpleData>
+					<SimpleData name="BegLng">119.558</SimpleData>
+					<SimpleData name="BegLat">35.5003</SimpleData>
+					<SimpleData name="EndLng">119.335</SimpleData>
+					<SimpleData name="EndLat">35.6867</SimpleData>
+					<SimpleData name="FltDir">310</SimpleData>
+					<SimpleData name="SqMi">2.24572</SimpleData>
+					<SimpleData name="Comment">SW of Goose Lake Bed to SE of Delano (Hwy 43)(67-68)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">5</SimpleData>
+					<SimpleData name="CVJV_Trn">5</SimpleData>
+					<SimpleData name="CVJV_Seg">54</SimpleData>
+					<SimpleData name="Length_mi">22.0665</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-119.5581665041242,35.50033378575343,0 -119.3351669307534,35.68666648843082,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>110101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">39</SimpleData>
+					<SimpleData name="Idx">3124</SimpleData>
+					<SimpleData name="Str">11</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">110101</SimpleData>
+					<SimpleData name="BegLng">122</SimpleData>
+					<SimpleData name="BegLat">38.3917</SimpleData>
+					<SimpleData name="EndLng">122.002</SimpleData>
+					<SimpleData name="EndLat">38.652</SimpleData>
+					<SimpleData name="FltDir">1</SimpleData>
+					<SimpleData name="SqMi">2.2486</SimpleData>
+					<SimpleData name="Comment">Nut Tree to S of Esparto(69-70)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">19</SimpleData>
+					<SimpleData name="Length_mi">22.9226</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0000000005158,38.39166832000017,0 -122.002332687747,38.65200233472591,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>110102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">40</SimpleData>
+					<SimpleData name="Idx">3125</SimpleData>
+					<SimpleData name="Str">11</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">110102</SimpleData>
+					<SimpleData name="BegLng">122.002</SimpleData>
+					<SimpleData name="BegLat">38.652</SimpleData>
+					<SimpleData name="EndLng">122.005</SimpleData>
+					<SimpleData name="EndLat">38.9122</SimpleData>
+					<SimpleData name="FltDir">1</SimpleData>
+					<SimpleData name="SqMi">2.24717</SimpleData>
+					<SimpleData name="Comment">S of Esparto to N of Dunnigan(70-71)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">10</SimpleData>
+					<SimpleData name="CVJV_Seg">13</SimpleData>
+					<SimpleData name="Length_mi">22.9918</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.002332687747,38.65200233472591,0 -122.0046672823397,38.91216850305052,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>110203</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">41</SimpleData>
+					<SimpleData name="Idx">3126</SimpleData>
+					<SimpleData name="Str">11</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">110203</SimpleData>
+					<SimpleData name="BegLng">122.329</SimpleData>
+					<SimpleData name="BegLat">39.448</SimpleData>
+					<SimpleData name="EndLng">122.329</SimpleData>
+					<SimpleData name="EndLat">39.7083</SimpleData>
+					<SimpleData name="FltDir">360</SimpleData>
+					<SimpleData name="SqMi">2.24855</SimpleData>
+					<SimpleData name="Comment">SW Willows to W of Orland(72-73)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">11</SimpleData>
+					<SimpleData name="CVJV_Seg">14</SimpleData>
+					<SimpleData name="Length_mi">23.2703</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.3291664118002,39.44799995440128,0 -122.3284988405787,39.70833396871455,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100104</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">42</SimpleData>
+					<SimpleData name="Idx">3127</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">4</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100104</SimpleData>
+					<SimpleData name="BegLng">122.246</SimpleData>
+					<SimpleData name="BegLat">40.2625</SimpleData>
+					<SimpleData name="EndLng">122.053</SimpleData>
+					<SimpleData name="EndLat">40.048</SimpleData>
+					<SimpleData name="FltDir">222</SimpleData>
+					<SimpleData name="SqMi">2.24599</SimpleData>
+					<SimpleData name="Comment">N of Red Bluff to W of Los Malinos(74-75)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">12</SimpleData>
+					<SimpleData name="CVJV_Seg">15</SimpleData>
+					<SimpleData name="Length_mi">23.4712</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.2458324430934,40.2625026701315,0 -122.0534992213653,40.04800224312114,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100105</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">43</SimpleData>
+					<SimpleData name="Idx">3128</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100105</SimpleData>
+					<SimpleData name="BegLng">122.053</SimpleData>
+					<SimpleData name="BegLat">40.048</SimpleData>
+					<SimpleData name="EndLng">121.862</SimpleData>
+					<SimpleData name="EndLat">39.8335</SimpleData>
+					<SimpleData name="FltDir">222</SimpleData>
+					<SimpleData name="SqMi">2.24638</SimpleData>
+					<SimpleData name="Comment">W of Los Malinos to Chico(75-76)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">1</SimpleData>
+					<SimpleData name="CVJV_Trn">12</SimpleData>
+					<SimpleData name="CVJV_Seg">16</SimpleData>
+					<SimpleData name="Length_mi">23.4011</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0534992213653,40.04800224312114,0 -121.8616657254797,39.83350181544684,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100206</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">44</SimpleData>
+					<SimpleData name="Idx">3129</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">6</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100206</SimpleData>
+					<SimpleData name="BegLng">121.086</SimpleData>
+					<SimpleData name="BegLat">38.1795</SimpleData>
+					<SimpleData name="EndLng">120.89</SimpleData>
+					<SimpleData name="EndLat">37.9702</SimpleData>
+					<SimpleData name="FltDir">223</SimpleData>
+					<SimpleData name="SqMi">2.24745</SimpleData>
+					<SimpleData name="Comment">W of Lodi to E of Farmington(77-78)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">12</SimpleData>
+					<SimpleData name="CVJV_Seg">28</SimpleData>
+					<SimpleData name="Length_mi">22.8026</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.0863323208821,38.17950248748894,0 -120.8899993890826,37.97016715967385,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100207</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">45</SimpleData>
+					<SimpleData name="Idx">3130</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">7</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100207</SimpleData>
+					<SimpleData name="BegLng">120.89</SimpleData>
+					<SimpleData name="BegLat">37.9702</SimpleData>
+					<SimpleData name="EndLng">120.692</SimpleData>
+					<SimpleData name="EndLat">37.7627</SimpleData>
+					<SimpleData name="FltDir">224</SimpleData>
+					<SimpleData name="SqMi">2.24588</SimpleData>
+					<SimpleData name="Comment">E of Farmington to E of Oakdale(78-79)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">2</SimpleData>
+					<SimpleData name="CVJV_Trn">12</SimpleData>
+					<SimpleData name="CVJV_Seg">29</SimpleData>
+					<SimpleData name="Length_mi">22.7226</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8899993890826,37.97016715967385,0 -120.6914997099612,37.76266670211702,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100208</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">46</SimpleData>
+					<SimpleData name="Idx">3131</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">8</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100208</SimpleData>
+					<SimpleData name="BegLng">120.692</SimpleData>
+					<SimpleData name="BegLat">37.7627</SimpleData>
+					<SimpleData name="EndLng">120.483</SimpleData>
+					<SimpleData name="EndLat">37.5598</SimpleData>
+					<SimpleData name="FltDir">226</SimpleData>
+					<SimpleData name="SqMi">2.26011</SimpleData>
+					<SimpleData name="Comment">E of Oakdale to S of Turlock Lake(79-80)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">42</SimpleData>
+					<SimpleData name="Length_mi">22.8062</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.6914997099612,37.76266670211702,0 -120.4826660153493,37.55983543372921,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100209</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">47</SimpleData>
+					<SimpleData name="Idx">3132</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">9</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100209</SimpleData>
+					<SimpleData name="BegLng">120.483</SimpleData>
+					<SimpleData name="BegLat">37.5598</SimpleData>
+					<SimpleData name="EndLng">120.278</SimpleData>
+					<SimpleData name="EndLat">37.3543</SimpleData>
+					<SimpleData name="FltDir">225</SimpleData>
+					<SimpleData name="SqMi">2.26193</SimpleData>
+					<SimpleData name="Comment">S of Turlock Lake to N of Planada(80-81)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">43</SimpleData>
+					<SimpleData name="Length_mi">22.7606</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.4826660153493,37.55983543372921,0 -120.2781658173122,37.35433387748205,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100210</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">48</SimpleData>
+					<SimpleData name="Idx">3133</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">10</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100210</SimpleData>
+					<SimpleData name="BegLng">120.278</SimpleData>
+					<SimpleData name="BegLat">37.3543</SimpleData>
+					<SimpleData name="EndLng">120.075</SimpleData>
+					<SimpleData name="EndLat">37.1512</SimpleData>
+					<SimpleData name="FltDir">225</SimpleData>
+					<SimpleData name="SqMi">2.24353</SimpleData>
+					<SimpleData name="Comment">N of Planada to E of Chowchilla(81-82)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">44</SimpleData>
+					<SimpleData name="Length_mi">22.514</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.2781658173122,37.35433387748205,0 -120.0748329161409,37.1511669160016,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>100211</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">49</SimpleData>
+					<SimpleData name="Idx">3134</SimpleData>
+					<SimpleData name="Str">10</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">11</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">100211</SimpleData>
+					<SimpleData name="BegLng">120.075</SimpleData>
+					<SimpleData name="BegLat">37.1512</SimpleData>
+					<SimpleData name="EndLng">119.872</SimpleData>
+					<SimpleData name="EndLat">36.9472</SimpleData>
+					<SimpleData name="FltDir">225</SimpleData>
+					<SimpleData name="SqMi">2.24865</SimpleData>
+					<SimpleData name="Comment">E of Chowchilla to Fresno(82-83)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">7</SimpleData>
+					<SimpleData name="CVJV_Seg">45</SimpleData>
+					<SimpleData name="Length_mi">22.5041</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.0748329161409,37.1511669160016,0 -119.8721656798345,36.94716835049562,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">50</SimpleData>
+					<SimpleData name="Idx">3135</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060101</SimpleData>
+					<SimpleData name="BegLng">122.597</SimpleData>
+					<SimpleData name="BegLat">38.2325</SimpleData>
+					<SimpleData name="EndLng">122.511</SimpleData>
+					<SimpleData name="EndLat">38.1192</SimpleData>
+					<SimpleData name="FltDir">217</SimpleData>
+					<SimpleData name="SqMi">1.13808</SimpleData>
+					<SimpleData name="Comment">Petaluma to Black Point(101-102)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.5583</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.596500396374,38.23250007616515,0 -122.5109996797322,38.11916923487288,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">51</SimpleData>
+					<SimpleData name="Idx">3136</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060101</SimpleData>
+					<SimpleData name="BegLng">122.448</SimpleData>
+					<SimpleData name="BegLat">38.117</SimpleData>
+					<SimpleData name="EndLng">122.402</SimpleData>
+					<SimpleData name="EndLat">38.2422</SimpleData>
+					<SimpleData name="FltDir">340</SimpleData>
+					<SimpleData name="SqMi">1.12499</SimpleData>
+					<SimpleData name="Comment">Midshipman Pt. to E of Schellville(103-104)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.4171</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.4478321074221,38.11700248757002,0 -122.402000426911,38.24216651894592,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">52</SimpleData>
+					<SimpleData name="Idx">3137</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060102</SimpleData>
+					<SimpleData name="BegLng">122.294</SimpleData>
+					<SimpleData name="BegLat">38.2422</SimpleData>
+					<SimpleData name="EndLng">122.421</SimpleData>
+					<SimpleData name="EndLat">38.1597</SimpleData>
+					<SimpleData name="FltDir">123</SimpleData>
+					<SimpleData name="SqMi">1.11753</SimpleData>
+					<SimpleData name="Comment">SE of Shipyard Acres to Sonoma Creek(105-106)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.3694</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.2945003509917,38.24216651941483,0 -122.4213333125648,38.15966606097452,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">53</SimpleData>
+					<SimpleData name="Idx">3138</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060102</SimpleData>
+					<SimpleData name="BegLng">122.344</SimpleData>
+					<SimpleData name="BegLat">38.1278</SimpleData>
+					<SimpleData name="EndLng">122.279</SimpleData>
+					<SimpleData name="EndLat">38.25</SimpleData>
+					<SimpleData name="FltDir">332</SimpleData>
+					<SimpleData name="SqMi">1.14286</SimpleData>
+					<SimpleData name="Comment">Shoreline to S of Shipyard Ac(107-108)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.6038</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.3436660767739,38.1278324126075,0 -122.2789993281814,38.25000190740786,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060203</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">54</SimpleData>
+					<SimpleData name="Idx">3139</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060203</SimpleData>
+					<SimpleData name="BegLng">122.32</SimpleData>
+					<SimpleData name="BegLat">38.3722</SimpleData>
+					<SimpleData name="EndLng">122.415</SimpleData>
+					<SimpleData name="EndLat">38.4792</SimpleData>
+					<SimpleData name="FltDir">42</SimpleData>
+					<SimpleData name="SqMi">1.12575</SimpleData>
+					<SimpleData name="Comment">N of Salvador to SE of Zinfandel(109-110)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.4762</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.3194999696838,38.37216758729123,0 -122.4144992833187,38.479169845436,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>060203</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">55</SimpleData>
+					<SimpleData name="Idx">3140</SimpleData>
+					<SimpleData name="Str">6</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">060203</SimpleData>
+					<SimpleData name="BegLng">122.842</SimpleData>
+					<SimpleData name="BegLat">38.4818</SimpleData>
+					<SimpleData name="EndLng">122.758</SimpleData>
+					<SimpleData name="EndLat">38.3583</SimpleData>
+					<SimpleData name="FltDir">214</SimpleData>
+					<SimpleData name="SqMi">1.20658</SimpleData>
+					<SimpleData name="Comment">S of Trenton to W of Wilfred(111-112)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.2934</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.8416671750089,38.48183250411378,0 -122.758333206257,38.35833549488433,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">56</SimpleData>
+					<SimpleData name="Idx">3141</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050101</SimpleData>
+					<SimpleData name="BegLng">121.87</SimpleData>
+					<SimpleData name="BegLat">38.0638</SimpleData>
+					<SimpleData name="EndLng">122.001</SimpleData>
+					<SimpleData name="EndLat">38.1528</SimpleData>
+					<SimpleData name="FltDir">56</SimpleData>
+					<SimpleData name="SqMi">1.17709</SimpleData>
+					<SimpleData name="Comment">Sacramento River to N of Grizzly Bay(113-114)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">30</SimpleData>
+					<SimpleData name="Length_mi">11.9592</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.8701667785644,38.06383323641462,0 -122.0013332363315,38.15283393816402,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">57</SimpleData>
+					<SimpleData name="Idx">3142</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050101</SimpleData>
+					<SimpleData name="BegLng">122.001</SimpleData>
+					<SimpleData name="BegLat">38.1528</SimpleData>
+					<SimpleData name="EndLng">122.104</SimpleData>
+					<SimpleData name="EndLat">38.1292</SimpleData>
+					<SimpleData name="FltDir">103</SimpleData>
+					<SimpleData name="SqMi">0.727853</SimpleData>
+					<SimpleData name="Comment">N of Grizzly Bay to Pierce(114-115)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">30</SimpleData>
+					<SimpleData name="Length_mi">7.40886</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0013332363315,38.15283393816402,0 -122.1041660313442,38.1291675571398,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">58</SimpleData>
+					<SimpleData name="Idx">3143</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050101</SimpleData>
+					<SimpleData name="BegLng">122.137</SimpleData>
+					<SimpleData name="BegLat">38.1903</SimpleData>
+					<SimpleData name="EndLng">122.086</SimpleData>
+					<SimpleData name="EndLat">38.1822</SimpleData>
+					<SimpleData name="FltDir">261</SimpleData>
+					<SimpleData name="SqMi">0.351122</SimpleData>
+					<SimpleData name="Comment">Rd 21 S of Cordelia to NW of Teal(116-117)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">1</SimpleData>
+					<SimpleData name="CVJV_Seg">30</SimpleData>
+					<SimpleData name="Length_mi">3.57693</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.1368331911826,38.1903324127237,0 -122.0861663821803,38.18216896069106,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">59</SimpleData>
+					<SimpleData name="Idx">3144</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050102</SimpleData>
+					<SimpleData name="BegLng">122.086</SimpleData>
+					<SimpleData name="BegLat">38.1822</SimpleData>
+					<SimpleData name="EndLng">121.927</SimpleData>
+					<SimpleData name="EndLat">38.1638</SimpleData>
+					<SimpleData name="FltDir">263</SimpleData>
+					<SimpleData name="SqMi">1.0923</SimpleData>
+					<SimpleData name="Comment">NW of Teal to Kirby Hill(117-118)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">31</SimpleData>
+					<SimpleData name="Length_mi">11.1262</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0861663821803,38.18216896069106,0 -121.9270000457804,38.16383552589237,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">60</SimpleData>
+					<SimpleData name="Idx">3145</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050102</SimpleData>
+					<SimpleData name="BegLng">121.894</SimpleData>
+					<SimpleData name="BegLat">38.225</SimpleData>
+					<SimpleData name="EndLng">121.948</SimpleData>
+					<SimpleData name="EndLat">38.1667</SimpleData>
+					<SimpleData name="FltDir">137</SimpleData>
+					<SimpleData name="SqMi">0.621732</SimpleData>
+					<SimpleData name="Comment">Denverton to Grizzly Island(119-120)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">31</SimpleData>
+					<SimpleData name="Length_mi">6.3181</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.8941669464491,38.22500038114873,0 -121.9478321073062,38.16666984536577,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">61</SimpleData>
+					<SimpleData name="Idx">3146</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050102</SimpleData>
+					<SimpleData name="BegLng">121.952</SimpleData>
+					<SimpleData name="BegLat">38.168</SimpleData>
+					<SimpleData name="EndLng">121.908</SimpleData>
+					<SimpleData name="EndLat">38.116</SimpleData>
+					<SimpleData name="FltDir">220</SimpleData>
+					<SimpleData name="SqMi">0.539498</SimpleData>
+					<SimpleData name="Comment">Grizzly Island SW of Birds Landing(121-122)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">2</SimpleData>
+					<SimpleData name="CVJV_Seg">31</SimpleData>
+					<SimpleData name="Length_mi">5.47787</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.9519996642233,38.16800117487121,0 -121.9079990387629,38.11599922164425,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>050203</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">62</SimpleData>
+					<SimpleData name="Idx">3147</SimpleData>
+					<SimpleData name="Str">5</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">050203</SimpleData>
+					<SimpleData name="BegLng">121.908</SimpleData>
+					<SimpleData name="BegLat">38.116</SimpleData>
+					<SimpleData name="EndLng">121.865</SimpleData>
+					<SimpleData name="EndLat">38.068</SimpleData>
+					<SimpleData name="FltDir">222</SimpleData>
+					<SimpleData name="SqMi">0.505966</SimpleData>
+					<SimpleData name="Comment">SW of Birds Landing to Sacramento River(122-123)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">3</SimpleData>
+					<SimpleData name="CVJV_Trn">3</SimpleData>
+					<SimpleData name="CVJV_Seg">32</SimpleData>
+					<SimpleData name="Length_mi">5.13394</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.9079990387629,38.11599922164425,0 -121.8653316493546,38.06800270083243,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">79</SimpleData>
+					<SimpleData name="Idx">3164</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090101</SimpleData>
+					<SimpleData name="BegLng">120.326</SimpleData>
+					<SimpleData name="BegLat">39.6978</SimpleData>
+					<SimpleData name="EndLng">120.287</SimpleData>
+					<SimpleData name="EndLat">39.814</SimpleData>
+					<SimpleData name="FltDir">342</SimpleData>
+					<SimpleData name="SqMi">1.03487</SimpleData>
+					<SimpleData name="Comment">Sierra Valley (S) Sierra Valley (N)(199-200)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">10.7403</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.3256664274061,39.69783210719558,0 -120.2875003813831,39.8140010837618,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090101</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">80</SimpleData>
+					<SimpleData name="Idx">3167</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">1</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090101</SimpleData>
+					<SimpleData name="BegLng">120.062</SimpleData>
+					<SimpleData name="BegLat">40</SimpleData>
+					<SimpleData name="EndLng">120.176</SimpleData>
+					<SimpleData name="EndLat">40.1027</SimpleData>
+					<SimpleData name="FltDir">48</SimpleData>
+					<SimpleData name="SqMi">1.1645</SimpleData>
+					<SimpleData name="Comment">Doyle .(203-204)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.1553</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.0616664886196,40.00000190731485,0 -120.1758327479622,40.10266685476881,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">81</SimpleData>
+					<SimpleData name="Idx">3168</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090102</SimpleData>
+					<SimpleData name="BegLng">120.176</SimpleData>
+					<SimpleData name="BegLat">40.1027</SimpleData>
+					<SimpleData name="EndLng">120.312</SimpleData>
+					<SimpleData name="EndLat">40.2242</SimpleData>
+					<SimpleData name="FltDir">48</SimpleData>
+					<SimpleData name="SqMi">1.38385</SimpleData>
+					<SimpleData name="Comment">. to Honey Lake(204-205)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">14.4694</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.1758327479622,40.10266685476881,0 -120.3125000002971,40.22416877705094,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090102</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">82</SimpleData>
+					<SimpleData name="Idx">3169</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">2</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090102</SimpleData>
+					<SimpleData name="BegLng">120.206</SimpleData>
+					<SimpleData name="BegLat">40.2925</SimpleData>
+					<SimpleData name="EndLng">120.329</SimpleData>
+					<SimpleData name="EndLat">1.1</SimpleData>
+					<SimpleData name="FltDir">75</SimpleData>
+					<SimpleData name="SqMi">0.857301</SimpleData>
+					<SimpleData name="Comment">Honey Lake to N of Honey Lake(206-207)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">8.99947</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.2063333332667,40.2924999999939,0 -120.3291666664446,40.32533333325895,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090103</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">83</SimpleData>
+					<SimpleData name="Idx">3170</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090103</SimpleData>
+					<SimpleData name="BegLng">120.329</SimpleData>
+					<SimpleData name="BegLat">40.3253</SimpleData>
+					<SimpleData name="EndLng">120.573</SimpleData>
+					<SimpleData name="EndLat">40.3958</SimpleData>
+					<SimpleData name="FltDir">74</SimpleData>
+					<SimpleData name="SqMi">1.71333</SimpleData>
+					<SimpleData name="Comment">N of Honey Lake to Susanville(207-208)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">17.9983</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.3291664118734,40.32533454859789,0 -120.5725002288985,40.39583396949543,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090103</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">84</SimpleData>
+					<SimpleData name="Idx">3171</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">3</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090103</SimpleData>
+					<SimpleData name="BegLng">120.913</SimpleData>
+					<SimpleData name="BegLat">40.2898</SimpleData>
+					<SimpleData name="EndLng">120.994</SimpleData>
+					<SimpleData name="EndLat">40.2847</SimpleData>
+					<SimpleData name="FltDir">94</SimpleData>
+					<SimpleData name="SqMi">0.534445</SimpleData>
+					<SimpleData name="Comment">Westwood (E) Westwood (W)(209-210)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">5.61089</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.9133319851194,40.28983497631416,0 -120.9941673284516,40.28466606182037,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090104</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">85</SimpleData>
+					<SimpleData name="Idx">3172</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">4</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090104</SimpleData>
+					<SimpleData name="BegLng">121.211</SimpleData>
+					<SimpleData name="BegLat">40.2805</SimpleData>
+					<SimpleData name="EndLng">121.212</SimpleData>
+					<SimpleData name="EndLat">40.3408</SimpleData>
+					<SimpleData name="FltDir">1</SimpleData>
+					<SimpleData name="SqMi">0.521136</SimpleData>
+					<SimpleData name="Comment">Chester (S) Chester (N)(211-212)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">5.45176</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.2111663822238,40.28050041168658,0 -121.2119998930096,40.34083366373022,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090104</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">86</SimpleData>
+					<SimpleData name="Idx">3173</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">1</SimpleData>
+					<SimpleData name="Seg">4</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090104</SimpleData>
+					<SimpleData name="BegLng">121.131</SimpleData>
+					<SimpleData name="BegLat">40.8625</SimpleData>
+					<SimpleData name="EndLng">121.017</SimpleData>
+					<SimpleData name="EndLat">40.8867</SimpleData>
+					<SimpleData name="FltDir">282</SimpleData>
+					<SimpleData name="SqMi">0.77428</SimpleData>
+					<SimpleData name="Comment">Dixie Valley (W) Dixie Valley (E)(213-214)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">8.19826</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1308326722666,40.86250114483482,0 -121.0166664128378,40.88666725140228,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090204</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">87</SimpleData>
+					<SimpleData name="Idx">3174</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">4</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090204</SimpleData>
+					<SimpleData name="BegLng">121.313</SimpleData>
+					<SimpleData name="BegLat">41</SimpleData>
+					<SimpleData name="EndLng">121.38</SimpleData>
+					<SimpleData name="EndLat">41.0983</SimpleData>
+					<SimpleData name="FltDir">35</SimpleData>
+					<SimpleData name="SqMi">0.956876</SimpleData>
+					<SimpleData name="Comment">Beaver Creek Rim SE of Big Lake(215-216)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">10.1308</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.3126799224595,41.00000546326909,0 -121.380346613723,41.09833879907729,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090205</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">88</SimpleData>
+					<SimpleData name="Idx">3175</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090205</SimpleData>
+					<SimpleData name="BegLng">121.38</SimpleData>
+					<SimpleData name="BegLat">41.0983</SimpleData>
+					<SimpleData name="EndLng">121.4</SimpleData>
+					<SimpleData name="EndLat">41.1263</SimpleData>
+					<SimpleData name="FltDir">36</SimpleData>
+					<SimpleData name="SqMi">0.274638</SimpleData>
+					<SimpleData name="Comment">SE of Big Lake to Big Lake(216-217)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">2.91063</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.380346613723,41.09833879907729,0 -121.4003466208634,41.12633879970845,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090205</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">89</SimpleData>
+					<SimpleData name="Idx">3176</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090205</SimpleData>
+					<SimpleData name="BegLng">121.451</SimpleData>
+					<SimpleData name="BegLat">41.1125</SimpleData>
+					<SimpleData name="EndLng">121.383</SimpleData>
+					<SimpleData name="EndLat">41.0597</SimpleData>
+					<SimpleData name="FltDir">232</SimpleData>
+					<SimpleData name="SqMi">0.635771</SimpleData>
+					<SimpleData name="Comment">Big Lake (N) McArthur (S)(218-219)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">6.74195</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.4510132938506,41.11250546125908,0 -121.3830132754747,41.059672129131,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090205</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">90</SimpleData>
+					<SimpleData name="Idx">3177</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090205</SimpleData>
+					<SimpleData name="BegLng">121.514</SimpleData>
+					<SimpleData name="BegLat">41.102</SimpleData>
+					<SimpleData name="EndLng">121.448</SimpleData>
+					<SimpleData name="EndLat">41.0083</SimpleData>
+					<SimpleData name="FltDir">215</SimpleData>
+					<SimpleData name="SqMi">0.917664</SimpleData>
+					<SimpleData name="Comment">SE of Dana Fall River Mills (S)(220-221)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">9.71685</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.5143466360096,41.10200545540397,0 -121.4478466122735,41.00833878659772,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090205</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">91</SimpleData>
+					<SimpleData name="Idx">3178</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">5</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090205</SimpleData>
+					<SimpleData name="BegLng">121.134</SimpleData>
+					<SimpleData name="BegLat">41.032</SimpleData>
+					<SimpleData name="EndLng">121.14</SimpleData>
+					<SimpleData name="EndLat">41.0812</SimpleData>
+					<SimpleData name="FltDir">8</SimpleData>
+					<SimpleData name="SqMi">0.42677</SimpleData>
+					<SimpleData name="Comment">Big Valley (S) Bieber(222-223)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">4.51532</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1338465642753,41.03200547994197,0 -121.1403465721202,41.08117215004609,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090206</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">92</SimpleData>
+					<SimpleData name="Idx">3179</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">6</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090206</SimpleData>
+					<SimpleData name="BegLng">121.14</SimpleData>
+					<SimpleData name="BegLat">41.0812</SimpleData>
+					<SimpleData name="EndLng">121.161</SimpleData>
+					<SimpleData name="EndLat">41.2063</SimpleData>
+					<SimpleData name="FltDir">9</SimpleData>
+					<SimpleData name="SqMi">1.08927</SimpleData>
+					<SimpleData name="Comment">Bieber W of Lookout (N)(223-224)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.5406</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1403465721202,41.08117215004609,0 -121.1608465928602,41.20633882510246,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090206</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">93</SimpleData>
+					<SimpleData name="Idx">3180</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">2</SimpleData>
+					<SimpleData name="Seg">6</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090206</SimpleData>
+					<SimpleData name="BegLng">121.15</SimpleData>
+					<SimpleData name="BegLat">41.165</SimpleData>
+					<SimpleData name="EndLng">120.975</SimpleData>
+					<SimpleData name="EndLat">41.1938</SimpleData>
+					<SimpleData name="FltDir">279</SimpleData>
+					<SimpleData name="SqMi">1.16352</SimpleData>
+					<SimpleData name="Comment">N of Southard (W) to Adin (E)(225-226)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.3781</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.15034658538,41.16500548930275,0 -120.9755132272947,41.19383883883499,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090307</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">94</SimpleData>
+					<SimpleData name="Idx">3181</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">7</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090307</SimpleData>
+					<SimpleData name="BegLng">120.899</SimpleData>
+					<SimpleData name="BegLat">41.4367</SimpleData>
+					<SimpleData name="EndLng">120.718</SimpleData>
+					<SimpleData name="EndLat">41.4367</SimpleData>
+					<SimpleData name="FltDir">270</SimpleData>
+					<SimpleData name="SqMi">1.17309</SimpleData>
+					<SimpleData name="Comment">W of Canby to Rattle Snake Butte(227-228)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.5313</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8991661070903,41.43666648897337,0 -120.7180004124339,41.43666648877053,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090307</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">95</SimpleData>
+					<SimpleData name="Idx">3182</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">7</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090307</SimpleData>
+					<SimpleData name="BegLng">120.552</SimpleData>
+					<SimpleData name="BegLat">41.2353</SimpleData>
+					<SimpleData name="EndLng">120.544</SimpleData>
+					<SimpleData name="EndLat">41.3605</SimpleData>
+					<SimpleData name="FltDir">356</SimpleData>
+					<SimpleData name="SqMi">1.08234</SimpleData>
+					<SimpleData name="Comment">Likely (S) to Eastside canal(229-230)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.4937</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.5521798294467,41.23533887581572,0 -120.5441798456241,41.36050555335659,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090308</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">96</SimpleData>
+					<SimpleData name="Idx">3183</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">8</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090308</SimpleData>
+					<SimpleData name="BegLng">120.544</SimpleData>
+					<SimpleData name="BegLat">41.3605</SimpleData>
+					<SimpleData name="EndLng">120.537</SimpleData>
+					<SimpleData name="EndLat">41.4653</SimpleData>
+					<SimpleData name="FltDir">356</SimpleData>
+					<SimpleData name="SqMi">0.906708</SimpleData>
+					<SimpleData name="Comment">Eastside canal S of Alturas (N)(230-231)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">9.64584</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.5441798456241,41.36050555335659,0 -120.5368465258647,41.46533889581428,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090308</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">97</SimpleData>
+					<SimpleData name="Idx">3184</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">3</SimpleData>
+					<SimpleData name="Seg">8</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090308</SimpleData>
+					<SimpleData name="BegLng">120.462</SimpleData>
+					<SimpleData name="BegLat">41.4922</SimpleData>
+					<SimpleData name="EndLng">120.481</SimpleData>
+					<SimpleData name="EndLat">41.3368</SimpleData>
+					<SimpleData name="FltDir">173</SimpleData>
+					<SimpleData name="SqMi">1.34768</SimpleData>
+					<SimpleData name="Comment">Dorris Res (N) Dorris Res (S)(232-233)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">14.3378</SimpleData>
+					<SimpleData name="New_VCF__1">Yes</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.4616661071144,41.49216651952673,0 -120.4813327793552,41.33683204653453,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090409</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">98</SimpleData>
+					<SimpleData name="Idx">3185</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">9</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090409</SimpleData>
+					<SimpleData name="BegLng">120.035</SimpleData>
+					<SimpleData name="BegLat">41.1583</SimpleData>
+					<SimpleData name="EndLng">120.108</SimpleData>
+					<SimpleData name="EndLat">41.4125</SimpleData>
+					<SimpleData name="FltDir">16</SimpleData>
+					<SimpleData name="SqMi">2.24606</SimpleData>
+					<SimpleData name="Comment">S of Lower Lake (S) to S of Cottonwood Crk(234-235)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">23.8509</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.0351657869289,41.15833473250333,0 -120.1083316802679,41.41250038121918,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090410</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">99</SimpleData>
+					<SimpleData name="Idx">3186</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">10</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090410</SimpleData>
+					<SimpleData name="BegLng">120.108</SimpleData>
+					<SimpleData name="BegLat">41.4125</SimpleData>
+					<SimpleData name="EndLng">120.184</SimpleData>
+					<SimpleData name="EndLat">41.6667</SimpleData>
+					<SimpleData name="FltDir">17</SimpleData>
+					<SimpleData name="SqMi">2.2496</SimpleData>
+					<SimpleData name="Comment">S of Cottonwood Crk to Upper Lake (N)(235-236)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">23.9834</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.1083316802679,41.41250038121918,0 -120.1843318933735,41.66666984571803,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090411</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">100</SimpleData>
+					<SimpleData name="Idx">3187</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">4</SimpleData>
+					<SimpleData name="Seg">11</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090411</SimpleData>
+					<SimpleData name="BegLng">120.208</SimpleData>
+					<SimpleData name="BegLat">41.6447</SimpleData>
+					<SimpleData name="EndLng">120.158</SimpleData>
+					<SimpleData name="EndLat">41.8488</SimpleData>
+					<SimpleData name="FltDir">346</SimpleData>
+					<SimpleData name="SqMi">1.79242</SimpleData>
+					<SimpleData name="Comment">Lake City (S) S of Fort Bidwell (N)(237-238)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">19.17</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.2078323366262,41.64466667186635,0 -120.1579990386065,41.84883308426534,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090512</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">101</SimpleData>
+					<SimpleData name="Idx">3189</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">12</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090512</SimpleData>
+					<SimpleData name="BegLng">120.395</SimpleData>
+					<SimpleData name="BegLat">41.6863</SimpleData>
+					<SimpleData name="EndLng">120.402</SimpleData>
+					<SimpleData name="EndLat">41.6552</SimpleData>
+					<SimpleData name="FltDir">168</SimpleData>
+					<SimpleData name="SqMi">0.272601</SimpleData>
+					<SimpleData name="Comment">Southern Pacific tracks Southern Pacific tracks(S)(241-242)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">2.91193</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.3955001833143,41.68633460997944,0 -120.4021663669701,41.65516853352121,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090513</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">102</SimpleData>
+					<SimpleData name="Idx">3190</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">13</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090513</SimpleData>
+					<SimpleData name="BegLng">120.494</SimpleData>
+					<SimpleData name="BegLat">41.5463</SimpleData>
+					<SimpleData name="EndLng">120.621</SimpleData>
+					<SimpleData name="EndLat">41.755</SimpleData>
+					<SimpleData name="FltDir">31</SimpleData>
+					<SimpleData name="SqMi">1.97947</SimpleData>
+					<SimpleData name="Comment">Mud Lake (S) Mud Lake(243-244)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">21.1494</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.4936656957068,41.54633522049036,0 -120.6204986568081,41.75499916061148,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090514</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">103</SimpleData>
+					<SimpleData name="Idx">3191</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">14</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090514</SimpleData>
+					<SimpleData name="BegLng">120.621</SimpleData>
+					<SimpleData name="BegLat">41.755</SimpleData>
+					<SimpleData name="EndLng">120.656</SimpleData>
+					<SimpleData name="EndLat">41.8192</SimpleData>
+					<SimpleData name="FltDir">29</SimpleData>
+					<SimpleData name="SqMi">0.600762</SimpleData>
+					<SimpleData name="Comment">Mud Lake to N of South Mtn Res. (N)(244-245)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">6.43207</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.6204986568081,41.75499916061148,0 -120.6564998624719,41.81916618360079,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090514</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">104</SimpleData>
+					<SimpleData name="Idx">3192</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">14</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090514</SimpleData>
+					<SimpleData name="BegLng">120.78</SimpleData>
+					<SimpleData name="BegLat">41.9233</SimpleData>
+					<SimpleData name="EndLng">120.676</SimpleData>
+					<SimpleData name="EndLat">41.748</SimpleData>
+					<SimpleData name="FltDir">211</SimpleData>
+					<SimpleData name="SqMi">1.65568</SimpleData>
+					<SimpleData name="Comment">Baseball Res. (N) to S of Telephone Flat Res.(246-247)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">17.7412</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.779666900917,41.92333412212379,0 -120.6756668087145,41.74799919140681,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090515</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">105</SimpleData>
+					<SimpleData name="Idx">3193</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">15</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090515</SimpleData>
+					<SimpleData name="BegLng">120.676</SimpleData>
+					<SimpleData name="BegLat">41.748</SimpleData>
+					<SimpleData name="EndLng">120.569</SimpleData>
+					<SimpleData name="EndLat">41.583</SimpleData>
+					<SimpleData name="FltDir">213</SimpleData>
+					<SimpleData name="SqMi">1.58309</SimpleData>
+					<SimpleData name="Comment">S of Telephone Flat Res. to S ofRattle Snake Creek(247-248)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">16.9195</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.6756668087145,41.74799919140681,0 -120.5688323975817,41.58300209085796,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090515</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">106</SimpleData>
+					<SimpleData name="Idx">3194</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">15</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090515</SimpleData>
+					<SimpleData name="BegLng">120.902</SimpleData>
+					<SimpleData name="BegLat">41.75</SimpleData>
+					<SimpleData name="EndLng">120.879</SimpleData>
+					<SimpleData name="EndLat">41.6738</SimpleData>
+					<SimpleData name="FltDir">197</SimpleData>
+					<SimpleData name="SqMi">0.67414</SimpleData>
+					<SimpleData name="Comment">Boles Creek (N) to N of Reservoir M(249-250)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">7.20654</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.902000427171,41.75000190754177,0 -120.8791656493882,41.67383384669468,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090516</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">107</SimpleData>
+					<SimpleData name="Idx">3195</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">16</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090516</SimpleData>
+					<SimpleData name="BegLng">120.879</SimpleData>
+					<SimpleData name="BegLat">41.6738</SimpleData>
+					<SimpleData name="EndLng">120.838</SimpleData>
+					<SimpleData name="EndLat">41.5333</SimpleData>
+					<SimpleData name="FltDir">197</SimpleData>
+					<SimpleData name="SqMi">1.24301</SimpleData>
+					<SimpleData name="Comment">N of Reservoir M to W Fork of Witcher Crk(250-251)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">13.2648</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.8791656493882,41.67383384669468,0 -120.8374996190056,41.53333473243452,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090516</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">108</SimpleData>
+					<SimpleData name="Idx">3196</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">16</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090516</SimpleData>
+					<SimpleData name="BegLng">121.106</SimpleData>
+					<SimpleData name="BegLat">41.5</SimpleData>
+					<SimpleData name="EndLng">121.136</SimpleData>
+					<SimpleData name="EndLat">41.5285</SimpleData>
+					<SimpleData name="FltDir">46</SimpleData>
+					<SimpleData name="SqMi">0.312769</SimpleData>
+					<SimpleData name="Comment">Beller Reservoir (S) to Spaulding Reservoir(N)(252-253)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">3.33725</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.1063327787999,41.5000019070148,0 -121.1361656192898,41.52850151052111,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090621</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">109</SimpleData>
+					<SimpleData name="Idx">3197</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">21</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090621</SimpleData>
+					<SimpleData name="BegLng">121.362</SimpleData>
+					<SimpleData name="BegLat">41.978</SimpleData>
+					<SimpleData name="EndLng">121.545</SimpleData>
+					<SimpleData name="EndLat">41.8343</SimpleData>
+					<SimpleData name="FltDir">128</SimpleData>
+					<SimpleData name="SqMi">1.71132</SimpleData>
+					<SimpleData name="Comment">Tule Lake (NE) Tule Lake (SW)(254-255)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">18.379</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.3619995117062,41.97800254832106,0 -121.5453319546591,41.83433341935377,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090621</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">110</SimpleData>
+					<SimpleData name="Idx">3198</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">21</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090621</SimpleData>
+					<SimpleData name="BegLng">121.635</SimpleData>
+					<SimpleData name="BegLat">41.9968</SimpleData>
+					<SimpleData name="EndLng">121.617</SimpleData>
+					<SimpleData name="EndLat">41.8945</SimpleData>
+					<SimpleData name="FltDir">190</SimpleData>
+					<SimpleData name="SqMi">0.891967</SimpleData>
+					<SimpleData name="Comment">White Lake (N) White Lake (S)(256-257)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">9.56901</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.6353321072855,41.99683570844375,0 -121.6166667937581,41.89450263945953,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090516</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">111</SimpleData>
+					<SimpleData name="Idx">3199</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">16</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090516</SimpleData>
+					<SimpleData name="BegLng">121.84</SimpleData>
+					<SimpleData name="BegLat">41.9797</SimpleData>
+					<SimpleData name="EndLng">121.793</SimpleData>
+					<SimpleData name="EndLat">41.9078</SimpleData>
+					<SimpleData name="FltDir">213</SimpleData>
+					<SimpleData name="SqMi">0.691427</SimpleData>
+					<SimpleData name="Comment">S of Indian Lake (N) to Willow Creek(258-259)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">7.70656</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.8403320309926,41.97966957063984,0 -121.7841666665553,41.90783333300428,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090617</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">112</SimpleData>
+					<SimpleData name="Idx">3200</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">17</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090617</SimpleData>
+					<SimpleData name="BegLng">121.793</SimpleData>
+					<SimpleData name="BegLat">41.9078</SimpleData>
+					<SimpleData name="EndLng">121.737</SimpleData>
+					<SimpleData name="EndLat">41.8278</SimpleData>
+					<SimpleData name="FltDir">215</SimpleData>
+					<SimpleData name="SqMi">0.777739</SimpleData>
+					<SimpleData name="Comment">Willow Creek Willow Creek (S)(259-260)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">8.08092</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.7841666665553,41.90783333300428,0 -121.7373333335598,41.82783333341403,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090617</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">113</SimpleData>
+					<SimpleData name="Idx">3201</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">17</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090617</SimpleData>
+					<SimpleData name="BegLng">121.906</SimpleData>
+					<SimpleData name="BegLat">41.8513</SimpleData>
+					<SimpleData name="EndLng">121.947</SimpleData>
+					<SimpleData name="EndLat">41.9813</SimpleData>
+					<SimpleData name="FltDir">18</SimpleData>
+					<SimpleData name="SqMi">1.15433</SimpleData>
+					<SimpleData name="Comment">N of Sheep Mountain to NW of Dorris(261-262)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.3793</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-121.9055004114023,41.85133552525254,0 -121.9471664425152,41.98133277914776,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090617</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">114</SimpleData>
+					<SimpleData name="Idx">3202</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">17</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090617</SimpleData>
+					<SimpleData name="BegLng">122.026</SimpleData>
+					<SimpleData name="BegLat">41.9228</SimpleData>
+					<SimpleData name="EndLng">122.038</SimpleData>
+					<SimpleData name="EndLat">41.887</SimpleData>
+					<SimpleData name="FltDir">162</SimpleData>
+					<SimpleData name="SqMi">0.317955</SimpleData>
+					<SimpleData name="Comment">W of McGavin Peak to N of Meis Lake(263-264)</SimpleData>
+					<SimpleData name="VCF">Yes</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">3.40947</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0264987948584,41.92283439679044,0 -122.0378322606091,41.8869991298229,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090718</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">115</SimpleData>
+					<SimpleData name="Idx">3203</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">18</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090718</SimpleData>
+					<SimpleData name="BegLng">122.038</SimpleData>
+					<SimpleData name="BegLat">41.887</SimpleData>
+					<SimpleData name="EndLng">122.076</SimpleData>
+					<SimpleData name="EndLat">41.7645</SimpleData>
+					<SimpleData name="FltDir">163</SimpleData>
+					<SimpleData name="SqMi">1.08668</SimpleData>
+					<SimpleData name="Comment">N of Meis Lake to SE of Ball Mountain(264-265)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.6372</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.0378322606091,41.8869991298229,0 -122.076332092609,41.76450157152742,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090719</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">116</SimpleData>
+					<SimpleData name="Idx">3204</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">6</SimpleData>
+					<SimpleData name="Seg">18</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090719</SimpleData>
+					<SimpleData name="BegLng">122.37</SimpleData>
+					<SimpleData name="BegLat">41.6785</SimpleData>
+					<SimpleData name="EndLng">122.501</SimpleData>
+					<SimpleData name="EndLat">41.771</SimpleData>
+					<SimpleData name="FltDir">55</SimpleData>
+					<SimpleData name="SqMi">1.16721</SimpleData>
+					<SimpleData name="Comment">SE of Little Shasta (S) to N of Montague(266-267)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">12.5026</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.3694992068951,41.67849922172222,0 -122.5014991765708,41.77100181619262,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090719</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">117</SimpleData>
+					<SimpleData name="Idx">3205</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">19</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090719</SimpleData>
+					<SimpleData name="BegLng">122.515</SimpleData>
+					<SimpleData name="BegLat">41.7798</SimpleData>
+					<SimpleData name="EndLng">122.492</SimpleData>
+					<SimpleData name="EndLat">41.5203</SimpleData>
+					<SimpleData name="FltDir">185</SimpleData>
+					<SimpleData name="SqMi">2.24598</SimpleData>
+					<SimpleData name="Comment">N of Montague to Gazelle(268-269)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">23.9818</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.5146656039229,41.77983284011583,0 -122.4923324587098,41.52033424381936,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090720</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">118</SimpleData>
+					<SimpleData name="Idx">3207</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">20</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090720</SimpleData>
+					<SimpleData name="BegLng">122.853</SimpleData>
+					<SimpleData name="BegLat">41.5977</SimpleData>
+					<SimpleData name="EndLng">122.865</SimpleData>
+					<SimpleData name="EndLat">41.4563</SimpleData>
+					<SimpleData name="FltDir">175</SimpleData>
+					<SimpleData name="SqMi">1.22333</SimpleData>
+					<SimpleData name="Comment">Fort Jones (N) to E of Etna(270-271)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">13.0374</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.8529987330168,41.59766960176545,0 -122.8653316494714,41.45633506811818,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090720</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">119</SimpleData>
+					<SimpleData name="Idx">3208</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">7</SimpleData>
+					<SimpleData name="Seg">20</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090720</SimpleData>
+					<SimpleData name="BegLng">122.865</SimpleData>
+					<SimpleData name="BegLat">41.4563</SimpleData>
+					<SimpleData name="EndLng">122.819</SimpleData>
+					<SimpleData name="EndLat">41.3415</SimpleData>
+					<SimpleData name="FltDir">202</SimpleData>
+					<SimpleData name="SqMi">1.03627</SimpleData>
+					<SimpleData name="Comment">E of Etna to N of Gallahan (S)(271-272)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">11.0251</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-122.8653316494714,41.45633506811818,0 -122.8190002444941,41.34150123594528,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040830</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">121</SimpleData>
+					<SimpleData name="Idx">3210</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">8</SimpleData>
+					<SimpleData name="Seg">30</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040830</SimpleData>
+					<SimpleData name="BegLng">120.281</SimpleData>
+					<SimpleData name="BegLat">37.1952</SimpleData>
+					<SimpleData name="EndLng">120.499</SimpleData>
+					<SimpleData name="EndLat">37.0017</SimpleData>
+					<SimpleData name="FltDir">132</SimpleData>
+					<SimpleData name="SqMi">2.24539</SimpleData>
+					<SimpleData name="Comment"></SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">6</SimpleData>
+					<SimpleData name="CVJV_Seg">40</SimpleData>
+					<SimpleData name="Length_mi">22.492</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.2814998631912,37.19516944840314,0 -120.4991664881229,37.0016689297336,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>040831</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">122</SimpleData>
+					<SimpleData name="Idx">3211</SimpleData>
+					<SimpleData name="Str">4</SimpleData>
+					<SimpleData name="Trn">8</SimpleData>
+					<SimpleData name="Seg">31</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">040831</SimpleData>
+					<SimpleData name="BegLng">120.499</SimpleData>
+					<SimpleData name="BegLat">37.0017</SimpleData>
+					<SimpleData name="EndLng">120.716</SimpleData>
+					<SimpleData name="EndLat">36.8075</SimpleData>
+					<SimpleData name="FltDir">132</SimpleData>
+					<SimpleData name="SqMi">2.24762</SimpleData>
+					<SimpleData name="Comment"></SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">4</SimpleData>
+					<SimpleData name="CVJV_Trn">6</SimpleData>
+					<SimpleData name="CVJV_Seg">41</SimpleData>
+					<SimpleData name="Length_mi">22.4566</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.4991664881229,37.0016689297336,0 -120.715831757138,36.80750083921003,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+		<Placemark>
+			<name>090511</name>
+			<styleUrl>#style4</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_CABPOP_LINES_IIIIISSDDDDIDSSIIIDS">
+					<SimpleData name="OBJECTID">123</SimpleData>
+					<SimpleData name="Idx">3188</SimpleData>
+					<SimpleData name="Str">9</SimpleData>
+					<SimpleData name="Trn">5</SimpleData>
+					<SimpleData name="Seg">11</SimpleData>
+					<SimpleData name="AGName"></SimpleData>
+					<SimpleData name="Segment">090511</SimpleData>
+					<SimpleData name="BegLng">120.329</SimpleData>
+					<SimpleData name="BegLat">41.9958</SimpleData>
+					<SimpleData name="EndLng">120.341</SimpleData>
+					<SimpleData name="EndLat">41.9433</SimpleData>
+					<SimpleData name="FltDir">168</SimpleData>
+					<SimpleData name="SqMi">0.459256</SimpleData>
+					<SimpleData name="Comment">Goose Lake (N) Goose Lake(239-240)</SimpleData>
+					<SimpleData name="VCF">No</SimpleData>
+					<SimpleData name="CVJV_Str">0</SimpleData>
+					<SimpleData name="CVJV_Trn">0</SimpleData>
+					<SimpleData name="CVJV_Seg">0</SimpleData>
+					<SimpleData name="Length_mi">4.92881</SimpleData>
+					<SimpleData name="New_VCF__1">No</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<LineString>
+				<coordinates>
+					-120.3291664118442,41.99583244355371,0 -120.3404999995928,41.94333333366255,0 
+				</coordinates>
+			</LineString>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>

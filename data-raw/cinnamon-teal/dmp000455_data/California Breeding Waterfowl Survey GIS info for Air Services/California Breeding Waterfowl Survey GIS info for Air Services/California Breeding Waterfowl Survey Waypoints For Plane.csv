@@ -1,0 +1,179 @@
+Strata,Waypoint,Segment,Latitude,Longitude,Old VCF,New VCF (2019),Comment
+Sacramento Valley,1,1,40.042833,-122.085000,No,No,N of Los Molinos
+Sacramento Valley,2,1,39.854167,-122.318500,No,No,to Black Butte Res.
+Sacramento Valley,3,2,39.687500,-122.242333,No,No,SW of Orland
+Sacramento Valley,4,2,39.876167,-122.009500,No,No,to NW of Chico(RR)
+Sacramento Valley,5,3,39.718667,-121.918833,No,No,W of Chico
+Sacramento Valley,6,3,39.530000,-122.151167,No,No,to NE Willows
+Sacramento Valley,7,4,39.229167,-122.259000,Yes,Yes,SW of Maxwell
+Sacramento Valley,8,5,39.418667,-122.028667,Yes,Yes,to N of Princeton
+Sacramento Valley,9,5,39.608667,-121.798500,No,No,to S of Durham(RR)
+Sacramento Valley,10,6,39.487833,-121.656167,Yes,Yes,Thermalito
+Sacramento Valley,11,7,39.298667,-121.886833,Yes,Yes,to N of Sutter Butte
+Sacramento Valley,12,7,39.108333,-122.115833,No,No,to SE of Williams(I-5)
+Sacramento Valley,13,8,38.958833,-122.015833,Yes,Yes,SW of College City
+Sacramento Valley,14,9,39.147667,-121.785500,Yes,Yes,to Sutter
+Sacramento Valley,15,9,39.336333,-121.554333,No,No,to NW of Honcut
+Sacramento Valley,16,10,39.017833,-121.676167,Yes,Yes,SW of Yuba City
+Sacramento Valley,17,10,38.829167,-121.906167,Yes,Yes,to N of Zamora
+Sacramento Valley,18,11,38.625000,-121.875833,No,No,SW of Woodland
+Sacramento Valley,19,12,38.816167,-121.649500,Yes,Yes,to N of Verona
+Sacramento Valley,20,12,39.006500,-121.422167,Yes,Yes,to SE of Wheatland
+Sacramento Valley,21,13,38.812167,-121.343833,No,No,N of Roseville
+Sacramento Valley,22,14,38.623500,-121.573167,Yes,Yes,to SW of Natomas
+Sacramento Valley,23,14,38.434833,-121.802000,Yes,Yes,to Dixon
+Sacramento Valley,24,15,38.272167,-121.728333,No,No,SW Sacramento
+Sacramento Valley,25,15,38.460833,-121.500000,No,No,to Freeport
+Sacramento Valley,26,16,38.526329,-121.127987,Yes,Yes,
+Sacramento Valley,27,16,38.337662,-121.356486,Yes,Yes,
+Delta,28,17,38.187167,-121.681667,No,No,N of Rio Vista
+Delta,29,17,38.375833,-121.453667,No,No,to Franklin Blvd.
+Delta,30,18,38.245500,-121.431167,No,No,N of Thornton
+Delta,31,18,38.056833,-121.658833,No,No,to W of Franks Tract
+Delta,32,19,37.943833,-121.621833,Yes,Yes,E of Brentwood
+Delta,33,19,38.132500,-121.394500,Yes,Yes,to W of Woodbridge(RR)
+Delta,34,20,38.013000,-121.358833,No,No,Wright Tract
+Delta,35,20,37.824333,-121.585667,No,No,to SE of Byron(RR)
+San Joaquin Grasslands,36,21,37.734333,-121.539667,No,No,Bethany
+San Joaquin Grasslands,37,21,37.923000,-121.313000,No,No,to Stockton
+San Joaquin Grasslands,38,22,37.865500,-121.104500,No,No,NE of Five Corners(RR)
+San Joaquin Grasslands,39,22,37.676833,-121.331000,No,No,to NW of Vernalis(Hwy33)
+San Joaquin Grasslands,40,23,37.523833,-121.239167,No,No,W of Westly
+San Joaquin Grasslands,41,23,37.712500,-121.013167,No,No,to N of Modesto(Hwy219)
+San Joaquin Grasslands,42,24,37.603667,-120.867000,No,No,E of Ceres (RR)
+San Joaquin Grasslands,43,24,37.415000,-121.092667,No,No,to N of Crows Landing
+San Joaquin Grasslands,44,25,37.198500,-121.070167,No,No,SW of Gustine (Aqueduct)
+San Joaquin Grasslands,45,26,37.387167,-120.845000,No,No,to SW of Irwin
+San Joaquin Grasslands,46,26,37.575833,-120.619500,No,No,to SW of Turlock Lake
+San Joaquin Grasslands,47,27,37.331167,-120.645833,Yes,Yes,SW of Atwater
+San Joaquin Grasslands,48,27,37.142500,-120.870667,Yes,Yes,to W of Santa Fe Canal
+San Joaquin Grasslands,49,28,36.941833,-120.841667,Yes,Yes,S of Los Banos(Aqueduct)
+San Joaquin Grasslands,50,29,37.135833,-120.624333,Yes,Yes,to Sand Slough
+San Joaquin Grasslands,51,29,37.329000,-120.406000,No,No,to E of Merced
+San Joaquin Desert,52,30,37.195167,-120.281500,No,No,N of Chowchilla
+San Joaquin Desert,53,31,37.001667,-120.499167,No,No,Fresno/San Joaquin river
+San Joaquin Desert,54,31,36.807500,-120.715833,No,No,to SW of Oro Loma(Aqued)
+San Joaquin Desert,55,32,36.549833,-120.490000,Yes,Yes,N of Panoche Jct.
+San Joaquin Desert,56,33,36.744500,-120.258000,Yes,Yes,to N Hwy. 180
+San Joaquin Desert,57,33,36.927167,-120.026667,No,No,to E of Madera(Hwy 99)
+San Joaquin Desert,58,34,36.687833,-119.764833,No,No,S of Fresno (Hwy 99)
+San Joaquin Desert,59,35,36.499167,-119.987833,No,No,to NW of Burrel
+San Joaquin Desert,60,35,36.310500,-120.210167,No,No,to SE of Harris Ranch(Aq)
+San Joaquin Desert,61,36,36.072167,-119.965167,No,No,NW of Kettleman City
+San Joaquin Desert,62,37,36.261500,-119.744000,No,No,to S of Lemoore
+San Joaquin Desert,63,37,36.450167,-119.522000,No,No,to Traver(Hwy 99)
+San Joaquin Desert,64,38,36.154000,-119.295167,Yes,Yes,S of Tulare (Hwy 99)
+San Joaquin Desert,65,39,35.964833,-119.531667,Yes,Yes,to NE of Homeland Canal
+San Joaquin Desert,66,39,35.775000,-119.751333,No,No,to Antelope Plain(SW I-5)
+San Joaquin Desert,67,40,35.500333,-119.558167,No,No,SW of Goose Lake Bed
+San Joaquin Desert,68,40,35.686667,-119.335167,No,No,to SE of Delano (Hwy 43)
+West Valley,69,1,38.391667,-122.000000,Yes,Yes,Nut Tree
+West Valley,70,2,38.652000,-122.002333,Yes,Yes,to S of Esparto
+West Valley,71,2,38.912167,-122.004667,No,No,to N of Dunnigan
+West Valley,72,3,39.448000,-122.329167,No,No,SW Willows
+West Valley,73,3,39.708333,-122.328500,No,No,to W of Orland
+East Valley,74,4,40.262500,-122.245833,No,No,N of Red Bluff
+East Valley,75,5,40.048000,-122.050333,Yes,Yes,to W of Los Malinos
+East Valley,76,5,39.833500,-121.861667,Yes,Yes,to Chico
+East Valley,77,6,38.179500,-121.086333,No,No,W of Lodi
+East Valley,78,7,37.970167,-120.890000,No,No,to E of Farmington
+East Valley,79,8,37.762667,-120.691500,No,No,to E of Oakdale
+East Valley,80,9,37.559833,-120.482667,Yes,Yes,to S of Turlock Lake
+East Valley,81,10,37.354333,-120.278167,Yes,Yes,to N of Planada
+East Valley,82,11,37.151167,-120.074833,No,No,to E of Chowchilla
+East Valley,83,11,36.947167,-119.872167,No,No,to Fresno
+Santa Rosa/Napa,101,1,38.232500,-122.596500,No,No,Petaluma
+Santa Rosa/Napa,102,1,38.119167,-122.511000,No,No,to Black Point
+Santa Rosa/Napa,103,1,38.117000,-122.447833,No,No,Midshipman Pt.
+Santa Rosa/Napa,104,1,38.242167,-122.402000,No,No,to E of Schellville
+Santa Rosa/Napa,105,2,38.242167,-122.294500,No,No,SE of Shipyard Acres
+Santa Rosa/Napa,106,2,38.159667,-122.421333,No,No,to Sonoma Creek
+Santa Rosa/Napa,107,2,38.127833,-122.343667,No,No,Shoreline
+Santa Rosa/Napa,108,2,38.250000,-122.279000,No,No,to S of Shipyard Ac
+Santa Rosa/Napa,109,3,38.372167,-122.319500,No,No,N of Salvador
+Santa Rosa/Napa,110,3,38.479167,-122.414500,No,No,to SE of Zinfandel
+Santa Rosa/Napa,111,3,38.481833,-122.841667,No,No,S of Trenton
+Santa Rosa/Napa,112,3,38.358333,-122.758333,No,No,to W of Wilfred
+Suisan Marsh,113,1,38.063833,-121.870167,Yes,Yes,Sacramento River
+Suisan Marsh,114,1,38.152833,-122.001333,Yes,Yes,to N of Grizzly Bay
+Suisan Marsh,115,1,38.129167,-122.104167,Yes,Yes,to Pierce
+Suisan Marsh,116,2,38.190333,-122.136833,Yes,Yes,Rd. 21 S of Cordelia
+Suisan Marsh,117,2,38.182167,-122.086167,Yes,Yes,to NW of Teal
+Suisan Marsh,118,2,38.163833,-121.927000,No,No,to Kirby Hill
+Suisan Marsh,119,2,38.225000,-121.894167,No,No,Denverton
+Suisan Marsh,120,2,38.166667,-121.947833,No,No,to Grizzly Island
+Suisan Marsh,121,2,38.168000,-121.952000,No,No,Grizzly Island
+Suisan Marsh,122,3,38.116000,-121.908000,No,No,SW of Birds Landing
+Suisan Marsh,123,3,38.068000,-121.865333,No,No,to Sacramento River
+Northeastern California,199,1,39.697833,-120.325667,No,Yes,Sierra Valley (S)
+Northeastern California,200,1,39.814000,-120.287500,No,Yes,(N)
+Northeastern California,203,1,40.000000,-120.061667,No,Yes,Doyle
+Northeastern California,204,2,40.102667,-120.175833,Yes,No,
+Northeastern California,205,2,40.224167,-120.312500,Yes,No,to Honey Lake
+Northeastern California,206,2,40.292500,-120.206333,Yes,No,Honey Lake
+Northeastern California,207,3,40.325333,-120.329167,Yes,Yes,to N of Honey Lake
+Northeastern California,208,3,40.395833,-120.572500,Yes,Yes,to Susanville
+Northeastern California,209,3,40.289833,-120.913333,Yes,Yes,Westwood (E)
+Northeastern California,210,3,40.284667,-120.994167,Yes,Yes,(W)
+Northeastern California,211,4,40.280500,-121.211167,No,No,Chester  (S)
+Northeastern California,212,4,40.340833,-121.212000,No,No,(N)
+Northeastern California,213,4,40.862500,-121.130833,No,No,Dixie Valley (W)
+Northeastern California,214,4,40.886667,-121.016667,No,No,(E)
+Northeastern California,215,4,41.000000,-121.312667,No,No,Beaver Creek Rim
+Northeastern California,216,5,41.098333,-121.380333,No,No,SE of Big Lake
+Northeastern California,217,5,41.126333,-121.400333,No,No,to Big Lake
+Northeastern California,218,5,41.112500,-121.451000,No,No,Big Lake (N)
+Northeastern California,219,5,41.059667,-121.383000,No,No,McArthur  (S)
+Northeastern California,220,5,41.102000,-121.514333,No,No,SE of Dana
+Northeastern California,221,5,41.008333,-121.447833,No,No,Fall River Mills (S)
+Northeastern California,222,5,41.032000,-121.133833,No,No,Big Valley   (S)
+Northeastern California,223,6,41.081167,-121.140333,No,Yes,Bieber
+Northeastern California,224,6,41.206333,-121.160833,No,Yes,W of Lookout (N)
+Northeastern California,225,6,41.165000,-121.150333,No,Yes,N of Southard (W)
+Northeastern California,226,6,41.193833,-120.975500,No,Yes,to Adin       (E)
+Northeastern California,227,7,41.436667,-120.899167,No,No,W of Canby
+Northeastern California,228,7,41.436667,-120.718000,No,No,to Rattle Snake Butte
+Northeastern California,229,7,41.235333,-120.552167,No,No,Likely       (S)
+Northeastern California,230,8,41.360500,-120.544167,No,Yes,to Eastside canal
+Northeastern California,231,8,41.465333,-120.536833,No,Yes,S of Alturas (N)
+Northeastern California,232,8,41.492167,-120.461667,No,Yes,Dorris Res (N)
+Northeastern California,233,8,41.336833,-120.481333,No,Yes,(S)
+Northeastern California,234,9,41.158333,-120.035167,No,No,S of Lower Lake (S)
+Northeastern California,235,10,41.412500,-120.108333,No,No,to S of Cottonwood ck
+Northeastern California,236,10,41.666667,-120.184333,No,No,to Upper Lake   (N)
+Northeastern California,237,11,41.644667,-120.207833,No,No,Lake City         (S)
+Northeastern California,238,11,41.848833,-120.158000,No,No,S of Fort Bidwell (N)
+Northeastern California,239,11,41.995833,-120.329167,No,No,Goose Lake (N)
+Northeastern California,240,12,41.943333,-120.340500,No,No,Goose Lake
+Northeastern California,241,12,41.686333,-120.395500,No,No,Southern Pacific tracks
+Northeastern California,242,12,41.655167,-120.402167,No,No,(S)
+Northeastern California,243,13,41.546333,-120.493667,No,No,Mud Lake (S)
+Northeastern California,244,14,41.755000,-120.620500,No,No,
+Northeastern California,245,14,41.819167,-120.656500,No,No,to N of South Mtn.Res.(N)
+Northeastern California,246,14,41.923333,-120.779667,No,No,Baseball Res.  (N)
+Northeastern California,247,15,41.748000,-120.675667,No,No,to S of Telephone Flat Res.
+Northeastern California,248,15,41.583000,-120.568833,No,No,to S ofRattle Snake Creek
+Northeastern California,249,15,41.750000,-120.902000,No,No,Boles Creek (N)
+Northeastern California,250,16,41.673833,-120.879167,No,No,to N of Reservoir M
+Northeastern California,251,16,41.533333,-120.837500,No,No,to W Fork of Witcher Creek
+Northeastern California,252,16,41.500000,-121.106333,No,No,Beller Reservoir (S)
+Northeastern California,253,16,41.528500,-121.136167,No,No,to Spaulding Reservoir(N)
+Northeastern California,254,21,41.978000,-121.362000,Yes,No,Tule Lake (NE)
+Northeastern California,255,21,41.834333,-121.545333,Yes,No,Tule Lake (SW)
+Northeastern California,256,21,41.996833,-121.635333,Yes,No,White Lake (N)
+Northeastern California,257,21,41.894500,-121.616667,Yes,No,(S)
+Northeastern California,258,16,41.979667,-121.840333,No,No,S of Indian Lake (N)
+Northeastern California,259,17,41.907833,-121.784167,Yes,No,to Willow Creek
+Northeastern California,260,17,41.827833,-121.737333,Yes,No,(S)
+Northeastern California,261,17,41.851333,-121.905500,Yes,No,N of Sheep Mountain
+Northeastern California,262,17,41.981333,-121.947167,Yes,No,to NW of Dorris
+Northeastern California,263,17,41.922833,-122.026500,Yes,No,W of McGavin Peak
+Northeastern California,264,18,41.887000,-122.037833,Yes,No,to N of Meis Lake
+Northeastern California,265,18,41.764500,-122.076333,No,No,to SE of Ball Mountain
+Northeastern California,266,18,41.678500,-122.369500,No,No,SE of Little Shasta (S)
+Northeastern California,267,18,41.771000,-122.501500,No,No,to N of Montague
+Northeastern California,268,19,41.779833,-122.514667,No,No,N of Montague
+Northeastern California,269,19,41.520333,-122.492333,No,No,to Gazelle
+Northeastern California,270,20,41.597667,-122.853000,No,No,Fort Jones (N)
+Northeastern California,271,20,41.456333,-122.865333,No,No,to E of Etna
+Northeastern California,272,20,41.341500,-122.819000,No,No,to N of Gallahan (S)

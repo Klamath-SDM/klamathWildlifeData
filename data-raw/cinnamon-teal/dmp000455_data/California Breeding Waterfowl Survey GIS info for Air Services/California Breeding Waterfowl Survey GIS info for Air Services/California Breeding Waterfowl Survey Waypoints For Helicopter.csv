@@ -1,0 +1,51 @@
+Strata,Segment,Waypoint,Latitude,Longitude,Comment
+Sacramento Valley,4,7,39.229167,-122.259000,SW of Maxwell
+Sacramento Valley,5,8,39.418667,-122.028667,to N of Princeton
+Sacramento Valley,6,10,39.487833,-121.656167,Thermalito
+Sacramento Valley,7,11,39.298667,-121.886833,to N of Sutter Butte
+Sacramento Valley,8,13,38.958833,-122.015833,SW of College City
+Sacramento Valley,9,14,39.147667,-121.785500,to Sutter
+Sacramento Valley,10,16,39.017833,-121.676167,SW of Yuba City
+Sacramento Valley,10,17,38.829167,-121.906167,to N of Zamora
+Sacramento Valley,12,19,38.816167,-121.649500,to N of Verona
+Sacramento Valley,12,20,39.006500,-121.422167,to SE of Wheatland
+Sacramento Valley,14,22,38.623500,-121.573167,to SW of Natomas
+Sacramento Valley,14,23,38.434833,-121.802000,to Dixon
+Sacramento Valley,16,26,38.526329,-121.127987,(blank)
+Sacramento Valley,16,27,38.337662,-121.356486,(blank)
+Delta,19,32,37.943833,-121.621833,E of Brentwood
+Delta,19,33,38.132500,-121.394500,to W of Woodbridge(RR)
+San Joaquin Grasslands,27,47,37.331167,-120.645833,SW of Atwater
+San Joaquin Grasslands,27,48,37.142500,-120.870667,to W of Santa Fe Canal
+San Joaquin Grasslands,28,49,36.941833,-120.841667,S of Los Banos(Aqueduct)
+San Joaquin Grasslands,29,50,37.135833,-120.624333,to Sand Slough
+San Joaquin Desert,32,55,36.549833,-120.490000,N of Panoche Jct.
+San Joaquin Desert,33,56,36.744500,-120.258000,to N Hwy. 180
+San Joaquin Desert,38,64,36.154000,-119.295167,S of Tulare (Hwy 99)
+San Joaquin Desert,39,65,35.964833,-119.531667,to NE of Homeland Canal
+West Valley,1,69,38.391667,-122.000000,Nut Tree
+West Valley,2,70,38.652000,-122.002333,to S of Esparto
+East Valley,5,75,40.048000,-122.050333,to W of Los Malinos
+East Valley,5,76,39.833500,-121.861667,to Chico
+East Valley,9,80,37.559833,-120.482667,to S of Turlock Lake
+East Valley,10,81,37.354333,-120.278167,to N of Planada
+Suisan Marsh,1,113,38.063833,-121.870167,Sacramento River
+Suisan Marsh,1,114,38.152833,-122.001333,to N of Grizzly Bay
+Suisan Marsh,1,115,38.129167,-122.104167,to Pierce
+Suisan Marsh,2,116,38.190333,-122.136833,Rd. 21 S of Cordelia
+Suisan Marsh,2,117,38.182167,-122.086167,to NW of Teal
+Northeastern California,1,199,39.697833,-120.325667,Sierra Valley (S)
+Northeastern California,1,200,39.814000,-120.287500,(N)
+Northeastern California,1,203,40.000000,-120.061667,Doyle
+Northeastern California,3,207,40.325333,-120.329167,to N of Honey Lake
+Northeastern California,3,208,40.395833,-120.572500,to Susanville
+Northeastern California,3,209,40.289833,-120.913333,Westwood (E)
+Northeastern California,3,210,40.284667,-120.994167,(W)
+Northeastern California,6,223,41.081167,-121.140333,Bieber
+Northeastern California,6,224,41.206333,-121.160833,W of Lookout (N)
+Northeastern California,6,225,41.165000,-121.150333,N of Southard (W)
+Northeastern California,6,226,41.193833,-120.975500,to Adin       (E)
+Northeastern California,8,230,41.360500,-120.544167,to Eastside canal
+Northeastern California,8,231,41.465333,-120.536833,S of Alturas (N)
+Northeastern California,8,232,41.492167,-120.461667,Dorris Res (N)
+Northeastern California,8,233,41.336833,-120.481333,(S)

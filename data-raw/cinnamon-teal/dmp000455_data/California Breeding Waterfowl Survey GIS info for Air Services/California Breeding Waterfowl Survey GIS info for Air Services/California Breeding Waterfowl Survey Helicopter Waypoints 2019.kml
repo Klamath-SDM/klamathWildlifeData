@@ -1,0 +1,1619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>California Breeding Waterfowl Survey Waypoints For Helicopter.csv</name>
+	<Schema name="California Breeding Waterfowl Survey Waypoints For Helicopter" id="S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+		<SimpleField type="string" name="Strata"><displayName>&lt;b&gt;Strata&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Segment"><displayName>&lt;b&gt;Segment&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Waypoint"><displayName>&lt;b&gt;Waypoint&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="Latitude"><displayName>&lt;b&gt;Latitude&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="Longitude"><displayName>&lt;b&gt;Longitude&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="Comment"><displayName>&lt;b&gt;Comment&lt;/b&gt;</displayName>
+</SimpleField>
+	</Schema>
+	<Style id="normPointStyle">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<table border="0">
+  <tr><td><b>Strata</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Strata]</td></tr>
+  <tr><td><b>Segment</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Segment]</td></tr>
+  <tr><td><b>Waypoint</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Waypoint]</td></tr>
+  <tr><td><b>Latitude</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Latitude]</td></tr>
+  <tr><td><b>Longitude</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Longitude]</td></tr>
+  <tr><td><b>Comment</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Comment]</td></tr>
+</table>
+]]></text>
+		</BalloonStyle>
+	</Style>
+	<Style id="hlightPointStyle">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<table border="0">
+  <tr><td><b>Strata</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Strata]</td></tr>
+  <tr><td><b>Segment</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Segment]</td></tr>
+  <tr><td><b>Waypoint</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Waypoint]</td></tr>
+  <tr><td><b>Latitude</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Latitude]</td></tr>
+  <tr><td><b>Longitude</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Longitude]</td></tr>
+  <tr><td><b>Comment</b></td><td>$[California Breeding Waterfowl Survey Waypoints For Helicopter/Comment]</td></tr>
+</table>
+]]></text>
+		</BalloonStyle>
+	</Style>
+	<StyleMap id="pointStyleMap">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#normPointStyle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#hlightPointStyle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Folder id="layer 0">
+		<name>California Breeding Waterfowl Survey Waypoints For Helicopter</name>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">4</SimpleData>
+					<SimpleData name="Waypoint">7</SimpleData>
+					<SimpleData name="Latitude">39.2292</SimpleData>
+					<SimpleData name="Longitude">-122.259</SimpleData>
+					<SimpleData name="Comment">SW of Maxwell</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.259,39.22916699999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">5</SimpleData>
+					<SimpleData name="Waypoint">8</SimpleData>
+					<SimpleData name="Latitude">39.4187</SimpleData>
+					<SimpleData name="Longitude">-122.029</SimpleData>
+					<SimpleData name="Comment">to N of Princeton</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.028667,39.41866699999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">6</SimpleData>
+					<SimpleData name="Waypoint">10</SimpleData>
+					<SimpleData name="Latitude">39.4878</SimpleData>
+					<SimpleData name="Longitude">-121.656</SimpleData>
+					<SimpleData name="Comment">Thermalito</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.656167,39.487833,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">7</SimpleData>
+					<SimpleData name="Waypoint">11</SimpleData>
+					<SimpleData name="Latitude">39.2987</SimpleData>
+					<SimpleData name="Longitude">-121.887</SimpleData>
+					<SimpleData name="Comment">to N of Sutter Butte</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.886833,39.29866700000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">8</SimpleData>
+					<SimpleData name="Waypoint">13</SimpleData>
+					<SimpleData name="Latitude">38.9588</SimpleData>
+					<SimpleData name="Longitude">-122.016</SimpleData>
+					<SimpleData name="Comment">SW of College City</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.015833,38.95883300000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>14</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">9</SimpleData>
+					<SimpleData name="Waypoint">14</SimpleData>
+					<SimpleData name="Latitude">39.1477</SimpleData>
+					<SimpleData name="Longitude">-121.785</SimpleData>
+					<SimpleData name="Comment">to Sutter</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.7855,39.14766700000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>16</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">10</SimpleData>
+					<SimpleData name="Waypoint">16</SimpleData>
+					<SimpleData name="Latitude">39.0178</SimpleData>
+					<SimpleData name="Longitude">-121.676</SimpleData>
+					<SimpleData name="Comment">SW of Yuba City</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.676167,39.01783299999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>17</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">10</SimpleData>
+					<SimpleData name="Waypoint">17</SimpleData>
+					<SimpleData name="Latitude">38.8292</SimpleData>
+					<SimpleData name="Longitude">-121.906</SimpleData>
+					<SimpleData name="Comment">to N of Zamora</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.906167,38.82916699999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>19</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">12</SimpleData>
+					<SimpleData name="Waypoint">19</SimpleData>
+					<SimpleData name="Latitude">38.8162</SimpleData>
+					<SimpleData name="Longitude">-121.65</SimpleData>
+					<SimpleData name="Comment">to N of Verona</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.6495,38.81616700000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>20</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">12</SimpleData>
+					<SimpleData name="Waypoint">20</SimpleData>
+					<SimpleData name="Latitude">39.0065</SimpleData>
+					<SimpleData name="Longitude">-121.422</SimpleData>
+					<SimpleData name="Comment">to SE of Wheatland</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.422167,39.00650000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>22</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">14</SimpleData>
+					<SimpleData name="Waypoint">22</SimpleData>
+					<SimpleData name="Latitude">38.6235</SimpleData>
+					<SimpleData name="Longitude">-121.573</SimpleData>
+					<SimpleData name="Comment">to SW of Natomas</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.573167,38.62349999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>23</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">14</SimpleData>
+					<SimpleData name="Waypoint">23</SimpleData>
+					<SimpleData name="Latitude">38.4348</SimpleData>
+					<SimpleData name="Longitude">-121.802</SimpleData>
+					<SimpleData name="Comment">to Dixon</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.802,38.43483300000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>26</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">16</SimpleData>
+					<SimpleData name="Waypoint">26</SimpleData>
+					<SimpleData name="Latitude">38.5263</SimpleData>
+					<SimpleData name="Longitude">-121.128</SimpleData>
+					<SimpleData name="Comment">(blank)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.127987,38.526329,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>27</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Sacramento Valley</SimpleData>
+					<SimpleData name="Segment">16</SimpleData>
+					<SimpleData name="Waypoint">27</SimpleData>
+					<SimpleData name="Latitude">38.3377</SimpleData>
+					<SimpleData name="Longitude">-121.356</SimpleData>
+					<SimpleData name="Comment">(blank)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.356486,38.33766200000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>32</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Delta</SimpleData>
+					<SimpleData name="Segment">19</SimpleData>
+					<SimpleData name="Waypoint">32</SimpleData>
+					<SimpleData name="Latitude">37.9438</SimpleData>
+					<SimpleData name="Longitude">-121.622</SimpleData>
+					<SimpleData name="Comment">E of Brentwood</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.621833,37.94383299999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>33</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Delta</SimpleData>
+					<SimpleData name="Segment">19</SimpleData>
+					<SimpleData name="Waypoint">33</SimpleData>
+					<SimpleData name="Latitude">38.1325</SimpleData>
+					<SimpleData name="Longitude">-121.394</SimpleData>
+					<SimpleData name="Comment">to W of Woodbridge(RR)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.3945,38.13249999999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>47</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Grasslands</SimpleData>
+					<SimpleData name="Segment">27</SimpleData>
+					<SimpleData name="Waypoint">47</SimpleData>
+					<SimpleData name="Latitude">37.3312</SimpleData>
+					<SimpleData name="Longitude">-120.646</SimpleData>
+					<SimpleData name="Comment">SW of Atwater</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.645833,37.33116699999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>48</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Grasslands</SimpleData>
+					<SimpleData name="Segment">27</SimpleData>
+					<SimpleData name="Waypoint">48</SimpleData>
+					<SimpleData name="Latitude">37.1425</SimpleData>
+					<SimpleData name="Longitude">-120.871</SimpleData>
+					<SimpleData name="Comment">to W of Santa Fe Canal</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.870667,37.14250000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>49</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Grasslands</SimpleData>
+					<SimpleData name="Segment">28</SimpleData>
+					<SimpleData name="Waypoint">49</SimpleData>
+					<SimpleData name="Latitude">36.9418</SimpleData>
+					<SimpleData name="Longitude">-120.842</SimpleData>
+					<SimpleData name="Comment">S of Los Banos(Aqueduct)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.841667,36.94183300000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>50</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Grasslands</SimpleData>
+					<SimpleData name="Segment">29</SimpleData>
+					<SimpleData name="Waypoint">50</SimpleData>
+					<SimpleData name="Latitude">37.1358</SimpleData>
+					<SimpleData name="Longitude">-120.624</SimpleData>
+					<SimpleData name="Comment">to Sand Slough</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.624333,37.13583299999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>55</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Desert</SimpleData>
+					<SimpleData name="Segment">32</SimpleData>
+					<SimpleData name="Waypoint">55</SimpleData>
+					<SimpleData name="Latitude">36.5498</SimpleData>
+					<SimpleData name="Longitude">-120.49</SimpleData>
+					<SimpleData name="Comment">N of Panoche Jct.</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.49,36.54983300000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>56</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Desert</SimpleData>
+					<SimpleData name="Segment">33</SimpleData>
+					<SimpleData name="Waypoint">56</SimpleData>
+					<SimpleData name="Latitude">36.7445</SimpleData>
+					<SimpleData name="Longitude">-120.258</SimpleData>
+					<SimpleData name="Comment">to N Hwy. 180</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.258,36.74450000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>64</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Desert</SimpleData>
+					<SimpleData name="Segment">38</SimpleData>
+					<SimpleData name="Waypoint">64</SimpleData>
+					<SimpleData name="Latitude">36.154</SimpleData>
+					<SimpleData name="Longitude">-119.295</SimpleData>
+					<SimpleData name="Comment">S of Tulare (Hwy 99)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-119.295167,36.154,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>65</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">San Joaquin Desert</SimpleData>
+					<SimpleData name="Segment">39</SimpleData>
+					<SimpleData name="Waypoint">65</SimpleData>
+					<SimpleData name="Latitude">35.9648</SimpleData>
+					<SimpleData name="Longitude">-119.532</SimpleData>
+					<SimpleData name="Comment">to NE of Homeland Canal</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-119.531667,35.96483300000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>69</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">West Valley</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">69</SimpleData>
+					<SimpleData name="Latitude">38.3917</SimpleData>
+					<SimpleData name="Longitude">-122</SimpleData>
+					<SimpleData name="Comment">Nut Tree</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122,38.39166699999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>70</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">West Valley</SimpleData>
+					<SimpleData name="Segment">2</SimpleData>
+					<SimpleData name="Waypoint">70</SimpleData>
+					<SimpleData name="Latitude">38.652</SimpleData>
+					<SimpleData name="Longitude">-122.002</SimpleData>
+					<SimpleData name="Comment">to S of Esparto</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.002333,38.65199999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>75</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">East Valley</SimpleData>
+					<SimpleData name="Segment">5</SimpleData>
+					<SimpleData name="Waypoint">75</SimpleData>
+					<SimpleData name="Latitude">40.048</SimpleData>
+					<SimpleData name="Longitude">-122.05</SimpleData>
+					<SimpleData name="Comment">to W of Los Malinos</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.050333,40.04800000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>76</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">East Valley</SimpleData>
+					<SimpleData name="Segment">5</SimpleData>
+					<SimpleData name="Waypoint">76</SimpleData>
+					<SimpleData name="Latitude">39.8335</SimpleData>
+					<SimpleData name="Longitude">-121.862</SimpleData>
+					<SimpleData name="Comment">to Chico</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.861667,39.83350000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>80</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">East Valley</SimpleData>
+					<SimpleData name="Segment">9</SimpleData>
+					<SimpleData name="Waypoint">80</SimpleData>
+					<SimpleData name="Latitude">37.5598</SimpleData>
+					<SimpleData name="Longitude">-120.483</SimpleData>
+					<SimpleData name="Comment">to S of Turlock Lake</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.482667,37.55983299999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>81</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">East Valley</SimpleData>
+					<SimpleData name="Segment">10</SimpleData>
+					<SimpleData name="Waypoint">81</SimpleData>
+					<SimpleData name="Latitude">37.3543</SimpleData>
+					<SimpleData name="Longitude">-120.278</SimpleData>
+					<SimpleData name="Comment">to N of Planada</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.278167,37.354333,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>113</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Suisan Marsh</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">113</SimpleData>
+					<SimpleData name="Latitude">38.0638</SimpleData>
+					<SimpleData name="Longitude">-121.87</SimpleData>
+					<SimpleData name="Comment">Sacramento River</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.870167,38.06383299999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>114</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Suisan Marsh</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">114</SimpleData>
+					<SimpleData name="Latitude">38.1528</SimpleData>
+					<SimpleData name="Longitude">-122.001</SimpleData>
+					<SimpleData name="Comment">to N of Grizzly Bay</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.001333,38.152833,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>115</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Suisan Marsh</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">115</SimpleData>
+					<SimpleData name="Latitude">38.1292</SimpleData>
+					<SimpleData name="Longitude">-122.104</SimpleData>
+					<SimpleData name="Comment">to Pierce</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.104167,38.12916699999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>116</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Suisan Marsh</SimpleData>
+					<SimpleData name="Segment">2</SimpleData>
+					<SimpleData name="Waypoint">116</SimpleData>
+					<SimpleData name="Latitude">38.1903</SimpleData>
+					<SimpleData name="Longitude">-122.137</SimpleData>
+					<SimpleData name="Comment">Rd. 21 S of Cordelia</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.136833,38.190333,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>117</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Suisan Marsh</SimpleData>
+					<SimpleData name="Segment">2</SimpleData>
+					<SimpleData name="Waypoint">117</SimpleData>
+					<SimpleData name="Latitude">38.1822</SimpleData>
+					<SimpleData name="Longitude">-122.086</SimpleData>
+					<SimpleData name="Comment">to NW of Teal</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-122.086167,38.18216700000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>199</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">199</SimpleData>
+					<SimpleData name="Latitude">39.6978</SimpleData>
+					<SimpleData name="Longitude">-120.326</SimpleData>
+					<SimpleData name="Comment">Sierra Valley (S)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.325667,39.69783300000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>200</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">200</SimpleData>
+					<SimpleData name="Latitude">39.814</SimpleData>
+					<SimpleData name="Longitude">-120.287</SimpleData>
+					<SimpleData name="Comment">(N)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.2875,39.814,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>203</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">1</SimpleData>
+					<SimpleData name="Waypoint">203</SimpleData>
+					<SimpleData name="Latitude">40</SimpleData>
+					<SimpleData name="Longitude">-120.062</SimpleData>
+					<SimpleData name="Comment">Doyle</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.061667,40.00000000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>207</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">3</SimpleData>
+					<SimpleData name="Waypoint">207</SimpleData>
+					<SimpleData name="Latitude">40.3253</SimpleData>
+					<SimpleData name="Longitude">-120.329</SimpleData>
+					<SimpleData name="Comment">to N of Honey Lake</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.329167,40.325333,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>208</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">3</SimpleData>
+					<SimpleData name="Waypoint">208</SimpleData>
+					<SimpleData name="Latitude">40.3958</SimpleData>
+					<SimpleData name="Longitude">-120.573</SimpleData>
+					<SimpleData name="Comment">to Susanville</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.5725,40.39583300000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>209</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">3</SimpleData>
+					<SimpleData name="Waypoint">209</SimpleData>
+					<SimpleData name="Latitude">40.2898</SimpleData>
+					<SimpleData name="Longitude">-120.913</SimpleData>
+					<SimpleData name="Comment">Westwood (E)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.913333,40.28983299999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>210</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">3</SimpleData>
+					<SimpleData name="Waypoint">210</SimpleData>
+					<SimpleData name="Latitude">40.2847</SimpleData>
+					<SimpleData name="Longitude">-120.994</SimpleData>
+					<SimpleData name="Comment">(W)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.994167,40.28466700000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>223</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">6</SimpleData>
+					<SimpleData name="Waypoint">223</SimpleData>
+					<SimpleData name="Latitude">41.0812</SimpleData>
+					<SimpleData name="Longitude">-121.14</SimpleData>
+					<SimpleData name="Comment">Bieber</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.140333,41.08116699999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>224</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">6</SimpleData>
+					<SimpleData name="Waypoint">224</SimpleData>
+					<SimpleData name="Latitude">41.2063</SimpleData>
+					<SimpleData name="Longitude">-121.161</SimpleData>
+					<SimpleData name="Comment">W of Lookout (N)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.160833,41.20633300000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>225</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">6</SimpleData>
+					<SimpleData name="Waypoint">225</SimpleData>
+					<SimpleData name="Latitude">41.165</SimpleData>
+					<SimpleData name="Longitude">-121.15</SimpleData>
+					<SimpleData name="Comment">N of Southard (W)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-121.150333,41.16499999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>226</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">6</SimpleData>
+					<SimpleData name="Waypoint">226</SimpleData>
+					<SimpleData name="Latitude">41.1938</SimpleData>
+					<SimpleData name="Longitude">-120.975</SimpleData>
+					<SimpleData name="Comment">to Adin (E)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.9755,41.19383299999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>230</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">8</SimpleData>
+					<SimpleData name="Waypoint">230</SimpleData>
+					<SimpleData name="Latitude">41.3605</SimpleData>
+					<SimpleData name="Longitude">-120.544</SimpleData>
+					<SimpleData name="Comment">to Eastside canal</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.544167,41.36050000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>231</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">8</SimpleData>
+					<SimpleData name="Waypoint">231</SimpleData>
+					<SimpleData name="Latitude">41.4653</SimpleData>
+					<SimpleData name="Longitude">-120.537</SimpleData>
+					<SimpleData name="Comment">S of Alturas (N)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.536833,41.465333,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>232</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">8</SimpleData>
+					<SimpleData name="Waypoint">232</SimpleData>
+					<SimpleData name="Latitude">41.4922</SimpleData>
+					<SimpleData name="Longitude">-120.462</SimpleData>
+					<SimpleData name="Comment">Dorris Res (N)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.461667,41.49216699999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>233</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</IconStyle>
+				<LineStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffe7ebef</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_California_Breeding_Waterfowl_Survey_Waypoints_For_Helicopter_SIIDDS">
+					<SimpleData name="Strata">Northeastern California</SimpleData>
+					<SimpleData name="Segment">8</SimpleData>
+					<SimpleData name="Waypoint">233</SimpleData>
+					<SimpleData name="Latitude">41.3368</SimpleData>
+					<SimpleData name="Longitude">-120.481</SimpleData>
+					<SimpleData name="Comment">(S)</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-120.481333,41.336833,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
