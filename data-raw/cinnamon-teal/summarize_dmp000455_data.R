@@ -241,5 +241,5 @@ cinnamon_teal_population <- extract_cinnamon_teal_populations()
 cat("\nCinnamon Teal statewide population estimates by year:\n")
 print(cinnamon_teal_population, n = Inf)
 
-usethis::use_data(cinnamon_teal_population, overwrite = TRUE)
+#usethis::use_data(cinnamon_teal_population, overwrite = TRUE)
 
