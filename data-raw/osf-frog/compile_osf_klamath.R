@@ -12,6 +12,7 @@ library(readr)
 library(lubridate)
 library(arcgislayers)
 library(sf)
+library(ggplot2)
 
 raw_path <- file.path("data-raw", "osf-frog", "Oregon_Spotted_Frog_Observations_in_Oregon_2016-2024.csv")
 
@@ -43,10 +44,10 @@ normalize_range <- function(x) {
 
 osf_clean <- osf_raw %>%
   mutate(
-    date = mdy(Date),
-    count = as.integer(Count),
-    township = normalize_township(Township),
-    range = normalize_range(Range)
+    obs_date = mdy(Date),
+    obs_count = as.integer(Count),
+    township_norm = normalize_township(Township),
+    range_norm = normalize_range(Range)
   )
 
 # connecting to basins ----------------------------------------------------
@@ -65,7 +66,7 @@ plss_sections <- arc_select(plss_layer, filter_geom = klamath_bbox)
 
 osf_klamath <- osf_clean |>
   janitor::clean_names() |>
-  mutate(trs_key = paste0(township, "_", range, "_", sprintf("%02d", section)))
+  mutate(trs_key = paste0(township_norm, "_", range_norm, "_", sprintf("%02d", section)))
 
 plss_sections <- plss_sections |>
   mutate(
@@ -76,9 +77,6 @@ plss_sections <- plss_sections |>
     section_fmt  = sprintf("%02d", as.integer(FRSTDIVNO)),
     trs_key      = paste0(township_fmt, "_", range_fmt, "_", section_fmt)
   )
-
-osf_klamath <- osf_klamath |>
-  mutate(trs_key = paste0(township, "_", range, "_", sprintf("%02d", section)))
 
 osf_sf <- osf_klamath |>
   left_join(
@@ -98,9 +96,37 @@ ggplot() +
 
 oregon_spotted_frog <- osf_hucs |>
   filter(!is.na(huc8)) |>
-  select(date = date_2, species, count, life_stage, sex, township, range, section, project) |>
+  select(date = obs_date, species, count = obs_count, life_stage, sex,
+         township = township_norm, range = range_norm, section, project) |>
   mutate(project = tolower(project),
          species = tolower(species)) |>
   glimpse()
+
+oregon_spotted_frog |>
+  st_drop_geometry() |>
+  mutate(year = year(date)) |>
+  summarise(count = sum(count), .by = year) |>
+ggplot(aes(x = year, y = count)) +
+  geom_col(fill = "#2a78d6", width = 0.7) +
+  scale_x_continuous(breaks = df$year) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08))) +
+  labs(
+    title = "Oregon Spotted Frog Observations in Klamath County",
+    subtitle = "Total individuals / egg masses counted per year, 2016–2024",
+    x = NULL,
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(color = "#e1e0d9", linewidth = 0.4),
+    axis.line.x        = element_line(color = "#c3c2b7", linewidth = 0.4),
+    axis.ticks         = element_blank(),
+    axis.text          = element_text(color = "#52514e"),
+    plot.title         = element_text(face = "bold", color = "#0b0b0b", size = 15),
+    plot.subtitle      = element_text(color = "#52514e", margin = margin(b = 12)),
+    plot.margin        = margin(12, 16, 12, 12)
+  )
 
 usethis::use_data(oregon_spotted_frog, overwrite = TRUE)

@@ -5,9 +5,9 @@
 \alias{oregon_spotted_frog}
 \title{Oregon Spotted Frog Observations in Klamath County, Oregon}
 \format{
-An \code{sf} object with 379 rows and 10 variables:
+An \code{sf} object with 462 rows and 10 variables:
 \describe{
-  \item{date}{Date of observation, 2016-04-26 to 2024-06-27.}
+  \item{date}{Date of observation, 2016-04-26 to 2024-08-29.}
   \item{species}{Species observed, lowercased (\code{"rana pretiosa"}).}
   \item{count}{Number of individuals/egg masses observed, 1-91.}
   \item{life_stage}{Life stage observed: \code{"egg mass"}, \code{"larva"},

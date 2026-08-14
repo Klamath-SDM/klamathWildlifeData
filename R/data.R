@@ -7,9 +7,9 @@
 #' genetics studies. Each record was matched to a HUC8 subbasin from its
 #' PLSS Township/Range/Section location.
 #'
-#' @format An \code{sf} object with 379 rows and 10 variables:
+#' @format An \code{sf} object with 462 rows and 10 variables:
 #' \describe{
-#'   \item{date}{Date of observation, 2016-04-26 to 2024-06-27.}
+#'   \item{date}{Date of observation, 2016-04-26 to 2024-08-29.}
 #'   \item{species}{Species observed, lowercased (\code{"rana pretiosa"}).}
 #'   \item{count}{Number of individuals/egg masses observed, 1-91.}
 #'   \item{life_stage}{Life stage observed: \code{"egg mass"}, \code{"larva"},
