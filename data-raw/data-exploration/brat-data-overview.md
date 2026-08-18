@@ -1,7 +1,7 @@
 Overview of BRAT: Beaver Restoration Assessment Tool
 ================
 Badhia Yunes-Katz
-2026-08-12
+2026-08-18
 
 # 1. What is BRAT?
 
@@ -33,25 +33,25 @@ archived on the [Riverscapes Data
 Exchange](https://data.riverscapes.net) as a GeoPackage. That GeoPackage
 usually contains 20+ layers, but most analysis only needs one:
 
-| Layer                                                             | What it is                                                                                                                        |
-|-------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| `vwReaches`                                                       | The main table. Every reach, fully joined with all inputs, outputs, and readable risk/opportunity labels. Use this one.           |
-| `vwDgos` / `vwIgos`                                               | The same information aggregated over a smoothed riverscape segment instead of per-reach, useful for a less noisy, zoomed-out view |
-| `ReachGeometry`, `DGOGeometry`, `IGOGeometry`                     | Bare spatial geometry with no attributes                                                                                          |
-| `DamRisks`, `DamLimitations`, `DamOpportunities`, `DamCapacities` | Small lookup tables defining what the categorical codes mean                                                                      |
-| `MetaData`                                                        | Records when and how this specific project was generated                                                                          |
+| Layer | What it is |
+|----|----|
+| `vwReaches` | The main table. Every reach, fully joined with all inputs, outputs, and readable risk/opportunity labels. Use this one. |
+| `vwDgos` / `vwIgos` | The same information aggregated over a smoothed riverscape segment instead of per-reach, useful for a less noisy, zoomed-out view |
+| `ReachGeometry`, `DGOGeometry`, `IGOGeometry` | Bare spatial geometry with no attributes |
+| `DamRisks`, `DamLimitations`, `DamOpportunities`, `DamCapacities` | Small lookup tables defining what the categorical codes mean |
+| `MetaData` | Records when and how this specific project was generated |
 
 ``` r
 # Point this at wherever you downloaded/extracted the BRAT GeoPackage
-project_dir <- "data-raw/data-exploration/ukl-brat"
+project_dir <- here::here("data-raw", "data-exploration", "ukl-brat")
 
 gpkg <- list.files(project_dir, pattern = "\\.gpkg$", recursive = TRUE, full.names = TRUE)
 gpkg
 ```
 
-    ## [1] "data-raw/data-exploration/ukl-brat/brat.gpkg"         
-    ## [2] "data-raw/data-exploration/ukl-brat/inputs/inputs.gpkg"
-    ## [3] "data-raw/data-exploration/ukl-brat/outputs/brat.gpkg"
+    ## [1] "/Users/maddeerubenson/Documents/git/klamath/klamathWildlifeData/data-raw/data-exploration/ukl-brat/brat.gpkg"         
+    ## [2] "/Users/maddeerubenson/Documents/git/klamath/klamathWildlifeData/data-raw/data-exploration/ukl-brat/inputs/inputs.gpkg"
+    ## [3] "/Users/maddeerubenson/Documents/git/klamath/klamathWildlifeData/data-raw/data-exploration/ukl-brat/outputs/brat.gpkg"
 
 ``` r
 ukl_reaches <- st_read(gpkg[1], layer = "vwReaches", quiet = TRUE)
@@ -234,18 +234,18 @@ ukl_summary_table %>%
   kable(caption = "Top 10 reaches by existing beaver dam capacity")
 ```
 
-| Stream Name       | Stream Order | Land Owner | Length (m) | Existing Dam Capacity (dams/km) | Historic Dam Capacity (dams/km) | Risk            | Limitation            | Opportunity                                |
-|:------------------|-------------:|:-----------|-----------:|--------------------------------:|--------------------------------:|:----------------|:----------------------|:-------------------------------------------|
-| Bridge Creek      |            1 | PVT        |      171.8 |                           31.48 |                           31.48 | Some Risk       | Dam Building Possible | Conflict Management                        |
-| Swan Creek        |            1 | PVT        |       34.4 |                           31.48 |                           29.25 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Odessa Creek      |            3 | USFS       |      163.4 |                           31.48 |                           29.58 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Pelican Cut Canal |            1 | PVT        |       37.6 |                           31.31 |                           31.31 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Swan Creek        |            1 | PVT        |      161.6 |                           30.60 |                           30.25 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Swan Creek        |            1 | PVT        |      299.8 |                           30.41 |                           28.05 | Minor Risk      | Dam Building Possible | Conservation/Appropriate for Translocation |
-| South Creek       |            2 | PVT        |      178.4 |                           30.36 |                           30.19 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Crane Creek       |            3 | USFS       |       16.2 |                           30.29 |                           21.79 | Negligible Risk | Dam Building Possible | Encourage Beaver Expansion/Colonization    |
-| Fourmile Creek    |            4 | PVT        |      121.1 |                           30.23 |                           31.48 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
-| Bridge Creek      |            1 | PVT        |       73.4 |                           30.21 |                           27.69 | Some Risk       | Dam Building Possible | Conflict Management                        |
+| Stream Name | Stream Order | Land Owner | Length (m) | Existing Dam Capacity (dams/km) | Historic Dam Capacity (dams/km) | Risk | Limitation | Opportunity |
+|:---|---:|:---|---:|---:|---:|:---|:---|:---|
+| Bridge Creek | 1 | PVT | 171.8 | 31.48 | 31.48 | Some Risk | Dam Building Possible | Conflict Management |
+| Swan Creek | 1 | PVT | 34.4 | 31.48 | 29.25 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Odessa Creek | 3 | USFS | 163.4 | 31.48 | 29.58 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Pelican Cut Canal | 1 | PVT | 37.6 | 31.31 | 31.31 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Swan Creek | 1 | PVT | 161.6 | 30.60 | 30.25 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Swan Creek | 1 | PVT | 299.8 | 30.41 | 28.05 | Minor Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| South Creek | 2 | PVT | 178.4 | 30.36 | 30.19 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Crane Creek | 3 | USFS | 16.2 | 30.29 | 21.79 | Negligible Risk | Dam Building Possible | Encourage Beaver Expansion/Colonization |
+| Fourmile Creek | 4 | PVT | 121.1 | 30.23 | 31.48 | Negligible Risk | Dam Building Possible | Conservation/Appropriate for Translocation |
+| Bridge Creek | 1 | PVT | 73.4 | 30.21 | 27.69 | Some Risk | Dam Building Possible | Conflict Management |
 
 Top 10 reaches by existing beaver dam capacity
 
@@ -283,10 +283,10 @@ rather than modifying the downloaded output tables.
 
 # 5. Summary
 
-| Question                                         | Answer                                                                                                                                        |
-|--------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| What does BRAT tell us?                          | How many beaver dams per km a stream reach could support, now and historically                                                                |
-| What’s the main table to use?                    | `vwReaches`                                                                                                                                   |
-| What are the key output columns?                 | `oCC_EX`, `oCC_HPE`, `Risk`, `Limitation`, `Opportunity`                                                                                      |
-| Can inputs be changed to explore scenarios?      | Yes, but outputs won’t recalculate automatically; the real model must be rerun                                                                |
+| Question | Answer |
+|----|----|
+| What does BRAT tell us? | How many beaver dams per km a stream reach could support, now and historically |
+| What’s the main table to use? | `vwReaches` |
+| What are the key output columns? | `oCC_EX`, `oCC_HPE`, `Risk`, `Limitation`, `Opportunity` |
+| Can inputs be changed to explore scenarios? | Yes, but outputs won’t recalculate automatically; the real model must be rerun |
 | Is this data reliable for refuge planning as-is? | Yes. The existing and historic capacity and risk/opportunity layers are directly usable for identifying priority reaches without modification |

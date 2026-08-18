@@ -51,7 +51,7 @@ one:
 
 ```{r load-data}
 # Point this at wherever you downloaded/extracted the BRAT GeoPackage
-project_dir <- "data-raw/data-exploration/ukl-brat"
+project_dir <- here::here("data-raw", "data-exploration", "ukl-brat")
 
 gpkg <- list.files(project_dir, pattern = "\\.gpkg$", recursive = TRUE, full.names = TRUE)
 gpkg
