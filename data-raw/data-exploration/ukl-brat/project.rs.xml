@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://xml.riverscapes.net/Projects/XSD/V2/RiverscapesProject.xsd">
+  <Name>BRAT for Long Lake Valley-Upper Klamath Lake</Name>
+  <ProjectType>Riverscapes_BRAT</ProjectType>
+  <Warehouse id="a17ab87d-e726-41a0-aac2-0b8a6ff7f0b6" apiUrl="https://api.data.riverscapes.net" ref="MTc1MjgyNDc0Nzk2Mw=="/>
+  <MetaData>
+    <Meta name="Model Version" locked="true">5.2.2</Meta>
+    <Meta name="Date Created" type="isodate" locked="true">2025-07-18T07:35:40.028944</Meta>
+    <Meta name="Model Documentation" type="url" locked="true">https://tools.riverscapes.net/brat</Meta>
+    <Meta name="HUC" type="hidden" locked="true">1801020303</Meta>
+    <Meta name="Hydrologic Unit Code" locked="true">1801020303</Meta>
+    <Meta name="BRAT Version" locked="true">5.2.2</Meta>
+    <Meta name="BRAT Timestamp">1752824140</Meta>
+    <Meta name="Runner">Cybercastor</Meta>
+    <Meta name="BRAT_Build_DateTime">2025-07-18T07:36:28.067177</Meta>
+    <Meta name="Streamside_Buffer">30.0</Meta>
+    <Meta name="Riparian_Buffer">100.0</Meta>
+    <Meta name="Reach_Codes">33400,33600,33601,33603,46000,46003,46006,46007</Meta>
+    <Meta name="Canal_Codes">33600,33601,33603</Meta>
+    <Meta name="Max_Waterbody">0.001</Meta>
+    <Meta name="gdal_srs_proj4">+proj=longlat +datum=WGS84 +no_defs</Meta>
+    <Meta name="gdal_srs_axis_mapping_strategy">0</Meta>
+    <Meta name="HUC8_Watershed">Upper Klamath Lake</Meta>
+    <Meta name="Small Search Window" type="int" locked="true">200</Meta>
+    <Meta name="Medium Search Window" type="int" locked="true">400</Meta>
+    <Meta name="Large Search Window" type="int" locked="true">1200</Meta>
+    <Meta name="Very Large Search Window" type="int" locked="true">2000</Meta>
+    <Meta name="Huge Search Window" type="int" locked="true">8000</Meta>
+    <Meta name="BratBuildProcTimeS" type="int">559.39</Meta>
+    <Meta name="BratBuildProcTimeHuman">9:19 minutes</Meta>
+    <Meta name="Watershed">Long Lake Valley-Upper Klamath Lake</Meta>
+    <Meta name="RSContext Input" type="url" locked="true">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+    <Meta name="hydro_context Input" type="url" locked="true">https://data.riverscapes.net/p/a7853439-87c5-4c68-a17f-0c282c86ed62</Meta>
+    <Meta name="Anthro Input" type="url" locked="true">https://data.riverscapes.net/p/49e52c59-e237-406f-b4bd-c207f66426a3</Meta>
+    <Meta name="VBET Input" type="url" locked="true">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+  </MetaData>
+  <ProjectBounds>
+    <Centroid>
+      <Lat>42.414036534203056</Lat>
+      <Lng>-121.98299297316444</Lng>
+    </Centroid>
+    <BoundingBox>
+      <MinLat>42.16829493289802</MinLat>
+      <MinLng>-122.22924432634969</MinLng>
+      <MaxLat>42.67614382251563</MaxLat>
+      <MaxLng>-121.70905566677759</MaxLng>
+    </BoundingBox>
+    <Path>project_bounds.geojson</Path>
+  </ProjectBounds>
+  <Realizations>
+    <Realization id="REALIZATION1" dateCreated="2025-07-18T07:35:40.032760" productVersion="5.2.2">
+      <Name>BRAT for HUC 1801020303</Name>
+      <Logs>
+        <LogFile id="LOGFILE">
+          <Name>Log</Name>
+          <Path>brat.log</Path>
+        </LogFile>
+      </Logs>
+      <Inputs>
+        <Raster id="EXVEG" extRef="d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6:Project/Realizations/Realization#REALIZATION1/Datasets/Raster#EXVEG">
+          <Name>Existing Vegetation</Name>
+          <Path>inputs/existing_veg.tif</Path>
+          <Description>LandFire Existing Vegetation Type (EVT) raster: Complexes of plant communities representing NatureServe's terrestrial Ecological Systems classification. The source is a single raster for the entire nation that is downloaded and then clipped to the riverscapes context project extent. This raster has the same raster properties and data extent as the DEM.</Description>
+          <MetaData>
+            <Meta name="Model Version" ext="project">2.1.0</Meta>
+            <Meta name="Date Created" ext="project" type="isodate">2025-07-13T04:22:41.508459</Meta>
+            <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/rscontext</Meta>
+            <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+            <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+            <Meta name="Runner" ext="project" type="hidden">Cybercastor</Meta>
+            <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+            <Meta name="ProcTimeS" ext="project" type="hidden">6143.02</Meta>
+            <Meta name="Processing Time" ext="project">1:42 hours</Meta>
+            <Meta name="DEXID" ext="warehouse" type="guid">d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+            <Meta name="SourceUrl" ext="dataset" type="url">https://landfire.gov/data_overviews.php</Meta>
+            <Meta name="DataProductVersion" ext="dataset">2.4.0</Meta>
+            <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/rscontext/data/#EXVEG</Meta>
+            <Meta name="CellSizeX" ext="dataset">25.934755481225473</Meta>
+            <Meta name="CellSizeY" ext="dataset">35.2206509127266</Meta>
+            <Meta name="projType" ext="project">RSContext</Meta>
+            <Meta name="id" ext="dataset">EXVEG</Meta>
+            <Meta name="path" ext="dataset" type="filepath">vegetation/existing_veg.tif</Meta>
+          </MetaData>
+        </Raster>
+        <Raster id="HISTVEG" extRef="d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6:Project/Realizations/Realization#REALIZATION1/Datasets/Raster#HISTVEG">
+          <Name>Historic Vegetation</Name>
+          <Path>inputs/historic_veg.tif</Path>
+          <Description>LandFire BioPhysical Settings (BPS) raster: Vegetation system that may have been dominant on the landscape pre Euro-American settlement. The source is a single raster for the entire nation that is downloaded and then clipped to the riverscapes context project extent.</Description>
+          <MetaData>
+            <Meta name="Model Version" ext="project">2.1.0</Meta>
+            <Meta name="Date Created" ext="project" type="isodate">2025-07-13T04:22:41.508459</Meta>
+            <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/rscontext</Meta>
+            <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+            <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+            <Meta name="Runner" ext="project" type="hidden">Cybercastor</Meta>
+            <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+            <Meta name="ProcTimeS" ext="project" type="hidden">6143.02</Meta>
+            <Meta name="Processing Time" ext="project">1:42 hours</Meta>
+            <Meta name="DEXID" ext="warehouse" type="guid">d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+            <Meta name="SourceUrl" ext="dataset" type="url">https://landfire.gov/data_overviews.php</Meta>
+            <Meta name="DataProductVersion" ext="dataset">2.2.0</Meta>
+            <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/rscontext/data/#HISTVEG</Meta>
+            <Meta name="CellSizeX" ext="dataset">25.934755481225473</Meta>
+            <Meta name="CellSizeY" ext="dataset">35.2206509127266</Meta>
+            <Meta name="projType" ext="project">RSContext</Meta>
+            <Meta name="id" ext="dataset">HISTVEG</Meta>
+            <Meta name="path" ext="dataset" type="filepath">vegetation/historic_veg.tif</Meta>
+          </MetaData>
+        </Raster>
+        <Raster id="HILLSHADE" extRef="d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6:Project/Realizations/Realization#REALIZATION1/Datasets/Raster#HILLSHADE">
+          <Name>DEM Hillshade</Name>
+          <Path>inputs/dem_hillshade.tif</Path>
+          <Description>Hillshade raster generated from the NED DEM using the gdal_dem tool specifying the hillshade option. This raster has the same raster properties and data extent as the DEM.</Description>
+          <MetaData>
+            <Meta name="Model Version" ext="project">2.1.0</Meta>
+            <Meta name="Date Created" ext="project" type="isodate">2025-07-13T04:22:41.508459</Meta>
+            <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/rscontext</Meta>
+            <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+            <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+            <Meta name="Runner" ext="project" type="hidden">Cybercastor</Meta>
+            <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+            <Meta name="ProcTimeS" ext="project" type="hidden">6143.02</Meta>
+            <Meta name="Processing Time" ext="project">1:42 hours</Meta>
+            <Meta name="DEXID" ext="warehouse" type="guid">d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+            <Meta name="SourceUrl" ext="dataset" type="url">https://gdal.org/programs/gdaldem.html</Meta>
+            <Meta name="DataProductVersion" ext="dataset"/>
+            <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/rscontext/data/#HILLSHADE</Meta>
+            <Meta name="CellSizeX" ext="dataset">7.577986726978885</Meta>
+            <Meta name="CellSizeY" ext="dataset">10.29021289757722</Meta>
+            <Meta name="projType" ext="project">RSContext</Meta>
+            <Meta name="id" ext="dataset">HILLSHADE</Meta>
+            <Meta name="path" ext="dataset" type="filepath">topography/dem_hillshade.tif</Meta>
+          </MetaData>
+        </Raster>
+        <Geopackage id="INPUTS">
+          <Name>Confinement</Name>
+          <Path>inputs/inputs.gpkg</Path>
+          <Layers>
+            <Vector lyrName="hydro_flowlines" extRef="a7853439-87c5-4c68-a17f-0c282c86ed62:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwReaches">
+              <Name>Hydro Flowlines</Name>
+              <Description>NHD Flowlines attributed with values for physical characteristics and hydrology</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.2</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:58:00.918810</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/hydro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">109.98</Meta>
+                <Meta name="Processing Time" ext="project">1:49 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">a7853439-87c5-4c68-a17f-0c282c86ed62</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/hydro/data/#HYDRO_LINES</Meta>
+                <Meta name="projType" ext="project">hydro_context</Meta>
+                <Meta name="lyrName" ext="dataset">vwReaches</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="hydro_igos" extRef="a7853439-87c5-4c68-a17f-0c282c86ed62:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwIgos">
+              <Name>Hydro Integrated Geographic Objects</Name>
+              <Description>IGOs attributed with values for hydrology calculated within a single DGO or an aggregation of DGOs.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.2</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:58:00.918810</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/hydro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">109.98</Meta>
+                <Meta name="Processing Time" ext="project">1:49 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">a7853439-87c5-4c68-a17f-0c282c86ed62</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/hydro/data/#ANTHRO_POINTS</Meta>
+                <Meta name="projType" ext="project">hydro_context</Meta>
+                <Meta name="lyrName" ext="dataset">vwIgos</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="hydro_dgos" extRef="a7853439-87c5-4c68-a17f-0c282c86ed62:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwDgos">
+              <Name>Hyrdo Discrete Geographic Objects</Name>
+              <Description>DGOs attributed with values for physical stream characteristics and hydrology within the DGO extent.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.2</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:58:00.918810</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/hydro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">109.98</Meta>
+                <Meta name="Processing Time" ext="project">1:49 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">a7853439-87c5-4c68-a17f-0c282c86ed62</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/hydro/data/#HYDRO_DGOS</Meta>
+                <Meta name="projType" ext="project">hydro_context</Meta>
+                <Meta name="lyrName" ext="dataset">vwDgos</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="anthro_flowlines" extRef="49e52c59-e237-406f-b4bd-c207f66426a3:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwReaches">
+              <Name>Anthro Segmented Flowlines</Name>
+              <Description>NHD Flowlines attributed with values related to anthropogenic impact.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.1</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:41:26.843426</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/anthro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="Small Search Window" ext="project" type="int">200</Meta>
+                <Meta name="Medium Search Window" ext="project" type="int">400</Meta>
+                <Meta name="Large Search Window" ext="project" type="int">1200</Meta>
+                <Meta name="Very Large Search Window" ext="project" type="int">2000</Meta>
+                <Meta name="Huge Search Window" ext="project" type="int">8000</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">737.93</Meta>
+                <Meta name="Processing Time" ext="project">12:17 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">49e52c59-e237-406f-b4bd-c207f66426a3</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/anthro/data/#ANTHRO_LINES</Meta>
+                <Meta name="projType" ext="project">Anthro</Meta>
+                <Meta name="lyrName" ext="dataset">vwReaches</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="anthro_igos" extRef="49e52c59-e237-406f-b4bd-c207f66426a3:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwIgos">
+              <Name>Anthro Integrated Geographic Objects</Name>
+              <Description>IGOs attributed with values related to anthropogenic impact calculated within a single DGO or an aggregation of DGOs.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.1</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:41:26.843426</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/anthro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="Small Search Window" ext="project" type="int">200</Meta>
+                <Meta name="Medium Search Window" ext="project" type="int">400</Meta>
+                <Meta name="Large Search Window" ext="project" type="int">1200</Meta>
+                <Meta name="Very Large Search Window" ext="project" type="int">2000</Meta>
+                <Meta name="Huge Search Window" ext="project" type="int">8000</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">737.93</Meta>
+                <Meta name="Processing Time" ext="project">12:17 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">49e52c59-e237-406f-b4bd-c207f66426a3</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/anthro/data/#ANTHRO_POINTS</Meta>
+                <Meta name="projType" ext="project">Anthro</Meta>
+                <Meta name="lyrName" ext="dataset">vwIgos</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="anthro_dgos" extRef="49e52c59-e237-406f-b4bd-c207f66426a3:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#OUTPUTS/Layers/Vector#vwDgos">
+              <Name>Anthro Discrete Geographic Objects</Name>
+              <Description>DGOs attributed with values related to anthropogenic impact calculated with the DGO extent.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">1.0.1</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-16T02:41:26.843426</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/anthro</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="Small Search Window" ext="project" type="int">200</Meta>
+                <Meta name="Medium Search Window" ext="project" type="int">400</Meta>
+                <Meta name="Large Search Window" ext="project" type="int">1200</Meta>
+                <Meta name="Very Large Search Window" ext="project" type="int">2000</Meta>
+                <Meta name="Huge Search Window" ext="project" type="int">8000</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">737.93</Meta>
+                <Meta name="Processing Time" ext="project">12:17 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="VBET Input" ext="project" type="url">https://data.riverscapes.net/p/7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">49e52c59-e237-406f-b4bd-c207f66426a3</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/anthro/data/#ANTHRO_DGOS</Meta>
+                <Meta name="projType" ext="project">Anthro</Meta>
+                <Meta name="lyrName" ext="dataset">vwDgos</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="flowareas" extRef="d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6:Project/Realizations/Realization#REALIZATION1/Datasets/Geopackage#NHDPLUSHR/Layers/Vector#NHDArea">
+              <Name>NHD Flow Area</Name>
+              <Description>NHDArea contains many additional water-polygon features. One of the more important is the stream/river feature. It represents the areal extent of the water in a wide stream/river with a basic set of attributes. These polygons typically encompass NHDFlowline artificial paths that represent the stream network. Artificial path carries the critical attributes of the stream/river, whereas NHDArea represents the geometric extent.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">2.1.0</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-13T04:22:41.508459</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/rscontext</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project" type="hidden">Cybercastor</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">6143.02</Meta>
+                <Meta name="Processing Time" ext="project">1:42 hours</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url">https://www.usgs.gov/national-hydrography/nhdplus-high-resolution</Meta>
+                <Meta name="DataProductVersion" ext="dataset">2017</Meta>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/rscontext/data/#NHDArea</Meta>
+                <Meta name="projType" ext="project">RSContext</Meta>
+                <Meta name="lyrName" ext="dataset">NHDArea</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="waterbodies" extRef="d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6:Project/Realizations/Realization#REALIZATION1/Datasets/Geopackage#NHDPLUSHR/Layers/Vector#NHDWaterbody">
+              <Name>NHD Waterbody</Name>
+              <Description>Waterbodies such as lake/pond features are represented in NHDWaterbody. They portray the spatial geometry and the attributes of the feature. These water polygons may have NHDFlowline artificial paths drawn through them to allow the representation of water flow direction. Other NHDWaterbody features are swamp/marsh, reservoir, playa, estuary, and ice mass.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">2.1.0</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-13T04:22:41.508459</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/rscontext</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Runner" ext="project" type="hidden">Cybercastor</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">6143.02</Meta>
+                <Meta name="Processing Time" ext="project">1:42 hours</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url">https://www.usgs.gov/national-hydrography/nhdplus-high-resolution</Meta>
+                <Meta name="DataProductVersion" ext="dataset">2017</Meta>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/rscontext/data/#NHDWaterbody</Meta>
+                <Meta name="projType" ext="project">RSContext</Meta>
+                <Meta name="lyrName" ext="dataset">NHDWaterbody</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="valley_bottom" extRef="7e465476-58ce-457a-a74b-f251dd8fae0a:Project/Realizations/Realization#REALIZATION1/Outputs/Geopackage#VBET_OUTPUTS/Layers/Vector#vbet_full">
+              <Name>Valley Bottom</Name>
+              <Description>The full polygonized valley bottom output.</Description>
+              <MetaData>
+                <Meta name="Model Version" ext="project">4.1.2</Meta>
+                <Meta name="Date Created" ext="project" type="isodate">2025-07-15T02:39:04.288077</Meta>
+                <Meta name="Model Documentation" ext="project" type="url">https://tools.riverscapes.net/vbet</Meta>
+                <Meta name="HUC" ext="project" type="hidden">1801020303</Meta>
+                <Meta name="Hydrologic Unit Code" ext="project">1801020303</Meta>
+                <Meta name="Flowline Type" ext="project">NHD</Meta>
+                <Meta name="Low Lying Valley Threshold" ext="project" type="int">85</Meta>
+                <Meta name="Elevated Valley Threshold" ext="project" type="int">65</Meta>
+                <Meta name="Runner" ext="project">Cybercastor</Meta>
+                <Meta name="ProcTimeS" ext="project" type="hidden">2043.15</Meta>
+                <Meta name="Processing Time" ext="project">34:03 minutes</Meta>
+                <Meta name="Watershed" ext="project">Long Lake Valley-Upper Klamath Lake</Meta>
+                <Meta name="RSContext Input" ext="project" type="url">https://data.riverscapes.net/p/d6fa0b74-36ef-4bb2-a19e-6c5314de2aa6</Meta>
+                <Meta name="TauDEM Input" ext="project" type="url">https://data.riverscapes.net/p/1b9b7647-7ff1-4b8c-8a2a-96cf4451e6ac</Meta>
+                <Meta name="ChannelArea Input" ext="project" type="url">https://data.riverscapes.net/p/03eb7e36-e4c4-45b5-9c4d-07cd9657019a</Meta>
+                <Meta name="DEXID" ext="warehouse" type="guid">7e465476-58ce-457a-a74b-f251dd8fae0a</Meta>
+                <Meta name="SourceUrl" ext="dataset" type="url"/>
+                <Meta name="DataProductVersion" ext="dataset"/>
+                <Meta name="DocsUrl" ext="dataset" type="url">https://tools.riverscapes.net/vbet/data/#VBET_FULL</Meta>
+                <Meta name="projType" ext="project">VBET</Meta>
+                <Meta name="lyrName" ext="dataset">vbet_full</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="channel_area">
+              <Name>Channel Area</Name>
+            </Vector>
+          </Layers>
+        </Geopackage>
+      </Inputs>
+      <Intermediates>
+        <Raster id="EXVEG_SUIT">
+          <Name>Existing Vegetation</Name>
+          <Path>intermediates/existing_veg_suitability.tif</Path>
+          <MetaData>
+            <Meta name="Description">The existing vegetation raster classified into suitability for dam building material, where 0 is unsuitable and 4 is preferred.</Meta>
+            <Meta name="SourceUrl" type="url"/>
+            <Meta name="DataProductVersion"/>
+            <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#EXVEG_SUIT</Meta>
+          </MetaData>
+        </Raster>
+        <Raster id="HISTVEG_SUIT">
+          <Name>Historic Vegetation</Name>
+          <Path>intermediates/historic_veg_suitability.tif</Path>
+          <MetaData>
+            <Meta name="Description">The historice vegetation raster classified into suitability for dam building material, where 0 is unsuitable and 4 is preferred.</Meta>
+            <Meta name="SourceUrl" type="url"/>
+            <Meta name="DataProductVersion"/>
+            <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#HISTVEG_SUIT</Meta>
+          </MetaData>
+        </Raster>
+        <Geopackage id="INTERMEDIATES">
+          <Name>Intermediates</Name>
+          <Path>intermediates/intermediates.gpkg</Path>
+          <Layers>
+            <Vector lyrName="attributed_network">
+              <Name>Segmented Network</Name>
+            </Vector>
+            <Vector lyrName="buffer_30m">
+              <Name>30m Buffer</Name>
+              <MetaData>
+                <Meta name="Description">A polygon of the input drainage network buffered by 30 meters.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion">5.2.2</Meta>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#30M_BUFFER</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="buffer_100m">
+              <Name>100m Buffer</Name>
+              <MetaData>
+                <Meta name="Description">A polygon of the input drainage network buffered by 100 meters.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion">5.2.2</Meta>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#100M_BUFFER</Meta>
+              </MetaData>
+            </Vector>
+          </Layers>
+        </Geopackage>
+      </Intermediates>
+      <Outputs>
+        <Geopackage id="OUTPUTS">
+          <Name>BRAT</Name>
+          <Path>outputs/brat.gpkg</Path>
+          <Layers>
+            <Vector lyrName="ReachGeometry">
+              <Name>BRAT Geometry</Name>
+              <MetaData>
+                <Meta name="Description">The BRAT drainage network: NHD Flowlines that have been segmented to 300 m.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#BRAT_GEOMETRY</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="vwReaches">
+              <Name>BRAT</Name>
+              <MetaData>
+                <Meta name="Description">The output network of the BRAT tool, with various attributes added representing model intermediates and outputs.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#BRAT_RESULTS</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="DGOGeometry">
+              <Name>Discrete Geographic Objects Geometry</Name>
+              <MetaData>
+                <Meta name="Description">Discrete Geographic Objects - The valley bottom split into a sampling frame of polygons where the IGO points are at the center of each polygon.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#DGO_GEOM</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="vwDgos">
+              <Name>BRAT Discrete Geographic Objects</Name>
+              <MetaData>
+                <Meta name="Description">DGOs attributed with values related to BRAT outputs calculated within the DGO extent.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#BRAT_DGOS</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="IGOGeometry">
+              <Name>Integrated Geographic Objects Geometry</Name>
+              <MetaData>
+                <Meta name="Description">Integrated Geographic Objects - Points placed at a specified distance interval along the valley centerline. This distance is a function of the average valley width for a given stream.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#IGO_GEOM</Meta>
+              </MetaData>
+            </Vector>
+            <Vector lyrName="vwIgos">
+              <Name>BRAT Integrated Geographic Objects</Name>
+              <MetaData>
+                <Meta name="Description">IGOs attributed with values related to BRAT outputs calculated within a single DGO or an aggregation of DGOs.</Meta>
+                <Meta name="SourceUrl" type="url"/>
+                <Meta name="DataProductVersion"/>
+                <Meta name="DocsUrl" type="url">https://tools.riverscapes.net/brat/data/#BRAT_IGOS</Meta>
+              </MetaData>
+            </Vector>
+          </Layers>
+        </Geopackage>
+        <HTMLFile id="BRAT_RUN_REPORT">
+          <Name>BRAT Report</Name>
+          <Path>outputs/brat.html</Path>
+        </HTMLFile>
+      </Outputs>
+      <Datasets>
+        <File id="Metrics">
+          <Name>Metrics</Name>
+          <Path>brat_metrics.json</Path>
+        </File>
+      </Datasets>
+    </Realization>
+  </Realizations>
+</Project>

@@ -1,0 +1,422 @@
+2025-07-18 07:35:40,028 INFO     [BRAT Build     ] =================================================================
+2025-07-18 07:35:40,028 INFO     [BRAT Build     ]                BRAT Build Tool For HUC: 1801020303               
+2025-07-18 07:35:40,028 INFO     [BRAT Build     ] =================================================================
+2025-07-18 07:35:40,028 INFO     [BRAT Build     ]  
+2025-07-18 07:35:40,028 INFO     [BRAT           ] Starting BRAT v.5.2.2
+2025-07-18 07:35:40,028 INFO     [BRAT           ] HUC: 1801020303
+2025-07-18 07:35:40,028 INFO     [BRAT           ] EPSG: 4326
+2025-07-18 07:35:40,034 INFO     [BRAT           ] Adding input rasters to project
+2025-07-18 07:35:40,034 INFO     [MakeDir        ] Folder not found. Creating: /usr/local/data/output/inputs
+2025-07-18 07:35:40,155 INFO     [add_project_raster] Raster Copied /usr/local/data/rs_context/data/vegetation/existing_veg.tif to /usr/local/data/output/inputs/existing_veg.tif
+2025-07-18 07:35:40,312 INFO     [add_project_raster] Raster Copied /usr/local/data/rs_context/data/vegetation/historic_veg.tif to /usr/local/data/output/inputs/historic_veg.tif
+2025-07-18 07:35:41,149 INFO     [add_project_raster] Raster Copied /usr/local/data/rs_context/data/topography/dem_hillshade.tif to /usr/local/data/output/inputs/dem_hillshade.tif
+2025-07-18 07:35:41,214 INFO     [MakeDir        ] Folder not found. Creating: /usr/local/data/output/outputs
+2025-07-18 07:35:41,258 INFO     [VectorBase     ] Dataset not found. Continuing: /usr/local/data/output/inputs/inputs.gpkg
+2025-07-18 07:35:41,258 INFO     [VectorBase     ] Dataset not found. Continuing: /usr/local/data/output/intermediates/intermediates.gpkg
+2025-07-18 07:35:41,258 INFO     [VectorBase     ] Dataset not found. Continuing: /usr/local/data/output/outputs/brat.gpkg
+2025-07-18 07:35:41,259 INFO     [VectorBase     ] Dataset not found. Creating: /usr/local/data/output/inputs/inputs.gpkg
+2025-07-18 07:35:41,314 DEBUG    [VectorBase     ] Dataset created: /usr/local/data/output/inputs/inputs.gpkg
+2025-07-18 07:35:41,314 DEBUG    [VectorBase     ] No layer named "hydro_flowlines" found
+2025-07-18 07:35:41,323 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer hydro_flowlines of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:35:50,637 INFO     [Copying features] Completed 4,617 operations.  Total Time: 9.0 seconds     
+2025-07-18 07:35:50,724 DEBUG    [VectorBase     ] No layer named "hydro_igos" found
+2025-07-18 07:35:50,729 WARNING  [GDALError      ] ERR# 1 -- A geometry of type POINT is inserted into layer hydro_igos of geometry type MULTIPOINT, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:35:53,233 INFO     [Copying features] Completed 2,363 operations.  Total Time: 2.0 seconds     
+2025-07-18 07:35:53,289 DEBUG    [VectorBase     ] No layer named "hydro_dgos" found
+2025-07-18 07:35:56,434 INFO     [Copying features] Completed 2,742 operations.  Total Time: 3.0 seconds     
+2025-07-18 07:35:56,496 DEBUG    [VectorBase     ] No layer named "anthro_flowlines" found
+2025-07-18 07:35:56,513 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer anthro_flowlines of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:11,826 INFO     [Copying features] Completed 4,617 operations.  Total Time: 15.0 seconds     
+2025-07-18 07:36:11,932 DEBUG    [VectorBase     ] No layer named "anthro_igos" found
+2025-07-18 07:36:11,938 WARNING  [GDALError      ] ERR# 1 -- A geometry of type POINT is inserted into layer anthro_igos of geometry type MULTIPOINT, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:16,462 INFO     [Copying features] Completed 2,363 operations.  Total Time: 4.0 seconds     
+2025-07-18 07:36:16,564 DEBUG    [VectorBase     ] No layer named "anthro_dgos" found
+2025-07-18 07:36:19,554 INFO     [Copying features] Completed 2,742 operations.  Total Time: 2.0 seconds     
+2025-07-18 07:36:19,644 DEBUG    [VectorBase     ] No layer named "flowareas" found
+2025-07-18 07:36:19,678 INFO     [Copying features] Completed 29 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:19,720 DEBUG    [VectorBase     ] No layer named "waterbodies" found
+2025-07-18 07:36:21,157 INFO     [Copying features] Completed 980 operations.  Total Time: 1.0 seconds     
+2025-07-18 07:36:21,234 DEBUG    [VectorBase     ] No layer named "valley_bottom" found
+2025-07-18 07:36:21,349 INFO     [Copying features] Completed 709 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:21,395 DEBUG    [VectorBase     ] No layer named "channel_area" found
+2025-07-18 07:36:27,921 INFO     [Copying features] Completed 3,970 operations.  Total Time: 6.0 seconds     
+2025-07-18 07:36:28,004 DEBUG    [VectorBase     ] Creating directory: /usr/local/data/output/intermediates
+2025-07-18 07:36:28,004 INFO     [MakeDir        ] Folder not found. Creating: /usr/local/data/output/intermediates
+2025-07-18 07:36:28,005 INFO     [VectorBase     ] Dataset not found. Creating: /usr/local/data/output/intermediates/intermediates.gpkg
+2025-07-18 07:36:28,007 DEBUG    [VectorBase     ] Dataset created: /usr/local/data/output/intermediates/intermediates.gpkg
+2025-07-18 07:36:28,007 DEBUG    [VectorBase     ] No layer named "attributed_network" found
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "FCode" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "StreamName" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "NHDPlusID" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "WatershedID" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "level_path" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "ownership" in layer.
+2025-07-18 07:36:28,008 INFO     [VectorBase     ] Creating output field "divergence" in layer.
+2025-07-18 07:36:28,009 INFO     [VectorBase     ] Creating output field "stream_order" in layer.
+2025-07-18 07:36:28,009 INFO     [VectorBase     ] Creating output field "us_state" in layer.
+2025-07-18 07:36:28,009 INFO     [VectorBase     ] Creating output field "ecoregion_iii" in layer.
+2025-07-18 07:36:28,009 INFO     [VectorBase     ] Creating output field "ecoregion_iv" in layer.
+2025-07-18 07:36:28,012 INFO     [VectorBase     ] Dataset not found. Creating: /usr/local/data/output/outputs/brat.gpkg
+2025-07-18 07:36:28,014 DEBUG    [VectorBase     ] Dataset created: /usr/local/data/output/outputs/brat.gpkg
+2025-07-18 07:36:28,015 DEBUG    [VectorBase     ] No layer named "DGOGeometry" found
+2025-07-18 07:36:28,015 INFO     [VectorBase     ] Creating output field "FCode" in layer.
+2025-07-18 07:36:28,015 INFO     [VectorBase     ] Creating output field "level_path" in layer.
+2025-07-18 07:36:28,015 INFO     [VectorBase     ] Creating output field "seg_distance" in layer.
+2025-07-18 07:36:28,015 INFO     [VectorBase     ] Creating output field "centerline_length" in layer.
+2025-07-18 07:36:28,015 INFO     [VectorBase     ] Creating output field "segment_area" in layer.
+2025-07-18 07:36:28,020 DEBUG    [VectorBase     ] No layer named "IGOGeometry" found
+2025-07-18 07:36:28,020 INFO     [VectorBase     ] Creating output field "FCode" in layer.
+2025-07-18 07:36:28,020 INFO     [VectorBase     ] Creating output field "level_path" in layer.
+2025-07-18 07:36:28,020 INFO     [VectorBase     ] Creating output field "seg_distance" in layer.
+2025-07-18 07:36:28,020 INFO     [VectorBase     ] Creating output field "centerline_length" in layer.
+2025-07-18 07:36:28,021 INFO     [VectorBase     ] Creating output field "stream_size" in layer.
+2025-07-18 07:36:28,067 INFO     [Database       ] Creating database schema at /usr/local/data/output/outputs/brat.gpkg
+2025-07-18 07:36:28,441 INFO     [Database       ] 2 records loaded into Epochs lookup data table
+2025-07-18 07:36:28,442 INFO     [Database       ] 85 records loaded into Ecoregions lookup data table
+2025-07-18 07:36:28,442 INFO     [Database       ] 37 records loaded into ReachCodes lookup data table
+2025-07-18 07:36:28,463 INFO     [Database       ] 2,362 records loaded into Watersheds lookup data table
+2025-07-18 07:36:28,464 INFO     [Database       ] 4 records loaded into DamRisks lookup data table
+2025-07-18 07:36:28,515 INFO     [Database       ] 4,101 records loaded into VegetationTypes lookup data table
+2025-07-18 07:36:28,516 INFO     [Database       ] 8 records loaded into DamLimitations lookup data table
+2025-07-18 07:36:28,516 INFO     [Database       ] 5 records loaded into DamCapacities lookup data table
+2025-07-18 07:36:28,516 INFO     [Database       ] 7 records loaded into DamOpportunities lookup data table
+2025-07-18 07:36:28,518 INFO     [Database       ] 377 records loaded into VegetationOverrides lookup data table
+2025-07-18 07:36:28,562 INFO     [Database       ] Storing metadata BRAT_Build_DateTime = 2025-07-18T07:36:28.067177
+2025-07-18 07:36:28,569 INFO     [Database       ] Storing metadata Streamside_Buffer = 30.0
+2025-07-18 07:36:28,576 INFO     [Database       ] Storing metadata Riparian_Buffer = 100.0
+2025-07-18 07:36:28,583 INFO     [Database       ] Storing metadata Reach_Codes = 33400,33600,33601,33603,46000,46003,46006,46007
+2025-07-18 07:36:28,590 INFO     [Database       ] Storing metadata Canal_Codes = 33600,33601,33603
+2025-07-18 07:36:28,597 INFO     [Database       ] Storing metadata Max_Waterbody = 0.001
+2025-07-18 07:36:28,604 INFO     [Database       ] Storing metadata gdal_srs_proj4 = +proj=longlat +datum=WGS84 +no_defs
+2025-07-18 07:36:28,611 INFO     [Database       ] Storing metadata gdal_srs_axis_mapping_strategy = 0
+2025-07-18 07:36:28,667 INFO     [Copy Features  ] Copying features from hydro_flowlines with specified attributes into project
+2025-07-18 07:36:28,674 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer attributed_network of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:31,712 INFO     [Processing points] Completed 4,617 operations.  Total Time: 3.0 seconds     
+2025-07-18 07:36:31,783 INFO     [Copy Features  ] Copying features from hydro_dgos with specified attributes into project
+2025-07-18 07:36:31,807 WARNING  [GDALError      ] ERR# 1 -- A geometry of type MULTIPOLYGON is inserted into layer DGOGeometry of geometry type POLYGON, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:32,321 INFO     [Processing points] Completed 2,742 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:32,372 INFO     [Copy Features  ] Copying features from hydro_igos with specified attributes into project
+2025-07-18 07:36:32,823 INFO     [Processing points] Completed 2,363 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Building network from flow lines /usr/local/data/output/intermediates/intermediates.gpkg/vwIntReaches
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining connector reaches with code 33400
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining canal reaches with code 33600
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining aqueduct reaches with code 33601
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining stormwater reaches with code 33603
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining general reaches with code 46000
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining intermittent reaches with code 46003
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining perennial reaches with code 46006
+2025-07-18 07:36:33,256 INFO     [Build Network  ] Retaining ephemeral reaches with code 46007
+2025-07-18 07:36:33,260 INFO     [Build Network  ] Retaining connector network features (FCode 33400)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining canal network features (FCode 33600)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining aqueduct network features (FCode 33601)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining stormwater network features (FCode 33603)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining general network features (FCode 46000)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining intermittent network features (FCode 46003)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining perennial network features (FCode 46006)
+2025-07-18 07:36:33,261 INFO     [Build Network  ] Retaining ephemeral network features (FCode 46007)
+2025-07-18 07:36:33,265 DEBUG    [VectorBase     ] No layer named "ReachGeometry" found
+2025-07-18 07:36:33,314 INFO     [Build Network  ] Processing all reaches
+2025-07-18 07:36:33,324 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer ReachGeometry of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:36,829 INFO     [Processing reaches] Completed 3,305 operations.  Total Time: 3.0 seconds     
+2025-07-18 07:36:36,884 INFO     [Unary Unioning features] Completed 277 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:36,885 DEBUG    [get_geometry_unary_union] finished iterating with list of size: 277
+2025-07-18 07:36:36,885 DEBUG    [get_geometry_unary_union] Starting final union of geom_list of size: 277
+2025-07-18 07:36:36,929 DEBUG    [get_geometry_unary_union] Byte Size of output object: 62.6KB Type: MultiPolygon IsValid: True Length: 0.279911734837991 Area: 1.8004933845569736e-05
+2025-07-18 07:36:36,930 DEBUG    [get_geometry_unary_union] Complete
+2025-07-18 07:36:36,931 INFO     [Build Network  ] Retaining artificial features within waterbody features smaller than 0.001km2
+2025-07-18 07:36:36,952 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer ReachGeometry of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:37,045 INFO     [Processing reaches] Completed 34 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:37,112 INFO     [Unary Unioning features] Completed 29 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:37,113 DEBUG    [get_geometry_unary_union] finished iterating with list of size: 29
+2025-07-18 07:36:37,113 DEBUG    [get_geometry_unary_union] Starting final union of geom_list of size: 29
+2025-07-18 07:36:37,232 DEBUG    [get_geometry_unary_union] Byte Size of output object: 291.0KB Type: MultiPolygon IsValid: True Length: 2.8045758853363427 Area: 0.0034429960373197907
+2025-07-18 07:36:37,232 DEBUG    [get_geometry_unary_union] Complete
+2025-07-18 07:36:37,232 INFO     [Build Network  ] Retaining artificial features within flow area features
+2025-07-18 07:36:37,313 WARNING  [GDALError      ] ERR# 1 -- A geometry of type LINESTRING is inserted into layer ReachGeometry of geometry type MULTILINESTRING, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:36:37,965 INFO     [Processing reaches] Completed 587 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,011 INFO     [Build Network  ] 3,926 features written to /usr/local/data/output/outputs/brat.gpkg/ReachGeometry
+2025-07-18 07:36:38,012 INFO     [Build Network  ] Process completed successfully.
+2025-07-18 07:36:38,416 INFO     [Finding windows on 50000400000848.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,417 INFO     [Finding windows on 50000400001027.0] Completed 4 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,431 INFO     [Finding windows on 50000400001537.0] Completed 56 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,431 INFO     [Finding windows on 50000400001929.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,433 INFO     [Finding windows on 50000400008008.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,435 INFO     [Finding windows on 50000400008010.0] Completed 4 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,436 INFO     [Finding windows on 50000400008029.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,437 INFO     [Finding windows on 50000400008244.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,438 INFO     [Finding windows on 50000400008268.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,439 INFO     [Finding windows on 50000400008317.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,440 INFO     [Finding windows on 50000400015389.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,445 INFO     [Finding windows on 50000400023787.0] Completed 18 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,449 INFO     [Finding windows on 50000400023926.0] Completed 18 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,513 INFO     [Finding windows on 50000400024671.0] Completed 46 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,514 INFO     [Finding windows on 50000400024900.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,515 INFO     [Finding windows on 50000400026007.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,516 INFO     [Finding windows on 50000400028615.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,519 INFO     [Finding windows on 50000400031413.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,540 INFO     [Finding windows on 50000400032708.0] Completed 87 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,545 INFO     [Finding windows on 50000400034652.0] Completed 16 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,546 INFO     [Finding windows on 50000400035230.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,612 INFO     [Finding windows on 50000400038277.0] Completed 73 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,626 INFO     [Finding windows on 50000400050960.0] Completed 53 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,627 INFO     [Finding windows on 50000400053548.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,628 INFO     [Finding windows on 50000400057792.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,631 INFO     [Finding windows on 50000400059954.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,636 INFO     [Finding windows on 50000400061342.0] Completed 23 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,637 INFO     [Finding windows on 50000400062861.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,639 INFO     [Finding windows on 50000400067389.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,646 INFO     [Finding windows on 50000400071291.0] Completed 33 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,652 INFO     [Finding windows on 50000400074121.0] Completed 23 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,653 INFO     [Finding windows on 50000400079229.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,654 INFO     [Finding windows on 50000400082804.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,655 INFO     [Finding windows on 50000400083616.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,737 INFO     [Finding windows on 50000400086165.0] Completed 126 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,745 INFO     [Finding windows on 50000400088751.0] Completed 37 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,749 INFO     [Finding windows on 50000400089806.0] Completed 17 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,757 INFO     [Finding windows on 50000400091900.0] Completed 35 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,813 INFO     [Finding windows on 50000400092972.0] Completed 26 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,817 INFO     [Finding windows on 50000400093991.0] Completed 18 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,823 INFO     [Finding windows on 50000400095030.0] Completed 25 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,824 INFO     [Finding windows on 50000400096073.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,836 INFO     [Finding windows on 50000400097105.0] Completed 46 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,838 INFO     [Finding windows on 50000400098446.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,847 INFO     [Finding windows on 50000400098457.0] Completed 43 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,850 INFO     [Finding windows on 50000400101127.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,851 INFO     [Finding windows on 50000400102450.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,853 INFO     [Finding windows on 50000400103769.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,857 INFO     [Finding windows on 50000400103770.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,907 INFO     [Finding windows on 50000400103785.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,913 INFO     [Finding windows on 50000400107878.0] Completed 16 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,918 INFO     [Finding windows on 50000400107890.0] Completed 22 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,922 INFO     [Finding windows on 50000400107893.0] Completed 18 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,927 INFO     [Finding windows on 50000400107894.0] Completed 22 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,941 INFO     [Finding windows on 50000400109581.0] Completed 59 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,945 INFO     [Finding windows on 50000400109719.0] Completed 13 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,947 INFO     [Finding windows on 50000400111567.0] Completed 7 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,948 INFO     [Finding windows on 50000400113399.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,949 INFO     [Finding windows on 50000400113400.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,952 INFO     [Finding windows on 50000400115226.0] Completed 17 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,953 INFO     [Finding windows on 50000400117081.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:38,955 INFO     [Finding windows on 50000400117083.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,008 INFO     [Finding windows on 50000400118986.0] Completed 19 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,013 INFO     [Finding windows on 50000400118993.0] Completed 16 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,019 INFO     [Finding windows on 50000400119002.0] Completed 24 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,029 INFO     [Finding windows on 50000400120665.0] Completed 47 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,033 INFO     [Finding windows on 50000400120780.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,034 INFO     [Finding windows on 50000400122647.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,035 INFO     [Finding windows on 50000400122669.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,039 INFO     [Finding windows on 50000400128341.0] Completed 17 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,040 INFO     [Finding windows on 50000400128361.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,049 INFO     [Finding windows on 50000400128363.0] Completed 40 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,054 INFO     [Finding windows on 50000400131143.0] Completed 25 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,110 INFO     [Finding windows on 50000400133980.0] Completed 29 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,114 INFO     [Finding windows on 50000400136719.0] Completed 20 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,120 INFO     [Finding windows on 50000400136726.0] Completed 22 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,121 INFO     [Finding windows on 50000400136735.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,136 INFO     [Finding windows on 50000400136742.0] Completed 65 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,139 INFO     [Finding windows on 50000400136747.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,147 INFO     [Finding windows on 50000400139262.0] Completed 36 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,149 INFO     [Finding windows on 50000400139479.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,151 INFO     [Finding windows on 50000400139480.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,154 INFO     [Finding windows on 50000400139489.0] Completed 11 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,209 INFO     [Finding windows on 50000400142278.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,210 INFO     [Finding windows on 50000400145207.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,212 INFO     [Finding windows on 50000400145256.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,213 INFO     [Finding windows on 50000400145262.0] Completed 7 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,214 INFO     [Finding windows on 50000400150550.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,217 INFO     [Finding windows on 50000400150581.0] Completed 11 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,220 INFO     [Finding windows on 50000400155852.0] Completed 15 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,224 INFO     [Finding windows on 50000400155853.0] Completed 11 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,228 INFO     [Finding windows on 50000400155858.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,229 INFO     [Finding windows on 50000400155891.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,230 INFO     [Finding windows on 50000400155912.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,232 INFO     [Finding windows on 50000400161182.0] Completed 7 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,232 INFO     [Finding windows on 50000400161206.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,237 INFO     [Finding windows on 50000400161207.0] Completed 19 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,240 INFO     [Finding windows on 50000400161215.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,242 INFO     [Finding windows on 50000400166440.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,243 INFO     [Finding windows on 50000400166447.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,247 INFO     [Finding windows on 50000400166468.0] Completed 18 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,250 INFO     [Finding windows on 50000400166514.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,310 INFO     [Finding windows on 50000400171658.0] Completed 13 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,319 INFO     [Finding windows on 50000400171683.0] Completed 43 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,322 INFO     [Finding windows on 50000400176724.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,324 INFO     [Finding windows on 50000400176749.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,327 INFO     [Finding windows on 50000400176754.0] Completed 16 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,329 INFO     [Finding windows on 50000400176755.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,333 INFO     [Finding windows on 50000400176773.0] Completed 15 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,335 INFO     [Finding windows on 50000400176812.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,337 INFO     [Finding windows on 50000400181979.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,338 INFO     [Finding windows on 50000400182005.0] Completed 5 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,341 INFO     [Finding windows on 50000400182094.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,343 INFO     [Finding windows on 50000400186840.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,349 INFO     [Finding windows on 50000400187461.0] Completed 26 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,351 INFO     [Finding windows on 50000400187471.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,352 INFO     [Finding windows on 50000400187485.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,355 INFO     [Finding windows on 50000400187511.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,357 INFO     [Finding windows on 50000400187544.0] Completed 13 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,410 INFO     [Finding windows on 50000400187551.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,413 INFO     [Finding windows on 50000400187560.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,416 INFO     [Finding windows on 50000400205514.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,420 INFO     [Finding windows on 50000400205528.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,422 INFO     [Finding windows on 50000400205535.0] Completed 7 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,423 INFO     [Finding windows on 50000400205569.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,425 INFO     [Finding windows on 50000400205602.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,426 INFO     [Finding windows on 50000400205603.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,429 INFO     [Finding windows on 50000400205633.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,432 INFO     [Finding windows on 50000400205634.0] Completed 8 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,435 INFO     [Finding windows on 50000400205707.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,436 INFO     [Finding windows on 50000400205708.0] Completed 2 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,439 INFO     [Finding windows on 50000400205723.0] Completed 12 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,440 INFO     [Finding windows on 50000400223862.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,441 INFO     [Finding windows on 50000400223903.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,444 INFO     [Finding windows on 50000400223917.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,445 INFO     [Finding windows on 50000400242257.0] Completed 4 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,445 INFO     [Finding windows on 50000400242258.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,449 INFO     [Finding windows on 50000400242289.0] Completed 15 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,450 INFO     [Finding windows on 50000400242369.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,457 INFO     [Finding windows on 50000400242370.0] Completed 29 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,508 INFO     [Finding windows on 50000400260743.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,511 INFO     [Finding windows on 50000400260793.0] Completed 13 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,517 INFO     [Finding windows on 50000400260843.0] Completed 25 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,521 INFO     [Finding windows on 50000400260862.0] Completed 22 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,522 INFO     [Finding windows on 50000400278866.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,523 INFO     [Finding windows on 50000400278867.0] Completed 7 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,526 INFO     [Finding windows on 50000400278886.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,530 INFO     [Finding windows on 50000400278912.0] Completed 20 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,532 INFO     [Finding windows on 50000400278977.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,533 INFO     [Finding windows on 50000400278991.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,537 INFO     [Finding windows on 50000400279012.0] Completed 21 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,539 INFO     [Finding windows on 50000400279013.0] Completed 11 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,543 INFO     [Finding windows on 50000400279036.0] Completed 17 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,545 INFO     [Finding windows on 50000400297185.0] Completed 9 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,548 INFO     [Finding windows on 50000400297238.0] Completed 14 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,549 INFO     [Finding windows on 50000400297240.0] Completed 6 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,550 INFO     [Finding windows on 50000400315456.0] Completed 4 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,551 INFO     [Finding windows on 50000400315514.0] Completed 1 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,554 INFO     [Finding windows on 50000400315578.0] Completed 16 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,609 INFO     [Finding windows on 50000400315596.0] Completed 10 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,612 INFO     [Finding windows on 50000400315598.0] Completed 10 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,613 INFO     [Finding windows on 50000400315613.0] Completed 3 operations.  Total Time: 0.0 seconds     
+2025-07-18 07:36:39,614 INFO     [Vegetation     ] Summarizing 30m vegetation buffer from /usr/local/data/output/inputs/existing_veg.tif
+2025-07-18 07:36:39,641 INFO     [VectorBase     ] 30.0m distance converts to 0.0003080563 using UTM EPSG 26910
+2025-07-18 07:36:39,642 INFO     [VectorBase     ] 1.0m distance converts to 0.0000102685 using UTM EPSG 26910
+2025-07-18 07:37:27,609 INFO     [Existing Veg 30.0m] Completed 3,926 operations.  Total Time: 47.0 seconds     
+2025-07-18 07:37:27,762 INFO     [Vegetation     ] Vegetation summary complete
+2025-07-18 07:37:27,822 INFO     [Vegetation     ] Summarizing 100m vegetation buffer from /usr/local/data/output/inputs/existing_veg.tif
+2025-07-18 07:37:27,824 INFO     [VectorBase     ] 100.0m distance converts to 0.0010268542 using UTM EPSG 26910
+2025-07-18 07:37:27,825 INFO     [VectorBase     ] 1.0m distance converts to 0.0000102685 using UTM EPSG 26910
+2025-07-18 07:38:25,728 INFO     [Existing Veg 100.0m] Completed 3,926 operations.  Total Time: 57.0 seconds     
+2025-07-18 07:38:26,072 INFO     [Vegetation     ] Vegetation summary complete
+2025-07-18 07:38:26,122 INFO     [Vegetation     ] Summarizing 30m vegetation buffer from /usr/local/data/output/inputs/historic_veg.tif
+2025-07-18 07:38:26,124 INFO     [VectorBase     ] 30.0m distance converts to 0.0003080563 using UTM EPSG 26910
+2025-07-18 07:38:26,126 INFO     [VectorBase     ] 1.0m distance converts to 0.0000102685 using UTM EPSG 26910
+2025-07-18 07:39:14,940 INFO     [Historical Veg 30.0m] Completed 3,926 operations.  Total Time: 48.0 seconds     
+2025-07-18 07:39:15,145 INFO     [Vegetation     ] Saving Buffer Polygons to /usr/local/data/output/intermediates/intermediates.gpkg/buffer_30m
+2025-07-18 07:39:15,148 DEBUG    [VectorBase     ] No layer named "buffer_30m" found
+2025-07-18 07:39:15,148 INFO     [VectorBase     ] Creating output field "ReachID" in layer.
+2025-07-18 07:39:15,151 WARNING  [GDALError      ] ERR# 1 -- A geometry of type MULTIPOLYGON is inserted into layer buffer_30m of geometry type POLYGON, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:39:16,429 INFO     [Vegetation     ] Vegetation summary complete
+2025-07-18 07:39:16,451 INFO     [Vegetation     ] Summarizing 100m vegetation buffer from /usr/local/data/output/inputs/historic_veg.tif
+2025-07-18 07:39:16,453 INFO     [VectorBase     ] 100.0m distance converts to 0.0010268542 using UTM EPSG 26910
+2025-07-18 07:39:16,455 INFO     [VectorBase     ] 1.0m distance converts to 0.0000102685 using UTM EPSG 26910
+2025-07-18 07:40:17,454 INFO     [Historical Veg 100.0m] Completed 3,926 operations.  Total Time: 1:00 minutes     
+2025-07-18 07:40:17,731 INFO     [Vegetation     ] Saving Buffer Polygons to /usr/local/data/output/intermediates/intermediates.gpkg/buffer_100m
+2025-07-18 07:40:17,734 DEBUG    [VectorBase     ] No layer named "buffer_100m" found
+2025-07-18 07:40:17,734 INFO     [VectorBase     ] Creating output field "ReachID" in layer.
+2025-07-18 07:40:17,814 WARNING  [GDALError      ] ERR# 1 -- A geometry of type MULTIPOLYGON is inserted into layer buffer_100m of geometry type POLYGON, which is not normally allowed by the GeoPackage specification, but the driver will however do it. To create a conformant GeoPackage, if using ogr2ogr, the -nlt option can be used to override the layer geometry type. This warning will no longer be emitted for this combination of layer and feature geometry type.
+2025-07-18 07:40:18,834 INFO     [Vegetation     ] Vegetation summary complete
+2025-07-18 07:40:18,944 INFO     [Veg Suitability] Buffer: 30.0
+2025-07-18 07:40:18,944 INFO     [Veg Suitability] Epoch: EX
+2025-07-18 07:40:18,944 INFO     [Veg Suitability] Veg Column: iVeg_30EX
+2025-07-18 07:40:19,055 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:40:19,134 INFO     [Database       ] iVeg_30EX, max: 4.00, min: 0.00, avg: 2.37, nulls: 504
+2025-07-18 07:40:19,136 INFO     [Veg Suitability] Buffer: 100.0
+2025-07-18 07:40:19,136 INFO     [Veg Suitability] Epoch: EX
+2025-07-18 07:40:19,136 INFO     [Veg Suitability] Veg Column: iVeg100EX
+2025-07-18 07:40:19,256 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:40:19,336 INFO     [Database       ] iVeg100EX, max: 4.00, min: 0.53, avg: 2.35, nulls: 502
+2025-07-18 07:40:19,419 INFO     [Veg Suitability] Buffer: 30.0
+2025-07-18 07:40:19,419 INFO     [Veg Suitability] Epoch: EX
+2025-07-18 07:40:19,419 INFO     [Veg Suitability] Veg Column: iVeg_30EX
+2025-07-18 07:40:19,507 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:40:19,520 INFO     [Database       ] iVeg_30EX, max: 4.00, min: 0.00, avg: 2.36, nulls: 2
+2025-07-18 07:40:19,521 INFO     [Veg Suitability] Buffer: 100.0
+2025-07-18 07:40:19,521 INFO     [Veg Suitability] Epoch: EX
+2025-07-18 07:40:19,521 INFO     [Veg Suitability] Veg Column: iVeg100EX
+2025-07-18 07:40:19,558 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:40:19,619 INFO     [Database       ] iVeg100EX, max: 4.00, min: 0.53, avg: 2.33, nulls: 0
+2025-07-18 07:40:19,620 INFO     [Vegetation FIS ] Processing Existing vegetation
+2025-07-18 07:40:46,049 INFO     [Vegetation FIS ] Completed 3,924 operations.  Total Time: 26.0 seconds     
+2025-07-18 07:40:46,049 INFO     [Vegetation FIS ] Done
+2025-07-18 07:40:46,141 INFO     [Database       ] oVC_EX, max: 40.00, min: 0.57, avg: 11.82, nulls: 2
+2025-07-18 07:40:46,143 INFO     [Vegetation FIS ] Process completed successfully.
+2025-07-18 07:40:46,144 INFO     [Combined FIS   ] Processing Existing vegetation
+2025-07-18 07:40:46,209 INFO     [Combined FIS   ] Initializing Combined FIS
+2025-07-18 07:40:46,219 INFO     [Combined FIS   ] Building FIS rule table
+2025-07-18 07:41:48,628 INFO     [Combined FIS   ] Completed 3,924 operations.  Total Time: 59.0 seconds     
+2025-07-18 07:41:48,628 INFO     [Combined FIS   ] Done
+2025-07-18 07:41:48,723 INFO     [Database       ] oCC_EX, max: 31.48, min: 0.00, avg: 8.25, nulls: 2
+2025-07-18 07:41:48,727 INFO     [Database       ] mCC_EX_CT, max: 10.19, min: 0.00, avg: 1.90, nulls: 2
+2025-07-18 07:41:48,729 INFO     [Combined FIS   ] Process completed successfully.
+2025-07-18 07:41:48,739 INFO     [Veg Suitability Rasters] Epoch: Existing
+2025-07-18 07:41:51,029 INFO     [Writing Vegetation Raster: Existing] Completed 805 operations.  Total Time: 2.0 seconds     
+2025-07-18 07:41:51,113 INFO     [Veg Suitability] Buffer: 30.0
+2025-07-18 07:41:51,113 INFO     [Veg Suitability] Epoch: HPE
+2025-07-18 07:41:51,113 INFO     [Veg Suitability] Veg Column: iVeg_30HPE
+2025-07-18 07:41:51,222 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:41:51,255 INFO     [Database       ] iVeg_30HPE, max: 4.00, min: 0.67, avg: 3.39, nulls: 504
+2025-07-18 07:41:51,257 INFO     [Veg Suitability] Buffer: 100.0
+2025-07-18 07:41:51,258 INFO     [Veg Suitability] Epoch: HPE
+2025-07-18 07:41:51,258 INFO     [Veg Suitability] Veg Column: iVeg100HPE
+2025-07-18 07:41:51,417 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:41:51,451 INFO     [Database       ] iVeg100HPE, max: 4.00, min: 1.55, avg: 3.34, nulls: 502
+2025-07-18 07:41:51,529 INFO     [Veg Suitability] Buffer: 30.0
+2025-07-18 07:41:51,529 INFO     [Veg Suitability] Epoch: HPE
+2025-07-18 07:41:51,529 INFO     [Veg Suitability] Veg Column: iVeg_30HPE
+2025-07-18 07:41:51,612 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:41:51,626 INFO     [Database       ] iVeg_30HPE, max: 4.00, min: 0.67, avg: 3.27, nulls: 2
+2025-07-18 07:41:51,627 INFO     [Veg Suitability] Buffer: 100.0
+2025-07-18 07:41:51,628 INFO     [Veg Suitability] Epoch: HPE
+2025-07-18 07:41:51,628 INFO     [Veg Suitability] Veg Column: iVeg100HPE
+2025-07-18 07:41:51,711 INFO     [Veg Suitability] Vegetation suitability complete
+2025-07-18 07:41:51,725 INFO     [Database       ] iVeg100HPE, max: 4.00, min: 1.55, avg: 3.20, nulls: 0
+2025-07-18 07:41:51,726 INFO     [Vegetation FIS ] Processing Historic vegetation
+2025-07-18 07:42:13,043 INFO     [Vegetation FIS ] Completed 3,924 operations.  Total Time: 21.0 seconds     
+2025-07-18 07:42:13,043 INFO     [Vegetation FIS ] Done
+2025-07-18 07:42:13,139 INFO     [Database       ] oVC_HPE, max: 40.00, min: 3.57, avg: 24.91, nulls: 2
+2025-07-18 07:42:13,140 INFO     [Vegetation FIS ] Process completed successfully.
+2025-07-18 07:42:13,141 INFO     [Combined FIS   ] Processing Historic vegetation
+2025-07-18 07:42:13,164 INFO     [Combined FIS   ] Initializing Combined FIS
+2025-07-18 07:42:13,216 INFO     [Combined FIS   ] Building FIS rule table
+2025-07-18 07:43:20,433 INFO     [Combined FIS   ] Completed 3,924 operations.  Total Time: 1:04 minutes     
+2025-07-18 07:43:20,433 INFO     [Combined FIS   ] Done
+2025-07-18 07:43:20,523 INFO     [Database       ] oCC_HPE, max: 31.48, min: 0.00, avg: 14.18, nulls: 2
+2025-07-18 07:43:20,527 INFO     [Database       ] mCC_HPE_CT, max: 10.08, min: 0.00, avg: 3.02, nulls: 2
+2025-07-18 07:43:20,529 INFO     [Combined FIS   ] Process completed successfully.
+2025-07-18 07:43:20,540 INFO     [Veg Suitability Rasters] Epoch: Historic
+2025-07-18 07:43:22,824 INFO     [Writing Vegetation Raster: Historic] Completed 805 operations.  Total Time: 2.0 seconds     
+2025-07-18 07:43:22,825 INFO     [BRAT           ] Calculating departure from historic conditions
+2025-07-18 07:43:22,946 INFO     [Conservation   ] Calculating conservation for 3,924 reaches.
+2025-07-18 07:43:23,013 INFO     [Conservation   ] Conservation calculation complete
+2025-07-18 07:43:23,355 INFO     [Database       ] OpportunityID, max: 7.00, min: 1.00, avg: 5.10, nulls: 2
+2025-07-18 07:43:23,358 INFO     [Database       ] LimitationID, max: 8.00, min: 1.00, avg: 1.10, nulls: 2
+2025-07-18 07:43:23,360 INFO     [Database       ] RiskID, max: 4.00, min: 1.00, avg: 2.73, nulls: 2
+2025-07-18 07:43:23,364 INFO     [Riverscapes BRAT] Calculating BRAT Outputs on DGOs
+2025-07-18 07:44:32,753 INFO     [Processing DGO features] Completed 2,742 operations.  Total Time: 1:09 minutes     
+2025-07-18 07:44:32,755 INFO     [Riverscapes BRAT] Updating DGO Attributes
+2025-07-18 07:44:45,838 INFO     [Riverscapes BRAT] Calculating BRAT Outputs on IGOs (moving window)
+2025-07-18 07:44:59,418 INFO     [Riverscapes BRAT] BRAT DGO and IGO Outputs Calculated
+2025-07-18 07:44:59,426 INFO     [add_html_report] Report node created: /usr/local/data/output/outputs/brat.html
+2025-07-18 07:44:59,465 INFO     [Report         ] Creating report at /usr/local/data/output/outputs/brat.html
+2025-07-18 07:44:59,465 INFO     [MakeDir        ] Folder not found. Creating: /usr/local/data/output/outputs/images
+2025-07-18 07:44:59,465 INFO     [BratReport     ] Summarizing dam capacity outputs
+2025-07-18 07:45:01,628 INFO     [BratReport     ] Summarizing management outputs
+2025-07-18 07:45:06,252 INFO     [BratReport     ] Recording hydrology information
+2025-07-18 07:45:06,253 INFO     [BratReport     ] Generating XY scatter for iHyd_QLow against drainage area.
+2025-07-18 07:45:06,719 INFO     [BratReport     ] Generating XY scatter for iHyd_Q2 against drainage area.
+2025-07-18 07:45:11,651 INFO     [BratReport     ] Summarizing watershed and drainage area information
+2025-07-18 07:45:12,408 INFO     [BratReport     ] Recording vegetation information
+2025-07-18 07:45:14,653 INFO     [BratReport     ] Finished writing report
+2025-07-18 07:45:14,717 DEBUG    [BratReport     ] Report Writing Completed
+2025-07-18 07:45:14,718 INFO     [BRAT           ] BRAT run complete
