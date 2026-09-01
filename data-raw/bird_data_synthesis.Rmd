@@ -48,59 +48,43 @@ theme_set(
 ## Define Geographies
 
 ```{r}
-klamath_basin <- st_read(here::here("data-raw", "klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")) |>
-  st_transform(4326)
+klamath_basin <- rivermile::klamath_hucs |> sf::st_union()
 
-upper_klamath_lake_bbox <-c(-122.107301,42.214015,-121.787324,42.602368) 
-clear_lake_bbox <- c(-121.289207, 41.781010,-121.015256, 41.995292)
-tule_lake_bbox <- c(-121.598288, 41.800411, -121.347044, 41.995232)
-bear_valley_bbox <- c(-121.979966,42.034977,-121.889353,42.096687)
-lower_klamath_sheepy_bbox <- c(-121.851156,41.883384,-121.591674,42.033576)
-klamath_marsh_bbox <- c(-121.806202,42.827148,-121.517889,43.072530)
+klamath_refuges <- rivermile::klamath_refuges
 ```
 
 ```{r}
-bbox_to_sfg <- function(b) {
-  st_as_sfc(
-    st_bbox(c(xmin = b[1], ymin = b[2], xmax = b[3], ymax = b[4]), crs = 4326)
-  )[[1]]
-}
+# rivermile::klamath_refuges gives actual refuge boundaries (not bounding
+# boxes). Buffer each by 0.5 miles so eBird/RTR observations just outside a
+# refuge's mapped edge are still attributed to it, and label refuges to match
+# the `area` naming used throughout the rest of this document.
+refuge_buffer_dist <- units::set_units(0.5, "mi")
 
-bboxes_df <- tibble(
-  site = c(
-    "Upper Klamath Lake",
-    "Clear Lake",
-    "Tule Lake",
-    "Bear Valley",
-    "Lower Klamath (Sheepy)",
-    "Klamath Marsh"
-  ),
-  bbox = list(
-    upper_klamath_lake_bbox,
-    clear_lake_bbox,
-    tule_lake_bbox,
-    bear_valley_bbox,
-    lower_klamath_sheepy_bbox,
-    klamath_marsh_bbox
-  )
-)
+klamath_refuges <- klamath_refuges |>
+  mutate(
+    site = case_when(
+      str_detect(orgname, "bear valley")   ~ "Bear Valley",
+      str_detect(orgname, "clear lake")    ~ "Clear Lake",
+      str_detect(orgname, "klamath marsh") ~ "Klamath Marsh",
+      str_detect(orgname, "lower klamath") ~ "Lower Klamath - Sheepy",
+      str_detect(orgname, "tule lake")     ~ "Tule Lake",
+      str_detect(orgname, "upper klamath") ~ "Upper Klamath Lake"
+    )
+  ) |>
+  select(site, orgname)
 
-# build sf object correctly
-bboxes_sf <- st_sf(
-  site = bboxes_df$site,
-  geometry = st_sfc(map(bboxes_df$bbox, bbox_to_sfg), crs = 4326)
-)
+refuges_buffered <- klamath_refuges |>
+  st_buffer(dist = refuge_buffer_dist)
 
-labels_sf <- bboxes_sf |> mutate(geometry = st_point_on_surface(geometry))
-
+labels_sf <- refuges_buffered |> mutate(geometry = st_point_on_surface(geometry))
 
 ggplot() +
-  geom_sf(data = klamath_basin) + 
-  geom_sf(data = bboxes_sf, fill = NA, linewidth = 1) +
+  geom_sf(data = klamath_basin) +
+  geom_sf(data = refuges_buffered, fill = NA, linewidth = 1) +
   geom_sf_text(data = labels_sf, aes(label = site), size = 3) +
   coord_sf(expand = FALSE) +
   theme_minimal() +
-  labs(title = "Bounding boxes of the Klamath Marsh areas", x = NULL, y = NULL)
+  labs(title = "Klamath Basin refuges (0.5-mile buffer)", x = NULL, y = NULL)
 
 ```
 
@@ -140,7 +124,8 @@ Each download included:
 
 ##### Spatial Filtering
 
-All eBird data was clipped to the bounding boxes of the refuges.
+All eBird data was clipped to the `rivermile::klamath_refuges` boundaries,
+each buffered by 0.5 miles.
 
 #### Limitations and Biases
 
@@ -312,36 +297,55 @@ shapefile_path <- "data-raw/ebird_data/klamath_basin_outline.shp"
 # saveRDS(ebd_all, file = "data/ebd_klamath_combined.rds")
 
 # Load combined data
-ebd_all <- readRDS(here::here("data", "ebd_klamath_combined.rds"))
+ebd_all <- readRDS(here::here("data-raw", "ebird_data", "ebd_klamath_combined.rds"))
 
 ```
 
 ```{r}
-ebird_by_refuge <- ebd_all |>
+# eBird records one row per species per checklist, so the observation rows sit
+# on ~2 orders of magnitude fewer distinct survey locations (3.3M rows across
+# ~44k coordinates). Assigning refuges on the distinct coordinates and joining
+# the result back keeps the spatial work proportional to locations rather than
+# observations.
+survey_sites <- ebd_all |>
+  distinct(longitude, latitude) |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+# st_intersects is spatially indexed, so points nowhere near a refuge are
+# discarded up front - much cheaper than measuring a distance for every point.
+# Lower Klamath and Tule Lake sit within a mile of each other, so their
+# 0.5-mile buffers overlap; a point in that sliver matches two refuges and
+# would otherwise be duplicated by the join, so those few are resolved to
+# whichever refuge is actually nearer.
+site_refuge <- survey_sites |>
+  st_join(refuges_buffered |> select(site), join = st_intersects) |>
+  filter(!is.na(site)) |>
+  group_by(longitude, latitude) |>
+  mutate(n_match = n()) |>
+  ungroup()
+
+resolved_overlaps <- site_refuge |>
+  filter(n_match > 1) |>
   mutate(
-    area = case_when(
-      longitude >= -122.107301 & longitude <= -121.787324 &
-        latitude  >=  42.214015 & latitude  <=  42.602368 ~ "Upper Klamath Lake",
-      
-      longitude >= -121.289207 & longitude <= -121.015256 &
-        latitude  >=  41.781010 & latitude  <=  41.995292 ~ "Clear Lake",
-      
-      longitude >= -121.598288 & longitude <= -121.347044 &
-        latitude  >=  41.800411 & latitude  <=  41.995232 ~ "Tule Lake",
-      
-      longitude >= -121.979966 & longitude <= -121.889353 &
-        latitude  >=  42.034977 & latitude  <=  42.096687 ~ "Bear Valley",
-      
-      longitude >= -121.851156 & longitude <= -121.591674 &
-        latitude  >=  41.883384 & latitude  <=  42.033576 ~ "Lower Klamath - Sheepy",
-      
-      longitude >= -121.806202 & longitude <= -121.517889 &
-        latitude  >=  42.827148 & latitude  <=  43.072530 ~ "Klamath Marsh",
-      
-      TRUE ~ NA_character_
+    dist_to_refuge = st_distance(
+      geometry,
+      klamath_refuges$geometry[match(site, klamath_refuges$site)],
+      by_element = TRUE
     )
   ) |>
-  filter(!is.na(area))
+  group_by(longitude, latitude) |>
+  slice_min(dist_to_refuge, n = 1, with_ties = FALSE) |>
+  ungroup() |>
+  select(-dist_to_refuge)
+
+site_lookup <- site_refuge |>
+  filter(n_match == 1) |>
+  bind_rows(resolved_overlaps) |>
+  st_drop_geometry() |>
+  select(longitude, latitude, area = site)
+
+ebird_by_refuge <- ebd_all |>
+  inner_join(site_lookup, by = c("longitude", "latitude"))
 
 ```
 
@@ -355,7 +359,7 @@ lab_xy <- st_coordinates(st_centroid(labels_sf))
 
 ggplot() +
   geom_sf(data = klamath_basin) +
-  geom_sf(data = bboxes_sf, fill = NA, linewidth = 1) +
+  geom_sf(data = refuges_buffered, fill = NA, linewidth = 1) +
   geom_sf(data = pts_sf, size = 0.8) +
   geom_label_repel(
     data = cbind(st_drop_geometry(labels_sf), lab_xy),
@@ -371,29 +375,6 @@ ggplot() +
   labs(
     title = "eBird Counts by Refuge Area",
   ) 
-```
-
-```{r include=FALSE}
-# Read Klamath Basin shapefile
-klamath_basin <- st_read(here::here("data-raw", "klamath_basin_outline/R8_FAC_Klamath_Basin_WFL1.shp")) |>
-  st_transform(4326)
-
-# Convert EBD to sf points
-ebd_all_sf <- ebd_all |>
-  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)  # WGS84
-
-# Ensure both are in the same CRS
-klamath_basin <- st_transform(klamath_basin, 4326)
-
-# Keep only points inside the basin
-ebd_klamath <- ebd_all_sf[st_within(ebd_all_sf, klamath_basin, sparse = FALSE), ]
-
-
-ebd_klamath |>
-  mutate(year = year(observation_date)) |>
-  group_by(year) |>
-  summarize(richness = n_distinct(common_name)) |>
-  arrange(year)
 ```
 
 #### Temporal Trends in Species Richness
@@ -1218,17 +1199,17 @@ Data can be accessed as `klamathWildlifeData::klamath_ebird`
 
 **Data Dictionary**
 
-| Column            | Definition                                                                           |
+| Column | Definition |
 |-------------------------------------|-----------------------------------|
-| common_name       | Bird species                                                                         |
-| observation_count | Number of species counted in observation                                             |
-| latitude          | Latitude of observation                                                              |
-| longitude         | Longitude of observation                                                             |
-| observation_date  | Date of bird observation                                                             |
-| area              | Corresponding refuge area; this column aligns with DSWE and `piscivorous_waterbirds` |
-| primary_habitat   | Species primary habitat; used as a grouping variable (source: BIRDBASE)              |
-| primary_diet      | Species primary diet; used as a grouping variable (source: BIRDBASE)                 |
-| waterbird_niche   | Waterbird guild (source: Donnelly et al., 2022)                                      |
+| common_name | Bird species |
+| observation_count | Number of species counted in observation |
+| latitude | Latitude of observation |
+| longitude | Longitude of observation |
+| observation_date | Date of bird observation |
+| area | Corresponding refuge area; this column aligns with DSWE and `piscivorous_waterbirds` |
+| primary_habitat | Species primary habitat; used as a grouping variable (source: BIRDBASE) |
+| primary_diet | Species primary diet; used as a grouping variable (source: BIRDBASE) |
+| waterbird_niche | Waterbird guild (source: Donnelly et al., 2022) |
 
 ```{r}
 
@@ -1251,14 +1232,14 @@ Data can be accessed as `klamathWildlifeData::piscivorous_waterbirds`
 
 **Data Dictionary**
 
-| Column           | Definition                                                                                                                                 |
-|------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| nesting_location | Name of nesting location provided in original dataset/documentation                                                                        |
-| common_name      | Bird species (note that `Gulls` = California and Ring-billed gulls and `Herons` = Great Blue Herons, Great Egrets, and Black-crowned Night |
-| year             | Year data was collected                                                                                                                    |
-| count            | Number of nests                                                                                                                            |
-| source           | Source of data                                                                                                                             |
-| area             | Corresponding refuge area; this column aligns with DSWE and `klamath_ebird`                                                                |
+| Column | Definition |
+|--------------|----------------------------------------------------------|
+| nesting_location | Name of nesting location provided in original dataset/documentation |
+| common_name | Bird species (note that `Gulls` = California and Ring-billed gulls and `Herons` = Great Blue Herons, Great Egrets, and Black-crowned Night |
+| year | Year data was collected |
+| count | Number of nests |
+| source | Source of data |
+| area | Corresponding refuge area; this column aligns with DSWE and `klamath_ebird` |
 
 ```{r}
 
@@ -1269,6 +1250,215 @@ piscivorous_waterbirds <- piscivorous_waterbirds |>
 usethis::use_data(piscivorous_waterbirds, overwrite = TRUE)
 
 ```
+
+## Multispecies Subgroup Birds
+
+Three species are of interest to the multispecies subgroup: White-faced
+Ibis, Eared Grebe, and Cinnamon Teal. This section asks how often
+each is seen and where.
+
+```{r}
+multispecies_focal <- c("Cinnamon Teal", "Eared Grebe", "White-faced Ibis")
+
+# Fixed hue order so each species keeps the same color in every figure below.
+multispecies_pal <- c(
+  "Cinnamon Teal"    = "#2a78d6",
+  "Eared Grebe"      = "#eb6834",
+  "White-faced Ibis" = "#1baf7a"
+)
+
+multispecies_birds <- klamath_ebird |>
+  filter(common_name %in% multispecies_focal)
+
+# Survey effort varies enormously between refuges, so raw detection totals are
+# not comparable across areas without a denominator.
+area_effort <- klamath_ebird |> count(area, name = "area_records")
+```
+
+### How often are they seen?
+
+Two caveats shape how "how often" is measured here. First,
+`observation_count` is `NA` wherever the observer entered eBird's `X`
+(present but not counted), so summing counts silently drops those records.
+Second, flock sizes for these species span single birds to several thousand,
+so a handful of large flocks would dominate any total. The number of
+detections (records, i.e. species × checklist) is therefore used as the
+frequency measure, with flock size reported separately.
+
+```{r}
+multispecies_summary <- multispecies_birds |>
+  mutate(mo = month(observation_date)) |>
+  summarise(
+    detections     = n(),
+    pct_of_records = round(100 * n() / nrow(klamath_ebird), 2),
+    pct_uncounted  = round(100 * mean(is.na(observation_count)), 1),
+    months_present = n_distinct(mo),
+    peak_month     = month.abb[as.integer(names(sort(table(mo), decreasing = TRUE))[1])],
+    median_flock   = median(observation_count, na.rm = TRUE),
+    max_flock      = max(observation_count, na.rm = TRUE),
+    .by = common_name
+  ) |>
+  arrange(desc(detections))
+
+knitr::kable(
+  multispecies_summary,
+  caption = "Detection frequency and flock size, 2015-2025",
+  col.names = c("Species", "Detections", "% of all records", "% uncounted (X)",
+                "Months present", "Peak month", "Median flock", "Max flock")
+)
+```
+
+All three are seen regularly rather than rarely: together they account for
+roughly 2.6% of all eBird records in the refuges. Cinnamon Teal is the most
+frequently detected, followed closely by White-faced Ibis, with Eared Grebe
+detected about half as often. Median flock sizes are small (4-10 birds), but
+the maxima are two to three orders of magnitude larger — a single
+White-faced Ibis record of 6,500 birds — so these species are typically
+encountered in small numbers punctuated by occasional large aggregations.
+
+```{r fig.height=5}
+multispecies_monthly <- multispecies_birds |>
+  mutate(mo = factor(month(observation_date), levels = 1:12, labels = month.abb)) |>
+  count(common_name, mo) |>
+  # Fill absent months explicitly - White-faced Ibis has no winter records at
+  # all, and without zeros the line would connect across that gap.
+  complete(common_name, mo, fill = list(n = 0))
+
+ggplot(multispecies_monthly, aes(x = mo, y = n, color = common_name, group = common_name)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_color_manual(values = multispecies_pal, name = NULL) +
+  labs(
+    title = "Seasonality of detections",
+    subtitle = "Number of eBird records per month, all refuges pooled, 2015-2025",
+    x = NULL,
+    y = "Detections"
+  )
+```
+
+The three species have distinctly different seasonal profiles:
+
+-   **White-faced Ibis** is a strict warm-season migrant: zero records in
+    December, January, or February across all eleven years. Birds arrive in
+    March, peak in May-June, and linger through fall.
+-   **Cinnamon Teal** shows the sharpest, earliest peak — a steep rise in
+    March and a April-May maximum consistent with spring migration and
+    breeding — then declines through summer and is effectively absent in
+    winter.
+-   **Eared Grebe** has much the flattest profile. It also peaks in May, but
+    holds a long summer-fall plateau (Jul-Sep stays near 40-60 records, where
+    Cinnamon Teal has already fallen to 33 by September) and is still being
+    recorded in October and November. Both it and Cinnamon Teal are
+    technically recorded in all twelve months, but only at a trickle of 1-6
+    records per month in midwinter.
+
+```{r fig.height=5}
+multispecies_annual <- multispecies_birds |>
+  mutate(yr = year(observation_date)) |>
+  count(common_name, yr) |>
+  complete(common_name, yr, fill = list(n = 0))
+
+ggplot(multispecies_annual, aes(x = yr, y = n, color = common_name, group = common_name)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = seq(2015, 2025, 1)) +
+  scale_color_manual(values = multispecies_pal, name = NULL) +
+  labs(
+    title = "Detections per year",
+    subtitle = "2025 covers only Jan-Jun and is not comparable to full years",
+    x = NULL,
+    y = "Detections"
+  )
+```
+
+White-faced Ibis detections dropped sharply in 2022-2023 (39 and 33 records,
+down from 158 in 2020) and rebounded to 158 in 2024; Eared Grebe also peaked
+in 2024. Because eBird effort itself grew over this period, these swings
+should be read as changes in reported frequency rather than confirmed
+population change. Note that 2025 data end 30 June, so the final point
+reflects a half year.
+
+### Where are they commonly seen?
+
+Refuges differ in survey effort by nearly three orders of magnitude (Bear
+Valley has 48 records; Lower Klamath - Sheepy has 30,398), so detections are
+expressed below as a share of all eBird records within each refuge. Bear
+Valley and Clear Lake are excluded from this comparison: with 48 and 212
+total records they cannot support a rate estimate, though it is worth noting
+none of the three species has ever been recorded at Bear Valley.
+
+```{r fig.height=5}
+min_area_records <- 1000
+
+multispecies_rate <- multispecies_birds |>
+  count(common_name, area) |>
+  complete(common_name, area = area_effort$area, fill = list(n = 0)) |>
+  left_join(area_effort, by = "area") |>
+  filter(area_records >= min_area_records) |>
+  mutate(detection_rate = 100 * n / area_records)
+
+ggplot(
+  multispecies_rate,
+  aes(x = fct_reorder(area, detection_rate, .fun = sum),
+      y = detection_rate,
+      fill = common_name)
+) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  coord_flip() +
+  scale_fill_manual(values = multispecies_pal, name = NULL) +
+  labs(
+    title = "Detection rate by refuge",
+    subtitle = paste0("Share of each refuge's eBird records, refuges with >= ",
+                      format(min_area_records, big.mark = ","), " records"),
+    x = NULL,
+    y = "% of refuge records"
+  )
+```
+
+Effort-normalizing changes the picture in a way raw totals hide:
+
+-   **Tule Lake** is the strongest area for White-faced Ibis (1.8% of its
+    records) and Eared Grebe (1.1%).
+-   **Lower Klamath - Sheepy** has the highest Cinnamon Teal rate (1.5%) and
+    the most Cinnamon Teal detections outright (446). For the other two
+    species it trails Tule Lake despite being the more heavily surveyed
+    refuge — 214 Eared Grebe records against Tule Lake's 267, and 385 ibis
+    against 425.
+-   **Klamath Marsh** is the informative negative result. It is heavily
+    surveyed (17,489 records — comparable to Tule Lake) yet yields only
+    **four** Eared Grebe records, a rate of 0.02%, roughly 50× lower than
+    Tule Lake. White-faced Ibis is similarly scarce there (0.17%). 
+-   **Upper Klamath Lake** is well surveyed but consistently low for all
+    three (0.1-0.4%).
+
+```{r fig.width=10, fig.height=8}
+multispecies_sf <- multispecies_birds |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+ggplot() +
+  geom_sf(data = refuges_buffered, fill = NA, color = "grey65", linewidth = 0.4) +
+  geom_sf(data = multispecies_sf, aes(color = common_name), size = 0.9, alpha = 0.45) +
+  facet_wrap(~ common_name) +
+  scale_color_manual(values = multispecies_pal, guide = "none") +
+  coord_sf(expand = FALSE) +
+  labs(
+    title = "Where each species is recorded",
+    subtitle = "Individual eBird observations against buffered refuge boundaries",
+    x = NULL, y = NULL
+  ) +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+Spatially, all three cluster in the southern refuge complex (Lower Klamath
+and Tule Lake), which together hold the large open shallow-water and
+emergent-marsh habitat these species use. Cinnamon Teal is the most widely
+distributed of the three, with a meaningful presence at Klamath Marsh, while
+Eared Grebe records are almost entirely confined to Lower Klamath and Tule
+Lake.
+
+As with everything drawn from eBird here, these are presence-only,
+effort-confounded data: a low detection rate means the species was not
+reported, which is not the same as absence.
 
 ```{r}
 knitr::knit_exit()
