@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
+data-raw/ebird_data/*.txt
+data-raw/ebird_data/new/
