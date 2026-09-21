@@ -1,0 +1,402 @@
+---
+title: "eBird Status and Trends"
+author: "Maddee Wiggins (FlowWest)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 7
+)
+
+library(tidyverse)
+library(ebirdst)
+library(sf)
+library(terra)
+library(tidyterra)
+
+# `terra` and `tidyr` both export `extract`; be explicit below where it matters.
+
+theme_set(
+  theme_minimal() +
+    theme(
+      plot.title = element_text(size = 15, face = "bold"),
+      legend.position = "right"
+    )
+)
+```
+
+## Overview
+
+[eBird Status and Trends](https://science.ebird.org/en/status-and-trends)
+provides modeled estimates of species distribution, relative abundance, and
+population trend, derived from eBird checklists and remotely sensed habitat
+covariates. Unlike the raw eBird observations used elsewhere in this package
+(`klamath_ebird`), these are **effort-corrected model predictions** on a
+regular grid, which makes them comparable across space rather than a
+reflection of where birders happened to go.
+
+This document pulls two distinct products and clips both to the Klamath
+Basin boundary (`rivermile::klamath_hucs`):
+
+1.  **Status** — seasonal relative abundance rasters (3 km resolution).
+2.  **Trends** — modeled percent-per-year change in relative abundance
+    (~27 km resolution), for 2012-2022.
+
+```{r versions}
+ebirdst_version()
+```
+
+Note that the status and trends products are on **different release
+cycles** — the status estimates and the trends estimates are not from the
+same model year, so they should not be described as a single vintage.
+
+### Access key
+
+Status and Trends data require a free access key, requested at
+<https://ebird.org/st/request>. The key is a secret and should never be
+typed into a chunk, script, or anything that gets committed. Run this once,
+directly in the R console (not in this document):
+
+```r
+ebirdst::set_ebirdst_access_key("your-key-here")
+```
+
+That call writes `EBIRDST_KEY` into `~/.Renviron`, outside the project
+directory. From then on every R session — including this document — picks
+the key up automatically from the environment, so nothing in this file ever
+needs to reference it directly. (The console command itself still lands in
+your R history, so if that's a concern, edit `~/.Renviron` directly instead
+of using the helper.)
+
+## Study area
+
+`rivermile::klamath_hucs` holds the 12 HUC8 subbasins that make up the
+Klamath Basin. Both the dissolved outline (for clipping) and the individual
+subbasins (for summarizing) are used below.
+
+```{r study-area}
+klamath_hucs <- rivermile::klamath_hucs
+klamath_outline <- st_union(klamath_hucs)
+
+glimpse(klamath_hucs)
+```
+
+Both Status and Trends products are distributed on global equal-area grids,
+but **not the same one** — status rasters are Equal Earth
+(EPSG:8857) while the trends grid is sinusoidal. Rather than hard-coding
+either, the boundary is reprojected to whatever CRS the downloaded product
+reports. Reprojecting the *vector* rather than the raster matters: warping
+the raster would resample the estimates and distort the equal-area cells
+that the abundance values are defined on.
+
+## Species
+
+The focal species here are the three tracked by the multispecies subgroup.
+`ebirdst_runs` is the authoritative list of what is modeled, including
+whether a species has trends estimates at all.
+
+```{r species}
+focal_species <- c("Cinnamon Teal", "Eared Grebe", "White-faced Ibis")
+
+focal_runs <- ebirdst_runs |>
+  filter(common_name %in% focal_species) |>
+  select(
+    common_name, species_code, is_resident,
+    breeding_quality, nonbreeding_quality,
+    has_trends, trends_season, trends_start_year, trends_end_year
+  )
+
+knitr::kable(focal_runs, caption = "Status and Trends model coverage for the focal species")
+```
+
+Two things to note before going further:
+
+-   **Eared Grebe has no trends estimates** (`has_trends = FALSE`), so it
+    appears in the status section but drops out of the trends section. Any
+    species list used here should be filtered on `has_trends` rather than
+    assumed complete.
+-   Model quality is rated per season on a 0-3 scale. These ratings should
+    be checked before interpreting a seasonal surface; a low rating means
+    the model was poorly validated for that season.
+
+## Status: seasonal relative abundance
+
+These surfaces come from an ensemble of decision trees trained on eBird
+checklists, each paired with satellite-derived land cover and other
+environmental covariates at that checklist's location and date. The model
+is calibrated to account for variation in observer effort, time of day, and
+search duration, so that differences across the resulting surface reflect
+differences in the birds rather than differences in who happened to go
+looking. Predictions are made weekly across a regular global grid and then
+averaged into the seasonal layers pulled below.
+
+Downloads are cached in `ebirdst_data_dir()` and skipped if already
+present, so this chunk is safe to re-run. The 3 km products are sizeable
+per species — pass `dry_run = TRUE` to list the files first, or step down to
+`"9km"` / `"27km"` if bandwidth is a concern.
+
+```{r status-download}
+status_resolution <- "3km"
+
+walk(focal_species, \(sp) ebirdst_download_status(sp, download_abundance = TRUE))
+```
+
+`crop()` on these global rasters reads only the windowed region, so clipping
+to the basin is cheap despite the global extent.
+
+```{r status-clip}
+#' Load a species' seasonal abundance and clip it to the Klamath Basin
+clip_status_to_klamath <- function(species, resolution = status_resolution) {
+  r <- load_raster(
+    species,
+    product    = "abundance",
+    period     = "seasonal",
+    metric     = "mean",
+    resolution = resolution
+  )
+
+  # Reproject the boundary into the raster's own CRS, not the reverse.
+  boundary <- st_transform(klamath_outline, terra::crs(r)) |> vect()
+
+  r |>
+    terra::crop(boundary) |>
+    terra::mask(boundary)
+}
+
+status_klamath <- set_names(focal_species) |> map(clip_status_to_klamath)
+
+# Seasonal layers differ by species (migrants get four seasons, residents
+# one), so report what each actually returned.
+map(status_klamath, names)
+```
+
+```{r status-maps, fig.height=8}
+display_crs <- "EPSG:32610"
+display_buffer <- units::set_units(15, "km")
+
+plot_status <- function(species, resolution = status_resolution) {
+  r <- load_raster(
+    species,
+    product    = "abundance",
+    period     = "seasonal",
+    metric     = "mean",
+    resolution = resolution
+  )
+
+  # Loose crop, still in the native CRS, just to keep the reprojection cheap.
+  wide_boundary <- st_buffer(klamath_outline, display_buffer) |>
+    st_transform(terra::crs(r)) |>
+    vect()
+  r_wide <- terra::crop(r, wide_boundary)
+
+  # Reproject before the tight crop - see note above.
+  r_disp <- terra::project(r_wide, display_crs, method = "bilinear")
+
+  # Only now compute the tight boundary, directly in the display CRS.
+  tight_boundary <- st_transform(klamath_outline, display_crs) |> vect()
+  r_disp <- r_disp |> terra::crop(tight_boundary) |> terra::mask(tight_boundary)
+
+  ggplot() +
+    geom_spatraster(data = r_disp) +
+    geom_sf(data = st_transform(klamath_hucs, display_crs),
+            fill = NA, color = "grey30", linewidth = 0.25) +
+    facet_wrap(~ lyr) +
+    scale_fill_gradientn(
+      colours = ebirdst_palettes(20, type = "weekly"),
+      na.value = "transparent",
+      name = "Relative\nabundance"
+    ) +
+    labs(
+      title = species,
+      subtitle = paste0("Seasonal mean relative abundance, ", status_resolution,
+                        " resolution, clipped to the Klamath Basin")
+    ) +
+    theme(axis.text = element_blank(), panel.grid = element_blank())
+}
+
+walk(focal_species, \(sp) print(plot_status(sp)))
+```
+
+Summarizing each seasonal surface by subbasin gives a table that joins to
+the rest of the package on `huc8`.
+
+```{r status-by-huc}
+summarise_by_huc <- function(r, species) {
+  hucs_prj <- st_transform(klamath_hucs, terra::crs(r))
+
+  terra::extract(r, vect(hucs_prj), fun = mean, na.rm = TRUE, ID = FALSE) |>
+    as_tibble() |>
+    bind_cols(st_drop_geometry(hucs_prj) |> select(huc8, name)) |>
+    pivot_longer(
+      -c(huc8, name),
+      names_to  = "season",
+      values_to = "mean_abundance"
+    ) |>
+    mutate(common_name = species, .before = everything())
+}
+
+status_by_huc <- imap(status_klamath, \(r, sp) summarise_by_huc(r, sp)) |>
+  list_rbind() |>
+  # Cells can be entirely NA inside a subbasin (outside the modeled range).
+  mutate(mean_abundance = if_else(is.nan(mean_abundance), NA_real_, mean_abundance))
+
+status_by_huc |>
+  filter(!is.na(mean_abundance)) |>
+  arrange(common_name, season, desc(mean_abundance)) |>
+  knitr::kable(digits = 4, caption = "Mean seasonal relative abundance by HUC8 subbasin")
+```
+
+```{r status-huc-plot, fig.height=8}
+status_by_huc |>
+  filter(!is.na(mean_abundance)) |>
+  ggplot(aes(x = mean_abundance, y = fct_reorder(name, mean_abundance, .fun = max),
+             fill = common_name)) +
+  geom_col(position = position_dodge(preserve = "single")) +
+  facet_wrap(~ season, scales = "free_x") +
+  scale_fill_manual(
+    values = c("Cinnamon Teal" = "#2a78d6", "Eared Grebe" = "#eb6834",
+               "White-faced Ibis" = "#1baf7a"),
+    name = NULL
+  ) +
+  labs(
+    title = "Which subbasins hold the most predicted abundance",
+    x = "Mean relative abundance", y = NULL
+  ) +
+  theme(legend.position = "bottom")
+```
+
+## Trends: percent change per year
+
+Trends are estimated differently from status. Rather than modeling absolute
+abundance in a single year, the trends model finds pairs of checklists that
+are close in location and similar in habitat and survey effort but taken in
+different years, and asks how relative abundance differed between the two
+years of each pair. Averaging that year-over-year change across many such
+pairs within a grid cell yields a percent-per-year trend for the cell, along
+with a confidence interval. Because it relies on paired comparisons rather
+than a single-year surface, this product is modeled on a coarser (~27 km)
+grid than status, and only for the 2012-2022 breeding season here. Trend
+estimates arrive as a data frame of grid cell centres with
+longitude/latitude in EPSG:4326, so the clip is a spatial filter of points
+rather than a raster mask.
+
+```{r trends-download}
+trends_species <- focal_runs |>
+  filter(has_trends) |>
+  pull(common_name)
+
+trends_species
+
+walk(trends_species, ebirdst_download_trends)
+```
+
+```{r trends-clip}
+trends_raw <- set_names(trends_species) |>
+  map(\(sp) load_trends(sp)) |>
+  list_rbind(names_to = "common_name")
+
+# Cell centres are lon/lat, so filter in 4326 against the basin outline.
+trends_sf <- trends_raw |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+trends_klamath <- trends_sf |>
+  st_filter(st_transform(klamath_outline, 4326), .predicate = st_intersects)
+
+# How many 27 km cells actually fall inside the basin?
+trends_klamath |>
+  st_drop_geometry() |>
+  count(common_name, season, name = "n_cells")
+```
+
+```{r trends-map, fig.height=6}
+# ebirdst's own trends palette runs red (decline) -> white (no change) ->
+# blue (increase). Keep that direction: it is the convention every published
+# Status and Trends map uses, and flipping it would invert the reading.
+trends_pal <- ebirdst_palettes(3, type = "trends")
+
+ggplot() +
+  geom_sf(data = st_transform(klamath_hucs, 4326), fill = "grey94", color = "grey70",
+          linewidth = 0.25) +
+  # shape 21 keeps near-zero (near-white) cells visible against the basin.
+  geom_sf(data = trends_klamath, aes(fill = abd_ppy),
+          shape = 21, color = "grey35", stroke = 0.3, size = 3.5) +
+  facet_wrap(~ common_name) +
+  scale_fill_gradient2(
+    low = trends_pal[1], mid = trends_pal[2], high = trends_pal[3],
+    midpoint = 0,
+    name = "% change\nper year"
+  ) +
+  labs(
+    title = "Modeled population trend within the Klamath Basin",
+    subtitle = "Percent change per year in breeding-season relative abundance, 2012-2022",
+    x = NULL, y = NULL
+  ) +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+A diverging scale centred on zero is used deliberately: the quantity has a
+meaningful neutral point (no change), and the two arms read as opposite
+directions — **red is decline, blue is increase**, following eBird's own
+convention. Cell-level estimates carry wide confidence intervals, so the
+summary below reports them rather than the point estimate alone.
+
+```{r trends-summary}
+trends_klamath |>
+  st_drop_geometry() |>
+  summarise(
+    n_cells         = n(),
+    median_ppy      = median(abd_ppy),
+    mean_ppy        = mean(abd_ppy),
+    median_ppy_low  = median(abd_ppy_lower),
+    median_ppy_high = median(abd_ppy_upper),
+    cells_declining = sum(abd_ppy < 0),
+    .by = c(common_name, season)
+  ) |>
+  arrange(median_ppy) |>
+  knitr::kable(digits = 3, caption = "Trend summary for cells intersecting the Klamath Basin")
+```
+
+Assigning trend cells to individual subbasins is possible but marginal at
+this resolution: a single 27 km cell is comparable in size to the smaller
+HUC8s, so a per-subbasin trend would mostly reflect which cell centre landed
+where. Basin-wide summaries are the appropriate grain for this product.
+
+## Caveats
+
+-   **Model output, not observation.** These are predictions from a model
+    fit to eBird data. They are effort-corrected, which is precisely why
+    they are useful alongside `klamath_ebird`, but they inherit the
+    assumptions of the underlying model.
+-   **Check seasonal quality ratings.** A surface for a season rated 0-1
+    should not be interpreted; see the species table above.
+-   **Resolution mismatch.** Status is clipped at 3 km, trends at ~27 km.
+    The two are not directly comparable cell-for-cell, and the basin
+    contains relatively few trend cells.
+-   **Edge effects.** Clipping to a watershed boundary cuts through modeled
+    surfaces that are continuous across it. Cells straddling the boundary
+    are included whole by `mask()` (based on cell centre), so basin-edge
+    values partly describe habitat just outside the basin.
+-   **Trends are breeding-season only** for these species, so they say
+    nothing about the migratory and wintering periods that the status
+    surfaces do cover.
+
+## Citation
+
+Data products must be cited; `ebirdst` bundles the current citation.
+
+```{r citation, eval=FALSE}
+citation("ebirdst")
+```
