@@ -94,6 +94,34 @@ klamath_outline <- st_union(klamath_hucs)
 glimpse(klamath_hucs)
 ```
 
+Status estimates are also summarized by wildlife refuge, using
+`rivermile::klamath_refuges` with the same 0.5-mile buffer and `site`
+naming as `data-raw/bird_data_synthesis.Rmd` uses to build the `area`
+column in `klamath_ebird` and `piscivorous_waterbirds`. Matching that
+convention here means a status/trends value for, say, "Tule Lake" refers to
+exactly the same boundary as the eBird observation and RTR colony data
+elsewhere in this package, so the three can be compared directly.
+
+```{r study-area-refuges}
+refuge_buffer_dist <- units::set_units(0.5, "mi")
+
+klamath_refuges <- rivermile::klamath_refuges |>
+  mutate(
+    site = case_when(
+      str_detect(orgname, "bear valley")   ~ "Bear Valley",
+      str_detect(orgname, "clear lake")    ~ "Clear Lake",
+      str_detect(orgname, "klamath marsh") ~ "Klamath Marsh",
+      str_detect(orgname, "lower klamath") ~ "Lower Klamath - Sheepy",
+      str_detect(orgname, "tule lake")     ~ "Tule Lake",
+      str_detect(orgname, "upper klamath") ~ "Upper Klamath Lake"
+    )
+  ) |>
+  select(site, orgname) |>
+  st_buffer(dist = refuge_buffer_dist)
+
+glimpse(klamath_refuges)
+```
+
 Both Status and Trends products are distributed on global equal-area grids,
 but **not the same one** — status rasters are Equal Earth
 (EPSG:8857) while the trends grid is sinusoidal. Rather than hard-coding
@@ -230,49 +258,126 @@ plot_status <- function(species, resolution = status_resolution) {
 walk(focal_species, \(sp) print(plot_status(sp)))
 ```
 
-Summarizing each seasonal surface by subbasin gives a table that joins to
-the rest of the package on `huc8`.
+### What `mean_abundance` means
 
-```{r status-by-huc}
-summarise_by_huc <- function(r, species) {
-  hucs_prj <- st_transform(klamath_hucs, terra::crs(r))
+Each raster cell's own value — before any summarizing — is the *relative
+abundance* eBird Status defines it: the expected count of the species on a
+standardized 2 km, 1 hour Traveling Count by an expert eBird observer,
+at the optimal time of day and under optimal conditions to detect that
+species, computed as the modeled probability of occurrence times the
+expected count given occurrence. The seasonal layers used throughout this
+document are the cell-wise *mean* of that quantity across the weeks in a
+season. `mean_abundance` below is a further spatial mean of those
+already-averaged cells, taken over every 3 km cell whose centre falls
+inside a subbasin or refuge polygon.
 
-  terra::extract(r, vect(hucs_prj), fun = mean, na.rm = TRUE, ID = FALSE) |>
+So `mean_abundance` is a mean of means, on a relative, checklist-referenced
+scale — **not** a density, a population estimate, or a count of birds. It
+is only meaningful as a comparison: across seasons for one place, across
+places for one species, or across species where their models used the same
+standardized-checklist definition. It is *not* an absolute number of birds
+that can be summed to a population total.
+
+Summarizing each seasonal surface by subbasin, and separately by refuge, and
+stacking both into a single `ebird_status` table gives one object that
+joins to the rest of the package two ways: on `huc8` (matching
+`rivermile::klamath_hucs`) for subbasin rows, and on `area` (matching
+`klamath_ebird$area` and `piscivorous_waterbirds$area`) for refuge rows.
+The two geographies don't nest — a refuge isn't contained in one subbasin,
+and vice versa — so rather than force them into one geometry, each row
+carries a `geography_type` column (`"huc8"` or `"refuge"`) and only the
+relevant id columns are populated; the other geography's id columns are
+`NA` on that row.
+
+```{r ebird-status}
+#' Zonal mean of a status raster within each feature of a polygon layer
+summarise_by_polygon <- function(r, species, polygons, id_cols) {
+  polygons_prj <- st_transform(polygons, terra::crs(r))
+
+  terra::extract(r, vect(polygons_prj), fun = mean, na.rm = TRUE, ID = FALSE) |>
     as_tibble() |>
-    bind_cols(st_drop_geometry(hucs_prj) |> select(huc8, name)) |>
+    bind_cols(st_drop_geometry(polygons_prj) |> select(all_of(id_cols))) |>
     pivot_longer(
-      -c(huc8, name),
+      -all_of(id_cols),
       names_to  = "season",
       values_to = "mean_abundance"
     ) |>
-    mutate(common_name = species, .before = everything())
+    mutate(common_name = species, .before = everything()) |>
+    # Cells can be entirely NA inside a feature (outside the modeled range).
+    mutate(mean_abundance = if_else(is.nan(mean_abundance), NA_real_, mean_abundance))
 }
 
-status_by_huc <- imap(status_klamath, \(r, sp) summarise_by_huc(r, sp)) |>
+status_by_huc <- imap(
+  status_klamath,
+  \(r, sp) summarise_by_polygon(r, sp, klamath_hucs, c("huc8", "name"))
+) |>
   list_rbind() |>
-  # Cells can be entirely NA inside a subbasin (outside the modeled range).
-  mutate(mean_abundance = if_else(is.nan(mean_abundance), NA_real_, mean_abundance))
+  transmute(
+    common_name, geography_type = "huc8",
+    huc8, name, area = NA_character_,
+    season, mean_abundance
+  )
 
-status_by_huc |>
-  filter(!is.na(mean_abundance)) |>
+status_by_refuge <- imap(
+  status_klamath,
+  \(r, sp) summarise_by_polygon(r, sp, klamath_refuges, c("site"))
+) |>
+  list_rbind() |>
+  transmute(
+    common_name, geography_type = "refuge",
+    huc8 = NA_character_, name = NA_character_, area = site,
+    season, mean_abundance
+  )
+
+ebird_status <- bind_rows(status_by_huc, status_by_refuge) |>
+  glimpse()
+
+usethis::use_data(ebird_status, overwrite = TRUE)
+```
+
+```{r status-tables}
+ebird_status |>
+  filter(geography_type == "huc8", !is.na(mean_abundance)) |>
   arrange(common_name, season, desc(mean_abundance)) |>
+  select(-geography_type, -area) |>
   knitr::kable(digits = 4, caption = "Mean seasonal relative abundance by HUC8 subbasin")
+
+ebird_status |>
+  filter(geography_type == "refuge", !is.na(mean_abundance)) |>
+  arrange(common_name, season, desc(mean_abundance)) |>
+  select(-geography_type, -huc8, -name) |>
+  knitr::kable(digits = 4, caption = "Mean seasonal relative abundance by wildlife refuge")
 ```
 
 ```{r status-huc-plot, fig.height=8}
-status_by_huc |>
-  filter(!is.na(mean_abundance)) |>
+status_pal <- c("Cinnamon Teal" = "#2a78d6", "Eared Grebe" = "#eb6834",
+                "White-faced Ibis" = "#1baf7a")
+
+ebird_status |>
+  filter(geography_type == "huc8", !is.na(mean_abundance)) |>
   ggplot(aes(x = mean_abundance, y = fct_reorder(name, mean_abundance, .fun = max),
              fill = common_name)) +
   geom_col(position = position_dodge(preserve = "single")) +
   facet_wrap(~ season, scales = "free_x") +
-  scale_fill_manual(
-    values = c("Cinnamon Teal" = "#2a78d6", "Eared Grebe" = "#eb6834",
-               "White-faced Ibis" = "#1baf7a"),
-    name = NULL
-  ) +
+  scale_fill_manual(values = status_pal, name = NULL) +
   labs(
     title = "Which subbasins hold the most predicted abundance",
+    x = "Mean relative abundance", y = NULL
+  ) +
+  theme(legend.position = "bottom")
+```
+
+```{r status-refuge-plot, fig.height=6}
+ebird_status |>
+  filter(geography_type == "refuge", !is.na(mean_abundance)) |>
+  ggplot(aes(x = mean_abundance, y = fct_reorder(area, mean_abundance, .fun = max),
+             fill = common_name)) +
+  geom_col(position = position_dodge(preserve = "single")) +
+  facet_wrap(~ season, scales = "free_x") +
+  scale_fill_manual(values = status_pal, name = NULL) +
+  labs(
+    title = "Which refuges hold the most predicted abundance",
+    subtitle = "Same six refuges used for `area` in klamath_ebird and piscivorous_waterbirds",
     x = "Mean relative abundance", y = NULL
   ) +
   theme(legend.position = "bottom")
@@ -385,10 +490,16 @@ where. Basin-wide summaries are the appropriate grain for this product.
 -   **Resolution mismatch.** Status is clipped at 3 km, trends at ~27 km.
     The two are not directly comparable cell-for-cell, and the basin
     contains relatively few trend cells.
--   **Edge effects.** Clipping to a watershed boundary cuts through modeled
-    surfaces that are continuous across it. Cells straddling the boundary
-    are included whole by `mask()` (based on cell centre), so basin-edge
-    values partly describe habitat just outside the basin.
+-   **Edge effects.** Clipping to a watershed or refuge boundary cuts
+    through modeled surfaces that are continuous across it. Cells
+    straddling the boundary are included whole by `mask()` (based on cell
+    centre), so edge values partly describe habitat just outside the
+    polygon. This matters far more for `status_by_refuge` than
+    `status_by_huc`: refuges are small relative to the 3 km grid — Bear
+    Valley (~17 km²) is only about 2 cells, versus 10-24 cells for the
+    other five refuges — so a refuge-level mean, especially Bear Valley's,
+    rests on very little spatial averaging and should be read as
+    indicative rather than precise.
 -   **Trends are breeding-season only** for these species, so they say
     nothing about the migratory and wintering periods that the status
     surfaces do cover.

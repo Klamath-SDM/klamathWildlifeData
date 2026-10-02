@@ -238,3 +238,94 @@
 #' }
 "oregon_spotted_frog"
 
+
+#' eBird Status Relative Abundance by Subbasin and Refuge
+#'
+#' Modeled seasonal relative abundance from eBird Status, for the
+#' multispecies subgroup's three focal species, summarized two ways within
+#' the Klamath Basin: by HUC8 subbasin and by national wildlife refuge. This
+#' is a model-derived, effort-corrected surface, in contrast to the raw
+#' observations in \code{\link{klamath_ebird}}.
+#'
+#' @format A tibble with one row per species x geography x season:
+#' \describe{
+#'   \item{common_name}{Species common name: \code{"Cinnamon Teal"},
+#'     \code{"Eared Grebe"}, or \code{"White-faced Ibis"}.}
+#'   \item{geography_type}{Which kind of geography this row summarizes:
+#'     \code{"huc8"} or \code{"refuge"}. The two geographies don't nest -
+#'     a refuge isn't contained in one subbasin, and vice versa - so rather
+#'     than force a single geometry, each row is one or the other, and only
+#'     that geography's id columns are populated.}
+#'   \item{huc8}{HUC8 subbasin code, matching
+#'     \code{rivermile::klamath_hucs$huc8}. \code{NA} unless
+#'     \code{geography_type == "huc8"}.}
+#'   \item{name}{HUC8 subbasin name, matching
+#'     \code{rivermile::klamath_hucs$name}. \code{NA} unless
+#'     \code{geography_type == "huc8"}.}
+#'   \item{area}{Refuge name, matching \code{klamath_ebird$area} and
+#'     \code{piscivorous_waterbirds$area} exactly (same six refuges, same
+#'     0.5-mile buffer). \code{NA} unless \code{geography_type == "refuge"}.}
+#'   \item{season}{Season the estimate applies to: \code{"breeding"},
+#'     \code{"nonbreeding"}, \code{"prebreeding_migration"}, or
+#'     \code{"postbreeding_migration"}. Migrants get up to four seasons;
+#'     residents may have fewer.}
+#'   \item{mean_abundance}{Mean modeled relative abundance across all 3 km
+#'     raster cells within the geography. See Details - this is a mean of
+#'     means on a relative scale, not a density or population count.}
+#' }
+#'
+#' @details
+#' Each underlying raster cell is eBird Status's \emph{relative abundance}:
+#' the expected count of the species on a standardized 2 km, 1 hour eBird
+#' Traveling Count by an expert observer, under optimal timing and
+#' conditions to detect that species - the modeled probability of
+#' occurrence times the expected count given occurrence. The seasonal
+#' layers this package pulls are the cell-wise mean of that quantity across
+#' the weeks in a season, and \code{mean_abundance} here is a further
+#' spatial mean of those already-averaged cells within a subbasin or
+#' refuge. It is only meaningful as a comparison - across seasons, places,
+#' or species modeled the same way - never as an absolute count of birds
+#' that can be summed to a population total.
+#'
+#' Refuges are small relative to the underlying 3 km grid: Bear Valley
+#' (about 17 sq km) is only about 2 cells, versus 10-24 cells for the
+#' other five refuges, so its refuge-level mean rests on very little
+#' spatial averaging and should be read as indicative rather than precise.
+#'
+#' Not every species eBird Status models has a usable surface for every
+#' season - \code{ebirdst_runs} carries a 0-3 quality rating per season,
+#' and a poorly-rated season is best not interpreted. Check that table
+#' before extending this dataset to other species.
+#'
+#' See \code{data-raw/ebird-status-and-trends.Rmd} for the full compilation
+#' script, including the corresponding trend (percent-per-year change)
+#' estimates, which are not part of this dataset.
+#'
+#' @source
+#' eBird Status and Trends, Cornell Lab of Ornithology.
+#'   \url{https://science.ebird.org/en/status-and-trends}
+#'
+#' @seealso \code{\link{klamath_ebird}} and
+#'   \code{\link{piscivorous_waterbirds}}, which share the \code{area}
+#'   column used here for refuge rows.
+#'
+#' @examples
+#' \dontrun{
+#' ebird_status
+#'
+#' # By subbasin
+#' library(dplyr)
+#' ebird_status |>
+#'   filter(geography_type == "huc8", !is.na(mean_abundance))
+#'
+#' # By refuge, joined to raw eBird observation counts for the same areas
+#' ebird_status |>
+#'   filter(geography_type == "refuge") |>
+#'   left_join(
+#'     klamath_ebird |> count(area, common_name, name = "n_observed"),
+#'     by = c("area", "common_name")
+#'   )
+#' }
+#' @keywords datasets
+"ebird_status"
+
