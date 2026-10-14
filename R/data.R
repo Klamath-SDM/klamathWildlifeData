@@ -239,67 +239,67 @@
 "oregon_spotted_frog"
 
 
-#' eBird Status Relative Abundance by Subbasin and Refuge
+#' eBird Status Weekly Abundance, Count, and Occurrence by Refuge
 #'
-#' Modeled seasonal relative abundance from eBird Status, for the
-#' multispecies subgroup's three focal species, summarized two ways within
-#' the Klamath Basin: by HUC8 subbasin and by national wildlife refuge. This
-#' is a model-derived, effort-corrected surface, in contrast to the raw
-#' observations in \code{\link{klamath_ebird}}.
+#' Modeled weekly relative abundance, count, and occurrence from eBird Status
+#' for the multispecies subgroup's three focal species, summarized within each
+#' of the six Klamath Basin national wildlife refuges. These are
+#' model-derived, effort-corrected values, in contrast to the raw observations
+#' in \code{\link{klamath_ebird}}.
 #'
-#' @format A tibble with one row per species x geography x season:
+#' @format A tibble with 2,808 rows (3 species x 3 products x 6 refuges x 52
+#'   weeks) and 5 variables:
 #' \describe{
 #'   \item{common_name}{Species common name: \code{"Cinnamon Teal"},
 #'     \code{"Eared Grebe"}, or \code{"White-faced Ibis"}.}
-#'   \item{geography_type}{Which kind of geography this row summarizes:
-#'     \code{"huc8"} or \code{"refuge"}. The two geographies don't nest -
-#'     a refuge isn't contained in one subbasin, and vice versa - so rather
-#'     than force a single geometry, each row is one or the other, and only
-#'     that geography's id columns are populated.}
-#'   \item{huc8}{HUC8 subbasin code, matching
-#'     \code{rivermile::klamath_hucs$huc8}. \code{NA} unless
-#'     \code{geography_type == "huc8"}.}
-#'   \item{name}{HUC8 subbasin name, matching
-#'     \code{rivermile::klamath_hucs$name}. \code{NA} unless
-#'     \code{geography_type == "huc8"}.}
+#'   \item{product}{Which eBird Status product \code{mean_value} summarizes:
+#'     \code{"abundance"}, \code{"count"}, or \code{"occurrence"}.}
 #'   \item{area}{Refuge name, matching \code{klamath_ebird$area} and
-#'     \code{piscivorous_waterbirds$area} exactly (same six refuges, same
-#'     0.5-mile buffer). \code{NA} unless \code{geography_type == "refuge"}.}
-#'   \item{season}{Season the estimate applies to: \code{"breeding"},
-#'     \code{"nonbreeding"}, \code{"prebreeding_migration"}, or
-#'     \code{"postbreeding_migration"}. Migrants get up to four seasons;
-#'     residents may have fewer.}
-#'   \item{mean_abundance}{Mean modeled relative abundance across all 3 km
-#'     raster cells within the geography. See Details - this is a mean of
-#'     means on a relative scale, not a density or population count.}
+#'     \code{piscivorous_waterbirds$area} (same six refuges, same 0.5-mile
+#'     buffer).}
+#'   \item{week}{Date at the middle of each of eBird Status's 52 weeks. The
+#'     year is the prediction year of this release (2023); read it as a
+#'     position in the annual cycle.}
+#'   \item{mean_value}{Mean of the weekly median estimate for \code{product}
+#'     over the 3 km cells whose centre falls inside the buffered refuge.
+#'     \code{NA} if the refuge has no estimated cell.}
 #' }
 #'
 #' @details
-#' Each underlying raster cell is eBird Status's \emph{relative abundance}:
-#' the expected count of the species on a standardized 2 km, 1 hour eBird
-#' Traveling Count by an expert observer, under optimal timing and
-#' conditions to detect that species - the modeled probability of
-#' occurrence times the expected count given occurrence. The seasonal
-#' layers this package pulls are the cell-wise mean of that quantity across
-#' the weeks in a season, and \code{mean_abundance} here is a further
-#' spatial mean of those already-averaged cells within a subbasin or
-#' refuge. It is only meaningful as a comparison - across seasons, places,
-#' or species modeled the same way - never as an absolute count of birds
-#' that can be summed to a population total.
+#' \strong{Calculation.} Each species and product is a 52-layer eBird Status
+#' raster (weekly median estimate, 3 km), cropped to the basin. For each
+#' refuge and week, \code{mean_value} is the mean of the cell values whose
+#' centre falls inside the refuge buffered by 0.5 miles. Cells with no
+#' estimate are ignored.
 #'
-#' Refuges are small relative to the underlying 3 km grid: Bear Valley
-#' (about 17 sq km) is only about 2 cells, versus 10-24 cells for the
-#' other five refuges, so its refuge-level mean rests on very little
-#' spatial averaging and should be read as indicative rather than precise.
+#' \strong{Products.} Each cell value is an estimate for a standardized eBird
+#' checklist: a 2 km, 1 hour Traveling Count by an expert observer, at the
+#' best time of day for the species.
+#' \itemize{
+#'   \item \code{occurrence}: probability (0-1) that the species is reported.
+#'   \item \code{count}: expected count, given that the species occurs.
+#'   \item \code{abundance}: expected relative abundance, defined as
+#'     occurrence times count. Each weekly layer is its own median estimate,
+#'     so the occurrence and count layers multiply to approximately, not
+#'     exactly, the abundance layer.
+#' }
 #'
-#' Not every species eBird Status models has a usable surface for every
-#' season - \code{ebirdst_runs} carries a 0-3 quality rating per season,
-#' and a poorly-rated season is best not interpreted. Check that table
-#' before extending this dataset to other species.
+#' \strong{Interpretation.} \code{abundance} and \code{count} are relative to
+#' the standardized checklist, not densities or numbers of birds: compare one
+#' species across weeks or refuges, but do not sum them. eBird advises
+#' against comparing relative abundance between species, because the
+#' percentages of undetected individuals will differ among species. The
+#' \code{count} mean weights every cell equally, including cells where the
+#' species is unlikely. The \code{occurrence} mean is the average probability of
+#' reporting the species at a random spot in the refuge, not the probability
+#' that it occurs somewhere in it.
+#'
+#' Refuges are small relative to the 3 km grid: Bear Valley has only about 3
+#' cells, versus roughly 20-37 for the other five, so its mean in particular
+#' is indicative rather than precise.
 #'
 #' See \code{data-raw/ebird-status-and-trends.Rmd} for the full compilation
-#' script, including the corresponding trend (percent-per-year change)
-#' estimates, which are not part of this dataset.
+#' script.
 #'
 #' @source
 #' eBird Status and Trends, Cornell Lab of Ornithology.
@@ -307,20 +307,24 @@
 #'
 #' @seealso \code{\link{klamath_ebird}} and
 #'   \code{\link{piscivorous_waterbirds}}, which share the \code{area}
-#'   column used here for refuge rows.
+#'   column.
 #'
 #' @examples
 #' \dontrun{
-#' ebird_status
-#'
-#' # By subbasin
 #' library(dplyr)
-#' ebird_status |>
-#'   filter(geography_type == "huc8", !is.na(mean_abundance))
 #'
-#' # By refuge, joined to raw eBird observation counts for the same areas
+#' # Week of peak abundance in each refuge
 #' ebird_status |>
-#'   filter(geography_type == "refuge") |>
+#'   filter(product == "abundance", !is.na(mean_value)) |>
+#'   slice_max(mean_value, n = 1, by = c(common_name, area))
+#'
+#' # The three products side by side
+#' ebird_status |>
+#'   tidyr::pivot_wider(names_from = product, values_from = mean_value)
+#'
+#' # Joined to raw eBird observation counts for the same refuges
+#' ebird_status |>
+#'   filter(product == "abundance") |>
 #'   left_join(
 #'     klamath_ebird |> count(area, common_name, name = "n_observed"),
 #'     by = c("area", "common_name")
@@ -329,3 +333,78 @@
 #' @keywords datasets
 "ebird_status"
 
+
+#' eBird Trends in Relative Abundance by Refuge
+#'
+#' Modeled percent-per-year change in relative abundance from eBird Trends,
+#' summarized within each of the six Klamath Basin national wildlife refuges,
+#' in the same long format as \code{\link{ebird_status}}. Only species with
+#' a trends estimate are included: Cinnamon Teal and White-faced Ibis. Eared
+#' Grebe has none.
+#'
+#' @format A tibble with 48 rows (2 species x 4 metrics x 6 refuges) and 7
+#'   variables:
+#' \describe{
+#'   \item{common_name}{Species common name: \code{"Cinnamon Teal"} or
+#'     \code{"White-faced Ibis"}.}
+#'   \item{metric}{Which trend estimate \code{value} is: \code{"abd_ppy"},
+#'     \code{"abd_ppy_lower"}, \code{"abd_ppy_upper"}, or \code{"abd"}. See
+#'     Details.}
+#'   \item{area}{Refuge name, matching \code{klamath_ebird$area} and
+#'     \code{piscivorous_waterbirds$area} (same six refuges, same 0.5-mile
+#'     buffer).}
+#'   \item{season}{Season the trend was estimated for: \code{"breeding"}.}
+#'   \item{start_year, end_year}{First and last year of the trend period (2012
+#'     and 2022). Each estimate covers this whole period; there is no
+#'     year-by-year series.}
+#'   \item{value}{The estimate named by \code{metric}.}
+#' }
+#'
+#' @details
+#' \strong{Calculation.} eBird provides one trend estimate per 27 km grid cell,
+#' plus 100 ensemble-fold estimates per cell. Following eBird's regional-trend
+#' method, adapted so each cell counts in proportion to how much of it the
+#' refuge covers: in each fold, the refuge's trend is
+#' sum(overlap x \code{abd} x \code{abd_ppy}) / sum(overlap x \code{abd}) over
+#' the cells it overlaps.
+#' \itemize{
+#'   \item \code{abd_ppy}: percent change in relative abundance per year
+#'     (median across folds); negative is a decline.
+#'   \item \code{abd_ppy_lower}, \code{abd_ppy_upper}: 10th and 90th
+#'     percentiles across folds, an 80 percent interval.
+#'   \item \code{abd}: overlap-weighted mean of the cells' relative abundance
+#'     at the middle of the trend period (2017), on the same relative scale as
+#'     \code{\link{ebird_status}}; not a density or number of birds.
+#' }
+#'
+#' \strong{Interpretation.} A 27 km cell (about 711 sq km) is far larger than a
+#' refuge (34-325 sq km), and each refuge overlaps only 2-4 cells, so the
+#' values describe the surrounding landscape more than the refuge itself. The
+#' trend is for the breeding season only. Several intervals include zero, in
+#' which case the direction of change is not distinguishable from no change.
+#'
+#' See \code{data-raw/ebird-status-and-trends.Rmd} for the full compilation
+#' script.
+#'
+#' @source
+#' eBird Status and Trends, Cornell Lab of Ornithology.
+#'   \url{https://science.ebird.org/en/status-and-trends}
+#'
+#' @seealso \code{\link{ebird_status}}, which has the same layout with a
+#'   \code{week} column in place of the trend period.
+#'
+#' @examples
+#' \dontrun{
+#' library(dplyr)
+#'
+#' # Trend and 80 percent interval by refuge
+#' ebird_trends |>
+#'   tidyr::pivot_wider(names_from = metric, values_from = value)
+#'
+#' # Refuges where the interval excludes zero
+#' ebird_trends |>
+#'   tidyr::pivot_wider(names_from = metric, values_from = value) |>
+#'   filter(abd_ppy_lower > 0 | abd_ppy_upper < 0)
+#' }
+#' @keywords datasets
+"ebird_trends"
