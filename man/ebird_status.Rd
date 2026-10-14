@@ -6,7 +6,7 @@
 \title{eBird Status Weekly Abundance, Count, and Occurrence by Refuge}
 \format{
 A tibble with 2,808 rows (3 species x 3 products x 6 refuges x 52
-  weeks) and 5 variables:
+  weeks) and 6 variables:
 \describe{
   \item{common_name}{Species common name: \code{"Cinnamon Teal"},
     \code{"Eared Grebe"}, or \code{"White-faced Ibis"}.}
@@ -15,9 +15,11 @@ A tibble with 2,808 rows (3 species x 3 products x 6 refuges x 52
   \item{area}{Refuge name, matching \code{klamath_ebird$area} and
     \code{piscivorous_waterbirds$area} (same six refuges, same 0.5-mile
     buffer).}
-  \item{week}{Date at the middle of each of eBird Status's 52 weeks. The
-    year is the prediction year of this release (2023); read it as a
-    position in the annual cycle.}
+  \item{week}{eBird Status week number, 1 to 52, in calendar order (week 1
+    is centred on Jan 4). The release's year (2023) is not carried; read it
+    as a position in the annual cycle.}
+  \item{month}{Calendar month (1 to 12) of the week's middle date, so each
+    month has 4 or 5 weeks.}
   \item{mean_value}{Mean of the weekly median estimate for \code{product}
     over the 3 km cells whose centre falls inside the buffered refuge.
     \code{NA} if the refuge has no estimated cell.}
@@ -77,9 +79,10 @@ script.
 \dontrun{
 library(dplyr)
 
-# Week of peak abundance in each refuge
+# Week of peak abundance in each refuge (Bear Valley is zero in every
+# week, so it drops out)
 ebird_status |>
-  filter(product == "abundance", !is.na(mean_value)) |>
+  filter(product == "abundance", mean_value > 0) |>
   slice_max(mean_value, n = 1, by = c(common_name, area))
 
 # The three products side by side

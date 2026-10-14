@@ -52,7 +52,7 @@ This document pulls two distinct products and clips both to the Klamath
 Basin boundary (`rivermile::klamath_hucs`):
 
 1.  **Status** — weekly relative abundance, count, and occurrence rasters
-    (3 km resolution).
+    (3 km resolution), 2023
 2.  **Trends** — modeled percent-per-year change in relative abundance
     (~27 km resolution), for 2012-2022.
 
@@ -281,8 +281,9 @@ walk(focal_species, \(sp) print(plot_status(sp)))
     random spot in the refuge, not the probability it occurs somewhere in it.
 -   `abundance` is occurrence × count in each cell, but only approximately,
     since each weekly layer is its own median estimate.
--   `week` is the middle date of each week. Its year (2023) is the release's
-    prediction year, so read it as a position in the annual cycle.
+-   `week` is eBird's week number (1-52) and `month` is the calendar month of
+    that week's middle date, so each month has 4-5 weeks. The release's year
+    (2023) is not carried; read `week` as a position in the annual cycle.
 
 ```{r ebird-status}
 #' Mean of every weekly layer within each refuge, long: one row per refuge x week
@@ -292,12 +293,15 @@ summarise_by_refuge <- function(r, species, status_product) {
   terra::extract(r, vect(refuges_prj), fun = mean, na.rm = TRUE, ID = FALSE) |>
     as_tibble() |>
     bind_cols(area = refuges_prj$site) |>
-    pivot_longer(-area, names_to = "week", values_to = "mean_value") |>
+    pivot_longer(-area, names_to = "week_date", values_to = "mean_value") |>
     mutate(
       common_name = species,
       product     = status_product,
-      # Layer names are the week-midpoint dates.
-      week        = as.Date(week),
+      # Layer names are the week-midpoint dates. Keep the week's position in
+      # the year (1-52) and the month of its middle date; drop the year, which
+      # is only the release's prediction year.
+      week        = match(week_date, names(r)),
+      month       = as.integer(lubridate::month(as.Date(week_date))),
       # A refuge with no estimated cell (outside the modeled range) is NaN.
       mean_value  = if_else(is.nan(mean_value), NA_real_, mean_value)
     )
@@ -306,23 +310,24 @@ summarise_by_refuge <- function(r, species, status_product) {
 ebird_status <- status_weekly |>
   pmap(\(common_name, product, raster) summarise_by_refuge(raster, common_name, product)) |>
   list_rbind() |>
-  select(common_name, product, area, week, mean_value) 
+  select(common_name, product, area, week, month, mean_value)
 ```
 
 ```{r status-tables}
 ebird_status |>
-  filter(product == "abundance", !is.na(mean_value)) |>
+  filter(product == "abundance", mean_value > 0) |>
   slice_max(mean_value, n = 1, with_ties = FALSE, by = c(common_name, area)) |>
   transmute(
     common_name, area,
-    peak_week      = format(week, "%b %d"),
+    peak_week      = week,
+    peak_month     = month.abb[month],
     peak_abundance = mean_value
   ) |>
   arrange(common_name, desc(peak_abundance)) |>
   knitr::kable(
     digits = 3,
-    col.names = c("Species", "Refuge", "Peak week", "Peak abundance"),
-    caption = "Week of peak mean relative abundance, by wildlife refuge"
+    col.names = c("Species", "Refuge", "Peak week", "Peak month", "Peak abundance"),
+    caption = "Week of peak mean relative abundance, by wildlife refuge (refuges with zero abundance in every week are omitted)"
   )
 ```
 
@@ -341,12 +346,12 @@ ebird_status |>
     product ~ area, scales = "free_y",
     labeller = labeller(area = label_wrap_gen(12))
   ) +
-  scale_x_date(date_breaks = "3 months", date_labels = "%b") +
+  scale_x_continuous(breaks = c(1, 13, 26, 39, 52)) +
   scale_color_manual(values = status_pal, name = NULL) +
   labs(
     title = "Weekly occurrence, count, and abundance by refuge",
     subtitle = "Same six refuges used for `area` in klamath_ebird and piscivorous_waterbirds",
-    x = NULL, y = "Mean value (scale differs by row)"
+    x = "Week of year", y = "Mean value (scale differs by row)"
   ) +
   theme(legend.position = "bottom")
 ```
