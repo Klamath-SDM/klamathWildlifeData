@@ -1,0 +1,590 @@
+---
+title: "eBird Status and Trends"
+author: "Maddee Wiggins (FlowWest)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 10,
+  fig.height = 7
+)
+
+library(tidyverse)
+library(ebirdst)
+library(sf)
+library(terra)
+library(tidyterra)
+
+# `terra` and `tidyr` both export `extract`; be explicit below where it matters.
+
+theme_set(
+  theme_minimal() +
+    theme(
+      plot.title = element_text(size = 15, face = "bold"),
+      legend.position = "right"
+    )
+)
+```
+
+## Overview
+
+[eBird Status and Trends](https://science.ebird.org/en/status-and-trends)
+provides modeled estimates of species distribution, relative abundance, and
+population trend, derived from eBird checklists and remotely sensed habitat
+covariates. Unlike the raw eBird observations used elsewhere in this package
+(`klamath_ebird`), these are effort-corrected model predictions on a
+regular grid, which makes them comparable across space rather than a
+reflection of where birders happened to go.
+
+This document pulls two distinct products and clips both to the Klamath
+Basin boundary (`rivermile::klamath_hucs`):
+
+1.  **Status** — weekly relative abundance, count, and occurrence rasters
+    (3 km resolution), 2023
+2.  **Trends** — modeled percent-per-year change in relative abundance
+    (~27 km resolution), for 2012-2022.
+
+```{r versions}
+ebirdst_version()
+```
+
+Note that the status and trends products are on **different release
+cycles** — the status estimates and the trends estimates are not from the
+same model year, so they should not be described as a single vintage.
+
+### Access key
+
+Status and Trends data require a free access key, requested at
+<https://ebird.org/st/request>. The key is a secret and should never be
+typed into a chunk, script, or anything that gets committed. Run this once,
+directly in the R console (not in this document):
+
+```r
+ebirdst::set_ebirdst_access_key("your-key-here")
+```
+
+That call writes `EBIRDST_KEY` into `~/.Renviron`, outside the project
+directory. From then on every R session — including this document — picks
+the key up automatically from the environment, so nothing in this file ever
+needs to reference it directly. (The console command itself still lands in
+your R history, so if that's a concern, edit `~/.Renviron` directly instead
+of using the helper.)
+
+## Study area
+
+`rivermile::klamath_hucs` supplies the Klamath Basin outline used to clip the
+rasters and draw the maps.
+
+```{r study-area}
+klamath_hucs <- rivermile::klamath_hucs
+klamath_outline <- st_union(klamath_hucs)
+
+glimpse(klamath_hucs)
+```
+
+Status values are summarized by wildlife refuge using
+`rivermile::klamath_refuges`, buffered 0.5 miles and named to match `area` in
+`klamath_ebird` and `piscivorous_waterbirds` (the same convention as
+`bird_data_synthesis.Rmd`).
+
+```{r study-area-refuges}
+refuge_buffer_dist <- units::set_units(0.5, "mi")
+
+klamath_refuges <- rivermile::klamath_refuges |>
+  mutate(
+    site = case_when(
+      str_detect(orgname, "bear valley")   ~ "Bear Valley",
+      str_detect(orgname, "clear lake")    ~ "Clear Lake",
+      str_detect(orgname, "klamath marsh") ~ "Klamath Marsh",
+      str_detect(orgname, "lower klamath") ~ "Lower Klamath - Sheepy",
+      str_detect(orgname, "tule lake")     ~ "Tule Lake",
+      str_detect(orgname, "upper klamath") ~ "Upper Klamath Lake"
+    )
+  ) |>
+  select(site, orgname) |>
+  st_buffer(dist = refuge_buffer_dist)
+
+glimpse(klamath_refuges)
+```
+
+Both Status and Trends products are distributed on global equal-area grids,
+but not the same one — status rasters are Equal Earth
+(EPSG:8857) while the trends grid is sinusoidal. Rather than hard-coding
+either, the boundary is reprojected to whatever CRS the downloaded product
+reports. Reprojecting the vector rather than the raster matters: warping
+the raster would resample the estimates and distort the equal-area cells
+that the abundance values are defined on.
+
+## Species
+
+The focal species here are the three tracked by the multispecies subgroup.
+`ebirdst_runs` is the authoritative list of what is modeled, including
+whether a species has trends estimates at all.
+
+```{r species}
+focal_species <- c("Cinnamon Teal", "Eared Grebe", "White-faced Ibis")
+
+focal_runs <- ebirdst_runs |>
+  filter(common_name %in% focal_species) |>
+  glimpse()
+
+knitr::kable(focal_runs |> 
+               select(
+                 common_name, species_code, is_resident,
+                 breeding_quality, nonbreeding_quality,
+                 has_trends, trends_season, trends_start_year, trends_end_year
+               ), caption = "Status and Trends model coverage for the focal species")
+```
+
+Two things to note before going further:
+
+-   **Eared Grebe has no trends estimates** (`has_trends = FALSE`), so it
+    appears in the status section but drops out of the trends section. Any
+    species list used here should be filtered on `has_trends` rather than
+    assumed complete.
+-   Model quality is rated per season on a 0-3 scale. These ratings should
+    be checked before interpreting a surface, or the weekly values that
+    fall in that season; a low rating means the model was poorly validated
+    for that season.
+
+## Status: weekly relative abundance, count, and occurrence
+
+eBird Status models are fit to eBird checklists and environmental covariates,
+adjusted for observer effort, and predict for each of 52 weeks on a global
+grid what a standardized checklist would record: a 2 km, 1 hour Traveling
+Count by an expert observer, at the best time of day for the species. Three
+products are pulled, each the weekly median estimate, with
+`load_raster(period = "weekly")`:
+
+| `product`    | Cell value                                                 |
+|--------------|------------------------------------------------------------|
+| `occurrence` | probability (0-1) that the species is reported             |
+| `count`      | expected count, *given* that the species occurs            |
+| `abundance`  | expected relative abundance, defined as occurrence × count |
+
+```{r status-pull}
+# Each 3 km weekly file is global (nine here); use "9km" or "27km" to download less.
+status_resolution <- "3km"
+status_products <- c("abundance", "count", "occurrence")
+
+#' Load one weekly status product for a species and clip it to the Klamath Basin
+clip_status_to_klamath <- function(species, product, resolution = status_resolution) {
+  r <- load_raster(
+    species,
+    product    = product,
+    period     = "weekly",
+    resolution = resolution
+  )
+
+  # Reproject the boundary into the raster's own CRS, not the reverse.
+  boundary <- st_transform(klamath_outline, terra::crs(r)) |> vect()
+
+  r |>
+    terra::crop(boundary) |>
+    terra::mask(boundary)
+}
+
+# One pull per species x product, each kept as a 52-layer clipped raster.
+status_weekly <- expand_grid(common_name = focal_species, product = status_products) |>
+  mutate(raster = map2(common_name, product, clip_status_to_klamath))
+
+# Every pull should return the full 52 weeks.
+status_weekly |>
+  mutate(
+    n_weeks    = map_int(raster, terra::nlyr),
+    first_week = map_chr(raster, \(r) names(r)[1]),
+    last_week  = map_chr(raster, \(r) names(r)[terra::nlyr(r)])
+  ) |>
+  select(-raster)
+```
+
+Maps use eBird's seasonal mean of weekly abundance (four panels per species);
+`ebird_status` itself is built from the weekly pulls.
+
+```{r status-maps, fig.height=8}
+display_crs <- "EPSG:32610"
+display_buffer <- units::set_units(15, "km")
+
+plot_status <- function(species, resolution = status_resolution) {
+  r <- load_raster(
+    species,
+    product    = "abundance",
+    period     = "seasonal",
+    metric     = "mean",
+    resolution = resolution
+  )
+
+  # Loose crop, still in the native CRS, just to keep the reprojection cheap.
+  wide_boundary <- st_buffer(klamath_outline, display_buffer) |>
+    st_transform(terra::crs(r)) |>
+    vect()
+  r_wide <- terra::crop(r, wide_boundary)
+
+  # Reproject before the tight crop - see note above.
+  r_disp <- terra::project(r_wide, display_crs, method = "bilinear")
+
+  # Only now compute the tight boundary, directly in the display CRS.
+  tight_boundary <- st_transform(klamath_outline, display_crs) |> vect()
+  r_disp <- r_disp |> terra::crop(tight_boundary) |> terra::mask(tight_boundary)
+
+  ggplot() +
+    geom_spatraster(data = r_disp) +
+    geom_sf(data = st_transform(klamath_hucs, display_crs),
+            fill = NA, color = "grey30", linewidth = 0.25) +
+    facet_wrap(~ lyr) +
+    scale_fill_gradientn(
+      colours = ebirdst_palettes(20, type = "weekly"),
+      na.value = "transparent",
+      name = "Relative\nabundance"
+    ) +
+    labs(
+      title = species,
+      subtitle = paste0("Seasonal mean relative abundance, ", status_resolution,
+                        " resolution, clipped to the Klamath Basin")
+    ) +
+    theme(axis.text = element_blank(), panel.grid = element_blank())
+}
+
+walk(focal_species, \(sp) print(plot_status(sp)))
+```
+
+### How `ebird_status` is calculated
+
+1.  Each species × product pull is a 52-layer raster, one layer per week,
+    cropped and masked to the basin.
+2.  For each refuge and week, `mean_value` is the mean of the cell values whose
+    centre falls inside the refuge (0.5-mile buffer). Cells with no estimate
+    are ignored; a refuge with none is `NA`.
+3.  The species × product × refuge × week rows are bound into one table.
+
+### What `mean_value` means
+
+-   **`abundance`**: relative to the standardized checklist — not a density or
+    a number of birds. Compare across weeks or refuges for one species, not
+    between species (see Caveats); don't sum.
+-   **`count`**: same scale caveat. Every cell is weighted equally, including
+    cells where the species is unlikely, so it is not the count where the
+    species is actually found.
+-   **`occurrence`**: the average probability of reporting the species at a
+    random spot in the refuge, not the probability it occurs somewhere in it.
+-   `abundance` is occurrence × count in each cell, but only approximately,
+    since each weekly layer is its own median estimate.
+-   `week` is eBird's week number (1-52) and `month` is the calendar month of
+    that week's middle date, so each month has 4-5 weeks. The release's year
+    (2023) is not carried; read `week` as a position in the annual cycle.
+
+```{r ebird-status}
+#' Mean of every weekly layer within each refuge, long: one row per refuge x week
+summarise_by_refuge <- function(r, species, status_product) {
+  refuges_prj <- st_transform(klamath_refuges, terra::crs(r))
+
+  terra::extract(r, vect(refuges_prj), fun = mean, na.rm = TRUE, ID = FALSE) |>
+    as_tibble() |>
+    bind_cols(area = refuges_prj$site) |>
+    pivot_longer(-area, names_to = "week_date", values_to = "mean_value") |>
+    mutate(
+      common_name = species,
+      product     = status_product,
+      # Layer names are the week-midpoint dates. Keep the week's position in
+      # the year (1-52) and the month of its middle date; drop the year, which
+      # is only the release's prediction year.
+      week        = match(week_date, names(r)),
+      month       = as.integer(lubridate::month(as.Date(week_date))),
+      # A refuge with no estimated cell (outside the modeled range) is NaN.
+      mean_value  = if_else(is.nan(mean_value), NA_real_, mean_value)
+    )
+}
+
+ebird_status <- status_weekly |>
+  pmap(\(common_name, product, raster) summarise_by_refuge(raster, common_name, product)) |>
+  list_rbind() |>
+  select(common_name, product, area, week, month, mean_value)
+```
+
+```{r status-tables}
+ebird_status |>
+  filter(product == "abundance", mean_value > 0) |>
+  slice_max(mean_value, n = 1, with_ties = FALSE, by = c(common_name, area)) |>
+  transmute(
+    common_name, area,
+    peak_week      = week,
+    peak_month     = month.abb[month],
+    peak_abundance = mean_value
+  ) |>
+  arrange(common_name, desc(peak_abundance)) |>
+  knitr::kable(
+    digits = 3,
+    col.names = c("Species", "Refuge", "Peak week", "Peak month", "Peak abundance"),
+    caption = "Week of peak mean relative abundance, by wildlife refuge (refuges with zero abundance in every week are omitted)"
+  )
+```
+
+```{r status-refuge-plot, fig.height=7}
+status_pal <- c("Cinnamon Teal" = "#2a78d6", "Eared Grebe" = "#eb6834",
+                "White-faced Ibis" = "#1baf7a")
+
+# Occurrence is a probability, count and abundance are on different scales, so
+# each product gets its own y-axis.
+ebird_status |>
+  filter(!is.na(mean_value)) |>
+  mutate(product = factor(product, levels = status_products)) |>
+  ggplot(aes(x = week, y = mean_value, color = common_name)) +
+  geom_line(linewidth = 0.8) +
+  facet_grid(
+    product ~ area, scales = "free_y",
+    labeller = labeller(area = label_wrap_gen(12))
+  ) +
+  scale_x_continuous(breaks = c(1, 13, 26, 39, 52)) +
+  scale_color_manual(values = status_pal, name = NULL) +
+  labs(
+    title = "Weekly occurrence, count, and abundance by refuge",
+    subtitle = "Same six refuges used for `area` in klamath_ebird and piscivorous_waterbirds",
+    x = "Week of year", y = "Mean value (scale differs by row)"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+## Save Data Object
+
+```{r}
+ebird_status |> glimpse()
+
+usethis::use_data(ebird_status, overwrite = TRUE)
+```
+
+## Trends: percent change per year
+
+Trends are estimated differently from status. Rather than modeling absolute
+abundance in a single year, the trends model finds pairs of checklists that
+are close in location and similar in habitat and survey effort but taken in
+different years, and asks how relative abundance differed between the two
+years of each pair. Averaging that year-over-year change across many such
+pairs within a grid cell yields a percent-per-year trend for the cell, along
+with a confidence interval. Because it relies on paired comparisons rather
+than a single-year surface, this product is modeled on a coarser (~27 km)
+grid than status, and only for the 2012-2022 breeding season here. Trend
+estimates arrive as a data frame of grid cell centres with
+longitude/latitude in EPSG:4326, so the clip is a spatial filter of points
+rather than a raster mask.
+
+```{r trends-download}
+trends_species <- focal_runs |>
+  filter(has_trends) |>
+  pull(common_name)
+
+trends_species
+
+walk(trends_species, ebirdst_download_trends)
+```
+
+```{r trends-clip}
+trends_raw <- set_names(trends_species) |>
+  map(\(sp) load_trends(sp)) |>
+  list_rbind(names_to = "common_name")
+
+# Cell centres are lon/lat, so filter in 4326 against the basin outline.
+trends_sf <- trends_raw |>
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326, remove = FALSE)
+
+trends_klamath <- trends_sf |>
+  st_filter(st_transform(klamath_outline, 4326), .predicate = st_intersects)
+
+# How many 27 km cells actually fall inside the basin?
+trends_klamath |>
+  st_drop_geometry() |>
+  count(common_name, season, name = "n_cells")
+```
+
+```{r trends-map, fig.height=6}
+# ebirdst's own trends palette runs red (decline) -> white (no change) ->
+# blue (increase). Keep that direction: it is the convention every published
+# Status and Trends map uses, and flipping it would invert the reading.
+trends_pal <- ebirdst_palettes(3, type = "trends")
+
+ggplot() +
+  geom_sf(data = st_transform(klamath_hucs, 4326), fill = "grey94", color = "grey70",
+          linewidth = 0.25) +
+  # shape 21 keeps near-zero (near-white) cells visible against the basin.
+  geom_sf(data = trends_klamath, aes(fill = abd_ppy),
+          shape = 21, color = "grey35", stroke = 0.3, size = 3.5) +
+  facet_wrap(~ common_name) +
+  scale_fill_gradient2(
+    low = trends_pal[1], mid = trends_pal[2], high = trends_pal[3],
+    midpoint = 0,
+    name = "% change\nper year"
+  ) +
+  labs(
+    title = "Modeled population trend within the Klamath Basin",
+    subtitle = "Percent change per year in breeding-season relative abundance, 2012-2022",
+    x = NULL, y = NULL
+  ) +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+A diverging scale centred on zero is used deliberately: the quantity has a
+meaningful neutral point (no change), and the two arms read as opposite
+directions — **red is decline, blue is increase**, following eBird's own
+convention. Cell-level estimates carry wide confidence intervals, so the
+summary below reports them rather than the point estimate alone.
+
+```{r trends-summary}
+trends_klamath |>
+  st_drop_geometry() |>
+  summarise(
+    n_cells         = n(),
+    median_ppy      = median(abd_ppy),
+    mean_ppy        = mean(abd_ppy),
+    median_ppy_low  = median(abd_ppy_lower),
+    median_ppy_high = median(abd_ppy_upper),
+    cells_declining = sum(abd_ppy < 0),
+    .by = c(common_name, season)
+  ) |>
+  arrange(median_ppy) |>
+  knitr::kable(digits = 3, caption = "Trend summary for cells intersecting the Klamath Basin")
+```
+
+Assigning trend cells to individual subbasins is possible but marginal at
+this resolution: a single 27 km cell is comparable in size to the smaller
+HUC8s, so a per-subbasin trend would mostly reflect which cell centre landed
+where. Basin-wide summaries are the appropriate grain for this product.
+
+### `ebird_trends`: trends by refuge
+
+`ebird_trends` mirrors `ebird_status`: long format, one row per species × metric
+× refuge, with `area` matching `klamath_ebird$area`. Each cell has a single
+estimate for the breeding season over the full 2012-2022 window of the current
+Trends release, and there is no year-by-year series, so `start_year` and
+`end_year` take the place of `week`. Eared Grebe has no trends and is excluded.
+
+It follows eBird's regional-trend method (abundance-weighted, computed per
+ensemble fold), adapted so each cell counts in proportion to how much of it the
+refuge covers:
+
+1.  For each refuge, find the 27 km cells it overlaps and the share of each cell
+    it covers.
+2.  In each of the 100 ensemble folds, the refuge's `abd_ppy` is
+    sum(overlap × `abd` × `abd_ppy`) / sum(overlap × `abd`) over those cells.
+3.  `abd_ppy` is the median across folds; `abd_ppy_lower` and `abd_ppy_upper` are
+    the 10th and 90th percentiles (an 80% interval).
+4.  `abd` is the overlap-weighted mean of the cells' relative abundance at the
+    middle of the trend period.
+
+`abd_ppy` is the percent change in relative abundance per year; negative is a
+decline. Averaging cell-level interval bounds would not give a valid refuge
+interval, which is why folds are used. A 27 km cell (about 711 km²) is far larger
+than a refuge (34-325 km²), and each refuge overlaps only 2-4 cells, so the
+values describe the surrounding landscape more than the refuge itself.
+
+```{r ebird-trends}
+#' Refuge-level trend for one species, from the 27 km cell and fold estimates
+trends_by_refuge <- function(species) {
+  cells <- load_trends(species)
+  folds <- load_trends(species, fold_estimates = TRUE)
+
+  # Raster of cell ids on the trends grid, to get each refuge's overlap with
+  # each cell.
+  grid <- rasterize_trends(cells, layers = "abd", trim = FALSE)
+  cell_ids <- vect(
+    cells[c("longitude", "latitude", "srd_id")],
+    geom = c("longitude", "latitude"), crs = "epsg:4326"
+  ) |>
+    terra::project(terra::crs(grid)) |>
+    terra::rasterize(grid, field = "srd_id")
+  names(cell_ids) <- "srd_id"  # rasterize() names the layer "last"
+
+  # Share of each cell covered by each refuge.
+  overlap <- terra::extract(
+    cell_ids, vect(st_transform(klamath_refuges, terra::crs(grid))),
+    exact = TRUE, ID = TRUE
+  ) |>
+    as_tibble() |>
+    filter(!is.na(srd_id)) |>
+    transmute(area = klamath_refuges$site[ID], srd_id, weight = fraction)
+
+  # A cell can overlap more than one refuge, hence many-to-many.
+  ppy <- folds |>
+    inner_join(overlap, by = "srd_id", relationship = "many-to-many") |>
+    summarise(ppy = sum(weight * abd * abd_ppy) / sum(weight * abd), .by = c(area, fold)) |>
+    summarise(
+      abd_ppy       = median(ppy),
+      abd_ppy_lower = quantile(ppy, 0.1, names = FALSE),
+      abd_ppy_upper = quantile(ppy, 0.9, names = FALSE),
+      .by = area
+    )
+
+  abd <- cells |>
+    inner_join(overlap, by = "srd_id", relationship = "many-to-many") |>
+    summarise(abd = sum(weight * abd) / sum(weight), .by = area)
+
+  full_join(ppy, abd, by = "area") |>
+    mutate(
+      common_name = species,
+      season      = cells$season[1],
+      start_year  = cells$start_year[1],
+      end_year    = cells$end_year[1]
+    )
+}
+
+ebird_trends <- trends_species |>
+  map(trends_by_refuge) |>
+  list_rbind() |>
+  pivot_longer(
+    c(abd_ppy, abd_ppy_lower, abd_ppy_upper, abd),
+    names_to = "metric", values_to = "value"
+  ) |>
+  select(common_name, metric, area, season, start_year, end_year, value) |>
+  glimpse()
+
+usethis::use_data(ebird_trends, overwrite = TRUE)
+```
+
+## Caveats
+
+-   **Model output, not observation.** These are predictions from a model
+    fit to eBird data. They are effort-corrected, which is precisely why
+    they are useful alongside `klamath_ebird`, but they inherit the
+    assumptions of the underlying model.
+-   **Don't compare relative abundance between species.** eBird advises
+    against it "because the percentages of undetected individuals will differ
+    among species" ([eBird Status and Trends
+    FAQ](https://science.ebird.org/status-and-trends/faq#abundance)). Compare
+    one species across weeks or refuges. The plots draw species together for
+    layout only.
+-   **Check seasonal quality ratings.** A season rated 0-1 should not be
+    interpreted, and that applies to the weeks that fall inside it. The
+    species table above shows each season's rating, and `ebirdst_runs`
+    gives the season dates, which are not carried in `ebird_status`.
+-   **Resolution mismatch.** Status is clipped at 3 km, trends at ~27 km.
+    The two are not directly comparable cell-for-cell, and the basin
+    contains relatively few trend cells.
+-   **Small refuges.** Each refuge mean uses the 3 km cells whose centre falls
+    inside the buffered refuge, so cells straddling the edge are in or out
+    whole. Refuges are small relative to that grid: Bear Valley has only
+    about 3 such cells (about 34 km² with the buffer), versus roughly 20-37
+    for the other five, so its mean in particular is indicative rather than
+    precise.
+-   **Trends are breeding-season only** for these species, so they say
+    nothing about the migratory and wintering periods that the status
+    surfaces do cover.
+
+
+
+## Citation
+
+Data products must be cited; `ebirdst` bundles the current citation.
+
+```{r citation, eval=FALSE}
+citation("ebirdst")
+```
