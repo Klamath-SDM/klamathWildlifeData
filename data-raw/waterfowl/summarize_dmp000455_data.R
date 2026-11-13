@@ -1,4 +1,4 @@
-# Summarizes the contents of data-raw/cinnamon-teal/dmp000455_data
+# Summarizes the contents of data-raw/waterfowl/dmp000455_data
 #
 # The folder is a mixed dump of historical California breeding waterfowl
 # survey (BPS/BPOP) materials: annual reports, population estimate reports,
@@ -13,7 +13,7 @@ library(readxl)
 library(pdftools)
 library(usethis)
 
-data_dir <- file.path("data-raw", "cinnamon-teal", "dmp000455_data")
+data_dir <- file.path("data-raw", "waterfowl", "dmp000455_data")
 
 categorize <- function(path, file_name) {
   case_when(
@@ -104,7 +104,7 @@ print(dmp_summary$year_range)
 # Full file-level inventory, saved alongside the raw data for reference
 write.csv(
   dmp_summary$inventory,
-  file.path("data-raw", "cinnamon-teal", "dmp000455_data_inventory.csv"),
+  file.path("data-raw", "waterfowl", "dmp000455_data_inventory.csv"),
   row.names = FALSE
 )
 

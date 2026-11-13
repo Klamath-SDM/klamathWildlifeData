@@ -1,0 +1,1219 @@
+---
+title: "Waterfowl Data Exploration"
+author: "Maddee Wiggins (FlowWest)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 9,
+  fig.height = 5.5
+)
+
+library(tidyverse)
+library(sf)
+library(xml2)
+library(pdftools)
+library(here)
+library(knitr)
+
+# Package data from this working copy (cinnamon_teal_population)
+pkgload::load_all(here(), quiet = TRUE)
+
+theme_set(
+  theme_minimal() +
+    theme(plot.title = element_text(face = "bold"), legend.position = "bottom")
+)
+
+survey_dir <- here("data-raw", "waterfowl", "dmp000455_data")
+
+# The legacy .doc/.docx reports are converted with macOS `textutil` (the same
+# approach as summarize_dmp000455_data.R).
+stopifnot(
+  "This document needs macOS `textutil` to read the legacy .doc/.docx reports" =
+    nzchar(Sys.which("textutil"))
+)
+
+read_report <- function(path) {
+  if (tolower(tools::file_ext(path)) == "txt") {
+    readLines(path, warn = FALSE)
+  } else {
+    system2("textutil", c("-convert", "txt", "-stdout", shQuote(path)), stdout = TRUE)
+  }
+}
+```
+
+## Purpose
+
+**Can we get Cinnamon Teal, or other waterfowl, data specifically for the
+Klamath region, in both California and Oregon?**
+
+This document assesses each source we are given and records whether it can
+answer that question for each state, and at what spatial grain. Sources are
+added one at a time. The summary table below is the running answer, and each
+report gets its own section after it.
+
+## Summary
+
+```{r summary}
+# One row per finding. Add rows here as each new report is assessed.
+# The static text is checked against the data in the Report 1 sections below,
+# which stop with an error if the numbers drift.
+assessments <- tribble(
+  ~report, ~question, ~answer, ~detail,
+  "1. CDFW breeding survey", "Cinnamon Teal counts for the California Klamath",
+  "No", "Only for the Northeastern California stratum (28,077 in 2026); the Klamath is one part of it",
+  "1. CDFW breeding survey", "Other waterfowl counts for the Klamath",
+  "Partly", "Mallards only, at segment level (five-year average, 2014-2018); every other species is stratum-wide",
+  "1. CDFW breeding survey", "Which species occur in the region",
+  "Yes, regionally", "18 of 19 survey-sheet species detected in the Northeastern stratum, 2003-2015",
+  "1. CDFW breeding survey", "The Oregon side of the Klamath",
+  "No", "The survey covers California only",
+  "1. CDFW breeding survey", "Where the survey samples the Klamath",
+  "Yes", "16 flight legs and 24 waypoints; only Tule Lake and Lower Klamath refuges are crossed directly",
+  "2. Fleskes and Yee 2007", "Cinnamon Teal in the Klamath, California and Oregon combined",
+  "Partly", "Share of 2002-2003 spring use-days in the Lower Klamath (26%) and Upper Klamath (13%) subregions (Table 4); two years, no state split",
+  "2. Fleskes and Yee 2007", "Other waterfowl species in the Klamath",
+  "Yes, by subregion", "Share of use-days by species and group in the same two subregions, 2002-2003 average",
+  "2. Fleskes and Yee 2007", "California vs Oregon separately",
+  "No", "Subregions, not states; the Lower Klamath subregion crosses the state line",
+  "3. ODFW Oregon survey 2026", "Cinnamon Teal for the Oregon Klamath",
+  "No", "Only for the Southeast Seasonal Marsh stratum (26,405 in 2026, 89% of Oregon's); it also covers the Harney, Malheur and Lake basins",
+  "3. ODFW Oregon survey 2026", "Other waterfowl for the Oregon Klamath",
+  "No", "Same stratum for every species",
+  "3. ODFW Oregon survey 2026", "Which species occur in the region",
+  "Yes, regionally", "19 of 21 species in the Southeast Seasonal Marsh stratum in 2026",
+  "3. ODFW Oregon survey 2026", "A time series",
+  "Yes, statewide", "Cinnamon Teal index 1994-2026 (no 2001 or 2020); by stratum only for 2025, 2026 and the long-term average",
+  "3. ODFW Oregon survey 2026", "The California side",
+  "No", "Oregon only"
+)
+
+kable(
+  assessments,
+  col.names = c("Report", "Question", "Can we answer it?", "Detail")
+)
+```
+
+# Report 1: CDFW California Waterfowl Breeding Population Survey
+
+**Source:** [Waterfowl Breeding Population - California - 1992-2022](https://data.ca.gov/@california-department-of-fish-and-wildlife/waterfowl-breeding-population-california-1992-2022),
+California Department of Fish and Wildlife (CDFW), Waterfowl Program (data
+package `dmp000455`, saved in `data-raw/waterfowl/dmp000455_data`). CDFW
+asks that uses acknowledge "CA Department of Fish and Wildlife/Waterfowl
+Program", funded by Pittman-Robertson and State Duck Stamp funds, and that
+users contact the data manager to discuss appropriate analyses.
+
+**Also used:** Brady, C., and M. Weaver. 2026. *2026 California Waterfowl
+Breeding Population Survey Report*. CDFW Waterfowl Unit. PDF in
+`data-raw/waterfowl/reports/`. **This report was not included in the direct
+download from the data.ca.gov waterfowl dataset** (`dmp000455`, which ends with
+the 2022 report); it was provided separately.
+
+**Temporal Coverage:** Annual, 1992-2026 (not flown in 2020 or 2021). Flown the
+second week of May in northeastern California (6-7 May in 2026). The annual
+reports in the download cover 2003-2022; the 2026 report extends the by-stratum
+series through 2026 (2023-2025 appear only there).
+
+**Spatial Grain:** Stratum for counts (9 strata statewide); segment for the
+mallard index only. Flight legs and waypoints are mapped.
+
+**Klamath coverage:** Partial. The Klamath is inside the Northeastern California
+stratum, and 16 flight legs and 24 waypoints are in the basin. California side
+only; no Oregon refuges.
+
+**Species:** 19 species on the survey sheet (2003-2015); mallard, gadwall,
+Cinnamon Teal and Canada goose by stratum (2016-2026).
+
+**Findings:** No Klamath-specific Cinnamon Teal counts (stratum only). Mallards
+have a segment-level index on all eight Klamath segments. Details below.
+
+## What is in the folder
+
+```{r inventory}
+inventory <- read_csv(
+  here("data-raw", "waterfowl", "dmp000455_data_inventory.csv"),
+  show_col_types = FALSE
+)
+
+inventory |>
+  count(category, name = "files", sort = TRUE) |>
+  kable()
+```
+
+## How the survey works
+
+From the CDFW metadata worksheet in the folder:
+
+-   Flown by fixed-wing aircraft and helicopter, two observers in each.
+-   Conducted about the third week of April in the Central Valley and the
+    second week of May in northeastern California.
+-   California is divided into nine **strata**, each sampled by transects
+    made of segments. Species, sex, and breeding status are recorded.
+-   The survey has run since 1955; the current design dates from 1992. It
+    was not flown in 2020 or 2021.
+-   Counts are expressed as **total indicated birds** (TIB): a
+    breeding-pair index that weights lone drakes, pairs, flocked drakes,
+    and groups differently by species. Population estimates correct TIB for
+    detectability using a visibility correction factor (VCF) and expand it
+    by stratum area.
+-   Spatial detail: "Data collected on transect within Stratum. For some
+    years, lat-long associated with each observation."
+
+## Cinnamon Teal: statewide
+
+`cinnamon_teal_population` holds the statewide estimates compiled for this
+package.
+
+```{r teal-statewide}
+cinnamon_teal_population |>
+  mutate(run = cumsum(c(TRUE, diff(year) > 1))) |>   # break the line across survey gaps
+  ggplot(aes(year, pop_est)) +
+  geom_ribbon(aes(ymin = ci_low, ymax = ci_high, group = run), alpha = 0.2, fill = "#2a78d6", na.rm = TRUE) +
+  geom_line(aes(group = run), color = "#2a78d6") +
+  geom_point(color = "#2a78d6") +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    title = "Statewide Cinnamon Teal breeding population estimate",
+    subtitle = "As compiled in cinnamon_teal_population; ribbon is the 95% interval where reported",
+    x = NULL, y = "Estimated birds"
+  )
+```
+
+## Cinnamon Teal: by stratum
+
+The annual reports break the estimate down by stratum. Appendix IV of the 2026
+report has Cinnamon Teal for all nine strata, 1992 to 2026. It was not in the
+direct download, which ends with the 2022 report, so 2023-2026 come only from
+the 2026 report.
+
+```{r teal-strata}
+reports_dir <- here("data-raw", "waterfowl", "reports")
+
+# Cinnamon Teal block of Appendix IV from a report PDF: year rows only
+read_teal_appendix <- function(pdf) {
+  pages <- pdf_text(pdf)
+  page <- which(str_detect(pages, "Appendix IV\\. Continued") & str_detect(pages, "Cinnamon Teal"))
+  stopifnot(length(page) == 1)
+
+  lines <- strsplit(pages[page], "\n")[[1]]
+  header <- str_split(trimws(grep("^\\s*Year\\s+SV", lines, value = TRUE)), "\\s+")[[1]]
+  rows <- str_split(trimws(grep("^\\s*(19|20)\\d{2}\\s+\\d", lines, value = TRUE)), "\\s+")
+
+  out <- map(rows, \(x) set_names(as.numeric(gsub(",", "", x)), header)) |>
+    map(\(x) as_tibble(as.list(x))) |>
+    list_rbind() |>
+    rename(year = Year) |>
+    mutate(ne_share = NE / TOTAL)
+
+  # The strata should add up to the statewide total in every year.
+  stopifnot(all(abs(rowSums(out[setdiff(header, c("Year", "TOTAL"))]) - out$TOTAL) <= 2))
+  out
+}
+
+teal_strata <- read_teal_appendix(file.path(reports_dir, "2026 CA BPS Report Final.pdf"))
+teal_strata_2022 <- read_teal_appendix(file.path(survey_dir, "2022 CA BPS Report Final.pdf"))
+
+# Guards the numbers quoted in the text and Summary table.
+stopifnot(
+  range(teal_strata$year) == c(1992, 2026),
+  teal_strata$NE[teal_strata$year == 2026] == 28077,
+  teal_strata$TOTAL[teal_strata$year == 2026] == 39745
+)
+```
+
+```{r teal-strata-plot}
+teal_strata |>
+  transmute(year, `Northeastern California` = NE, Statewide = TOTAL) |>
+  pivot_longer(-year, names_to = "series", values_to = "estimate") |>
+  mutate(run = cumsum(c(TRUE, diff(year) > 1)), .by = series) |>
+  ggplot(aes(year, estimate, color = series, group = interaction(series, run))) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::comma) +
+  scale_color_manual(values = c(Statewide = "grey40", `Northeastern California` = "#eb6834"), name = NULL) +
+  labs(
+    title = "Cinnamon Teal: Northeastern California stratum vs statewide",
+    subtitle = "The Klamath is one part of the Northeastern stratum",
+    x = NULL, y = "Estimated birds"
+  )
+```
+
+The Northeastern stratum accounts for a median
+`r scales::percent(median(teal_strata$ne_share), accuracy = 1)` of the
+statewide estimate (range
+`r scales::percent(min(teal_strata$ne_share), accuracy = 1)` to
+`r scales::percent(max(teal_strata$ne_share), accuracy = 1)`) across
+`r nrow(teal_strata)` survey years.
+
+**2026 report vs the 2022 report.** The two appendices overlap for 1992-2022.
+
+```{r teal-2022-check}
+overlap <- inner_join(
+  teal_strata_2022 |> select(year, NE_2022 = NE, TOTAL_2022 = TOTAL),
+  teal_strata |> select(year, NE_2026 = NE, TOTAL_2026 = TOTAL),
+  by = "year"
+)
+
+overlap |>
+  filter(NE_2022 != NE_2026 | TOTAL_2022 != TOTAL_2026) |>
+  mutate(year = as.character(year)) |>
+  kable(
+    format.args = list(big.mark = ","),
+    col.names = c("Year", "NE (2022 report)", "Total (2022 report)", "NE (2026 report)", "Total (2026 report)"),
+    caption = "Years where the two reports differ"
+  )
+
+# Only the 2022 estimate was revised; the new years are 2023-2026.
+stopifnot(
+  all(overlap$year[overlap$NE_2022 != overlap$NE_2026] == 2022),
+  setequal(setdiff(teal_strata$year, teal_strata_2022$year), 2023:2026)
+)
+```
+
+`r sum(overlap$NE_2022 == overlap$NE_2026)` of `r nrow(overlap)` overlapping
+years are identical for the Northeastern stratum. The 2026 report revises 2022
+slightly and adds 2023-2026.
+
+How the packaged object compares to the report appendix:
+
+```{r teal-object-check}
+object_check <- cinnamon_teal_population |>
+  inner_join(teal_strata |> select(year, TOTAL), by = "year") |>
+  mutate(diff = pop_est - TOTAL)
+
+object_check |>
+  filter(abs(diff) > 1) |>
+  select(year, packaged = pop_est, appendix = TOTAL, diff) |>
+  kable(digits = 0, caption = "Years where cinnamon_teal_population differs from Appendix IV")
+```
+
+`r sum(abs(object_check$diff) <= 1)` of `r nrow(object_check)` overlapping years
+match exactly. The appendix also covers
+`r length(setdiff(teal_strata$year, cinnamon_teal_population$year))` survey years
+that the packaged object lacks
+(`r paste(range(setdiff(teal_strata$year, cinnamon_teal_population$year)), collapse = "-")`).
+
+## Where the survey samples the Klamath
+
+The survey's flight legs and waypoints that fall in the Klamath Basin (the 12
+HUC8 subbasins of `rivermile::klamath_hucs`), read from the KML and CSV files in
+the CDFW folder. These are built here for exploration and are not saved as
+package data.
+
+```{r klamath-geometry}
+gis_dir <- file.path(
+  survey_dir,
+  "California Breeding Waterfowl Survey GIS info for Air Services",
+  "California Breeding Waterfowl Survey GIS info for Air Services"
+)
+
+# boundaries ---------------------------------------------------------------
+
+basin <- rivermile::klamath_hucs |>
+  st_union() |>
+  st_transform(5070)
+
+# Same refuge names and 0.5-mile buffer used for `area` in this package's other datasets.
+refuges_buffered <- rivermile::klamath_refuges |>
+  mutate(
+    area = case_when(
+      str_detect(orgname, "bear valley")   ~ "Bear Valley",
+      str_detect(orgname, "clear lake")    ~ "Clear Lake",
+      str_detect(orgname, "klamath marsh") ~ "Klamath Marsh",
+      str_detect(orgname, "lower klamath") ~ "Lower Klamath - Sheepy",
+      str_detect(orgname, "tule lake")     ~ "Tule Lake",
+      str_detect(orgname, "upper klamath") ~ "Upper Klamath Lake"
+    )
+  ) |>
+  select(area) |>
+  st_buffer(units::set_units(0.5, "mi")) |>
+  st_transform(5070)
+
+# Refuge (buffered) that a feature touches, or NA. A feature in the overlap of
+# two buffers lists both.
+refuge_of <- function(x) {
+  hit <- st_intersects(st_transform(x, 5070), refuges_buffered)
+  vapply(
+    hit,
+    \(i) if (length(i)) paste(refuges_buffered$area[i], collapse = " + ") else NA_character_,
+    character(1)
+  )
+}
+
+# transects ----------------------------------------------------------------
+#
+# The KML is a Google Earth export of the survey shapefile. Each Placemark is a
+# leg between two waypoints; its Comment ends with the waypoint pair, e.g.
+# "(254-255)". sf does not expose the KML's ExtendedData, so parse the XML.
+
+kml <- read_xml(file.path(gis_dir, "California Breeding Waterfowl Survey All Segments.kml"))
+xml_ns_strip(kml)
+
+parse_leg <- function(placemark) {
+  fields <- xml_find_all(placemark, ".//SimpleData")
+  coords <- trimws(xml_text(xml_find_first(placemark, ".//LineString/coordinates")))
+  xy <- do.call(rbind, lapply(strsplit(strsplit(coords, "\\s+")[[1]], ","), as.numeric))
+  list(
+    attrs = as_tibble(as.list(setNames(xml_text(fields), xml_attr(fields, "name")))),
+    geom  = st_linestring(xy[, 1:2, drop = FALSE])
+  )
+}
+
+legs_raw <- lapply(xml_find_all(kml, "//Placemark"), parse_leg)
+
+legs_all <- st_sf(
+  bind_rows(lapply(legs_raw, `[[`, "attrs")),
+  geometry = st_sfc(lapply(legs_raw, `[[`, "geom"), crs = 4326)
+)
+
+# Keep legs that touch the basin. Source `Segment` codes are not unique and
+# disagree with Str/Trn/Seg for some legs (e.g. code 090719 on segment 18), so
+# key on the segment number (Seg), which matches the waypoint file and maps.
+#
+# The source `Length_mi` is not used. For all 106 legs statewide the geodesic
+# length of the line is cos(latitude) times Length_mi (about 0.75 at the
+# Klamath), as if a degree of longitude were as long as a degree of latitude.
+# `length_km` below is computed from the geometry instead.
+touches_basin <- lengths(st_intersects(st_transform(legs_all, 5070), basin)) > 0
+
+legs <- legs_all[touches_basin, ]
+
+km_in_basin <- vapply(seq_len(nrow(legs)), \(i) {
+  piece <- suppressWarnings(st_intersection(st_transform(st_geometry(legs)[i], 5070), basin))
+  if (length(piece) == 0) 0 else sum(as.numeric(st_length(piece))) / 1000
+}, numeric(1))
+
+wp_pair <- str_match(legs$Comment, "\\((\\d+)-(\\d+)\\)\\s*$")
+
+klamath_legs <- legs |>
+  transmute(
+    stratum       = "Northeastern California",
+    transect      = as.integer(Trn),
+    segment       = as.integer(Seg),
+    from_waypoint = as.integer(wp_pair[, 2]),
+    to_waypoint   = as.integer(wp_pair[, 3]),
+    description   = str_squish(str_remove(Comment, "\\(\\d+-\\d+\\)\\s*$")),
+    vcf_old       = VCF == "Yes",
+    vcf_2019      = New_VCF__1 == "Yes",
+    length_km     = round(as.numeric(st_length(geometry)) / 1000, 2),
+    km_in_basin   = round(km_in_basin, 2),
+    area          = refuge_of(geometry)
+  ) |>
+  arrange(segment, from_waypoint)
+
+stopifnot(
+  all(legs$Str == "9"),                       # stratum 9 = Northeastern California
+  !anyNA(klamath_legs$from_waypoint)
+)
+
+# waypoints ----------------------------------------------------------------
+
+waypoints_all <- read_csv(
+  file.path(gis_dir, "California Breeding Waterfowl Survey Waypoints For Plane.csv"),
+  show_col_types = FALSE
+)
+
+waypoints_sf <- st_as_sf(waypoints_all, coords = c("Longitude", "Latitude"), crs = 4326, remove = FALSE)
+in_basin <- lengths(st_intersects(st_transform(waypoints_sf, 5070), basin)) > 0
+
+klamath_waypoints <- waypoints_sf[in_basin, ] |>
+  transmute(
+    stratum  = Strata,
+    segment  = as.integer(Segment),
+    waypoint = as.integer(Waypoint),
+    comment  = str_squish(Comment),
+    vcf_old  = `Old VCF` == "Yes",
+    vcf_2019 = `New VCF (2019)` == "Yes",
+    area     = refuge_of(geometry)
+  ) |>
+  arrange(waypoint)
+
+stopifnot(all(klamath_waypoints$stratum == "Northeastern California"))
+
+# Each leg should run between the two waypoints named in its comment.
+wp_xy <- st_transform(waypoints_sf, 5070)
+leg_end_gap_km <- vapply(seq_len(nrow(klamath_legs)), \(i) {
+  leg <- st_transform(klamath_legs[i, ], 5070)
+  ends <- st_cast(st_geometry(leg), "POINT")[c(1, length(st_cast(st_geometry(leg), "POINT")))]
+  w <- wp_xy[match(c(leg$from_waypoint, leg$to_waypoint), waypoints_all$Waypoint), ]
+  d <- st_distance(ends, st_geometry(w))
+  min(sum(c(d[1, 1], d[2, 2])), sum(c(d[1, 2], d[2, 1]))) / 2 / 1000
+}, numeric(1))
+stopifnot(max(leg_end_gap_km) < 1)
+```
+
+```{r klamath-map}
+hucs <- st_transform(rivermile::klamath_hucs, 4326)
+refuges <- rivermile::klamath_refuges
+
+ggplot() +
+  geom_sf(data = hucs, fill = "grey95", color = "grey75", linewidth = 0.2) +
+  geom_sf(data = refuges, fill = "#bcd7ee", color = "#2a78d6", linewidth = 0.3) +
+  geom_sf(data = klamath_legs, aes(color = vcf_old), linewidth = 1.1) +
+  geom_sf(data = klamath_waypoints, size = 1.3, color = "grey20") +
+  geom_hline(yintercept = 42, linetype = "dashed", color = "grey45") +
+  annotate("text", x = -123.9, y = 42.04, label = "California / Oregon line (42 N)",
+           hjust = 0, size = 3, color = "grey35") +
+  scale_color_manual(
+    values = c(`FALSE` = "#eb6834", `TRUE` = "#1baf7a"),
+    labels = c(`FALSE` = "no", `TRUE` = "yes"),
+    name = "Old-design VCF segment"
+  ) +
+  coord_sf(xlim = c(-124, -120.4), ylim = c(41.2, 42.4)) +
+  labs(
+    title = "CDFW breeding survey legs and waypoints in the Klamath Basin",
+    subtitle = "Blue = refuges. The survey flies California only.",
+    x = NULL, y = NULL
+  )
+```
+
+```{r klamath-design-facts}
+n_legs <- nrow(klamath_legs)
+n_waypoints <- nrow(klamath_waypoints)
+km_in_basin <- sum(klamath_legs$km_in_basin)
+
+# Guards the static text in the Summary table.
+stopifnot(n_legs == 16, n_waypoints == 24)
+
+# The 2026 report says transect-segment 7-20 was not flown; check it is ours.
+unflown_2026 <- klamath_legs |> filter(transect == 7, segment == 20)
+stopifnot(nrow(unflown_2026) == 2)
+```
+
+`r n_legs` legs (`r round(km_in_basin)` km inside the basin) and `r n_waypoints`
+waypoints, all in the Northeastern California stratum. A **leg** runs between
+two waypoints; a **segment** groups one or more legs.
+
+**2026 survey.** The 2026 report says transect-segment 7-20 in northeastern
+California was not flown because of high winds, leaving the survey 95% complete
+in that region. Segment 20 is one of the Klamath segments here
+(`r nrow(unflown_2026)` legs: `r paste(unflown_2026$description, collapse = "; ")`).
+
+## Geographic coverage: California only
+
+```{r coverage}
+# The California-Oregon line is the 42nd parallel.
+south_of_42 <- st_as_sfc(st_bbox(c(xmin = -125, ymin = 39, xmax = -118, ymax = 42), crs = 4326))
+area_m2 <- \(x) as.numeric(st_area(st_transform(x, 5070)))
+
+coverage <- refuges |>
+  mutate(
+    area = case_when(
+      str_detect(orgname, "bear valley")   ~ "Bear Valley",
+      str_detect(orgname, "clear lake")    ~ "Clear Lake",
+      str_detect(orgname, "klamath marsh") ~ "Klamath Marsh",
+      str_detect(orgname, "lower klamath") ~ "Lower Klamath - Sheepy",
+      str_detect(orgname, "tule lake")     ~ "Tule Lake",
+      str_detect(orgname, "upper klamath") ~ "Upper Klamath Lake"
+    ),
+    pct_in_california = map_dbl(seq_len(n()), \(i) {
+      s <- suppressWarnings(st_intersection(st_geometry(refuges)[i], south_of_42))
+      if (length(s) == 0) 0 else 100 * sum(area_m2(s)) / area_m2(st_geometry(refuges)[i])
+    })
+  ) |>
+  st_drop_geometry() |>
+  left_join(
+    klamath_legs |> st_drop_geometry() |> filter(!is.na(area)) |> count(area, name = "legs_crossing"),
+    by = "area"
+  ) |>
+  left_join(
+    klamath_waypoints |> st_drop_geometry() |> filter(!is.na(area)) |> count(area, name = "waypoints_inside"),
+    by = "area"
+  ) |>
+  mutate(across(c(legs_crossing, waypoints_inside), \(x) replace_na(x, 0L))) |>
+  select(refuge = area, pct_in_california, legs_crossing, waypoints_inside)
+
+kable(coverage, digits = 0,
+      caption = "Refuge coverage by the survey (legs and waypoints use a 0.5-mile refuge buffer)")
+```
+
+The northernmost survey waypoint is at
+`r round(max(waypoints_all$Latitude), 3)` degrees north, so
+`r sum(waypoints_all$Latitude > 42)` of `r nrow(waypoints_all)` waypoints are in
+Oregon. Upper Klamath and Klamath Marsh are entirely in Oregon and are not
+sampled; Bear Valley is mostly in Oregon.
+
+## Segment-level counts: mallards only
+
+The one segment-level count table in the folder is Appendix V of the 2019
+report: a five-year average (2014-2018, fixed-wing) of mallard TIB for each of
+the 21 Northeastern segments.
+
+```{r mallard-segments}
+lines_2019 <- pdf_text(file.path(survey_dir, "BPS annual report 2019  Final.pdf")) |>
+  paste(collapse = "\n") |>
+  str_split("\n") |>
+  pluck(1)
+
+start <- grep("Appendix V\\. Five-year", lines_2019)
+block <- str_match(lines_2019[start:(start + 40)], "^\\s*(\\d{1,2})\\s+([0-9.]+)\\s*(.*)$")
+
+mallard_segments <- block[!is.na(block[, 1]) & as.integer(block[, 2]) <= 21, 2:4, drop = FALSE] |>
+  as_tibble(.name_repair = "minimal") |>
+  set_names(c("segment", "mallard_tib", "comment")) |>
+  mutate(segment = as.integer(segment), mallard_tib = as.numeric(mallard_tib), comment = trimws(comment)) |>
+  distinct(segment, .keep_all = TRUE) |>
+  mutate(klamath = segment %in% 14:21, rank = rank(-mallard_tib, ties.method = "min"))
+
+# The report's own text quotes the five-year means for segments 1, 3, 6 and 8.
+stopifnot(
+  nrow(mallard_segments) == 21,
+  identical(mallard_segments$mallard_tib[mallard_segments$segment %in% c(1, 3, 6, 8)], c(29, 21.2, 98.6, 134.4)),
+  all(mallard_segments$mallard_tib[mallard_segments$klamath] > 0)   # guards the Summary text
+)
+```
+
+```{r mallard-segments-plot}
+ggplot(mallard_segments, aes(factor(segment), mallard_tib, fill = klamath)) +
+  geom_col() +
+  scale_fill_manual(values = c(`FALSE` = "grey70", `TRUE` = "#2a78d6"),
+                    labels = c(`FALSE` = "other Northeastern segments", `TRUE` = "Klamath segments (14-21)"),
+                    name = NULL) +
+  labs(
+    title = "Mallard total indicated birds by Northeastern survey segment",
+    subtitle = "Five-year average, 2014-2018 (2019 report, Appendix V)",
+    x = "Segment", y = "Mallard TIB"
+  )
+```
+
+```{r mallard-segments-table}
+klamath_legs |>
+  st_drop_geometry() |>
+  summarise(where = str_trunc(paste(unique(description), collapse = "; "), 80), .by = segment) |>
+  left_join(mallard_segments |> select(segment, mallard_tib, rank), by = "segment") |>
+  arrange(segment) |>
+  kable(col.names = c("Segment", "Where (leg descriptions)", "Mallard TIB", "Rank of 21"),
+        caption = "Klamath segments")
+```
+
+Mallards were counted on all eight Klamath segments. Together they hold
+`r scales::percent(sum(mallard_segments$mallard_tib[mallard_segments$klamath]) / sum(mallard_segments$mallard_tib), accuracy = 1)`
+of the stratum's mallard TIB while being 8 of 21 segments (mean
+`r round(mean(mallard_segments$mallard_tib[mallard_segments$klamath]), 1)` vs
+`r round(mean(mallard_segments$mallard_tib[!mallard_segments$klamath]), 1)` for the
+other segments). These are whole-segment indices, not densities, and they cover
+mallards only.
+
+## Species in the Northeastern stratum
+
+The 2003-2015 reports' "Summary B" tables give every survey-sheet species for
+each stratum. The Northeastern California block:
+
+```{r species}
+report_files <- c(
+  "2003" = "ca-pop2003.doc", "2004" = "ca-pop2004.doc", "2005" = "ca-pop2005.doc",
+  "2006" = "ca-pop2006.doc", "2007" = "ca-pop2007.doc", "2008" = "ca-pop2008.doc",
+  "2009" = "ca-pop_2009.doc", "2010" = "ca-po2010.doc", "2011" = "2011 ca_bpop_rep1.docx",
+  "2012" = "2012 ca_bpop_rep1.txt", "2013" = "2013 ca_bpop_rep1.docx",
+  "2014" = "2014 ca_bpop_rep1.docx", "2015" = "2015 ca_bpop_rep1.docx"
+)
+
+species_row <- "^\\s*(\\d{4})\\s+([A-Za-z][A-Za-z .'-]*?)\\s+(\\d+)\\s+(\\d+)\\s+(\\d+)\\s+\\((\\d+),\\s*([0-9?]+)\\)"
+
+ne_species <- imap(report_files, \(file, year) {
+  text <- read_report(file.path(survey_dir, file))
+  header <- grep("Northeastern Cal.*\\(EF", text)[1]
+  first_stratum <- str_match(text[header], "^\\s*([A-Za-z/ ]+?)\\s*\\(EF")[, 2]
+  stopifnot(str_detect(first_stratum, "Northeastern"))   # NE is the first stratum on its header
+
+  rows <- str_match(text[(header + 1):min(length(text), header + 45)], species_row)
+  rows <- rows[!is.na(rows[, 1]) & !duplicated(rows[, 2]), , drop = FALSE]
+  stopifnot(nrow(rows) >= 19)
+
+  tibble(year = as.integer(year), aou = rows[1:19, 2], species = trimws(rows[1:19, 3]),
+         tib = as.numeric(rows[1:19, 4]), estimate = as.numeric(rows[1:19, 5]))
+}) |>
+  list_rbind()
+
+# Species names vary between reports; use the 2012 spelling for each AOU code.
+ne_species <- ne_species |>
+  select(-species) |>
+  left_join(ne_species |> filter(year == 2012) |> select(aou, species), by = "aou")
+
+species_summary <- ne_species |>
+  summarise(
+    years_detected = sum(estimate > 0),
+    median_estimate = median(estimate[estimate > 0]),
+    max_estimate = max(estimate),
+    .by = species
+  ) |>
+  arrange(desc(years_detected), desc(median_estimate))
+
+# Guards the Summary text.
+stopifnot(sum(species_summary$years_detected > 0) == 18, n_distinct(ne_species$year) == 13)
+
+species_summary |>
+  mutate(across(c(median_estimate, max_estimate), \(x) round(x))) |>
+  kable(
+    col.names = c("Species", "Years detected (of 13)", "Median estimate when present", "Maximum estimate"),
+    format.args = list(big.mark = ","),
+    caption = "Northeastern California stratum, 2003-2015"
+  )
+```
+
+The two checks below confirm the parse: Cinnamon Teal for the stratum should
+match Appendix IV in every overlapping year.
+
+```{r species-check}
+check <- ne_species |>
+  filter(species == "Cinnamon Teal") |>
+  inner_join(teal_strata |> select(year, appendix = NE), by = "year")
+
+tibble(
+  years_compared = nrow(check),
+  exact_matches = sum(abs(check$estimate - check$appendix) <= 1)
+) |>
+  kable()
+```
+
+For 2016-2022 only mallard, gadwall, Cinnamon Teal and Canada goose are broken
+out by stratum (Appendix IV). The stratum is much larger than the Klamath, so
+none of this isolates the Klamath.
+
+## Conclusion for Report 1
+
+**We cannot pull Cinnamon Teal data specific to the Klamath region of
+California from this dataset.**
+
+-   **Counts are by stratum.** Cinnamon Teal is estimated for the Northeastern
+    California stratum, which also covers places such as Alturas and
+    Susanville. The Klamath cannot be separated from it.
+-   **Segment-level counts are mallard-only.** Mallards were counted on all
+    eight Klamath segments (five-year average, 2014-2018). There is nothing
+    equivalent for Cinnamon Teal or other species, and nothing at the waypoint
+    level.
+-   **California only.** The Oregon side of the basin is not surveyed. In
+    California, flight lines cross only Tule Lake and Lower Klamath directly.
+-   **Finer records are not in the folder.** The metadata says observations
+    have locations for some years, but those records were not provided.
+
+On "waterfowl" generally: we **can** say that waterfowl occur regionally (18 of
+19 survey-sheet species in the Northeastern stratum, 2003-2015) and that
+mallards were counted on every Klamath segment. We cannot say which other
+species were counted in the Klamath or how many.
+
+**What we can provide from this report:** where the survey samples the basin,
+the Northeastern stratum series by species, and the mallard segment-level index.
+
+**Next step:** ask CDFW's Waterfowl Program (contact listed in the dataset
+metadata) for Cinnamon Teal and other species' counts by segment and year for
+segments 14-21, plus any observation-level records with locations.
+
+# Report 2: Fleskes and Yee (2007), spring waterfowl in southern Oregon and northeastern California
+
+**Source:** Fleskes, J. P., and J. L. Yee. 2007. [Waterfowl distribution and
+abundance during spring migration in southern Oregon and northeastern
+California](https://scholarsarchive.byu.edu/wnan/vol67/iss3/10). *Western North
+American Naturalist* 67(3):409-428. U.S. Geological Survey, Western Ecological
+Research Center. Table 4 (p. 422) is the table used here. PDF in
+`data-raw/waterfowl/reports/`.
+
+**Temporal Coverage:** Two springs, 5 January-3 May 2002 and 2003 (six aerial
+surveys each). Table 4 is the 2002-2003 average.
+
+**Spatial Grain:** Subregion. The study area, called SONEC (southern Oregon and
+northeastern California; 70,491 km^2^), has 11 subregions. Seven core
+subregions plus the Madeline Plains were surveyed; Table 4 reports 7 columns.
+Fig. 2 of the paper shows each subregion by survey date, as bar charts without
+values.
+
+**Klamath coverage:** Yes, through two subregions. *Lower Klamath* includes
+Lower Klamath, Tule Lake and Clear Lake NWRs, Butte Valley WA and the Klamath
+River State Game Management Area. *Upper Klamath* includes Upper Klamath and
+Klamath Marsh NWRs, Upper Klamath and Agency Lakes, and Sycan Marsh. The map
+(Fig. 1) shows the Lower Klamath subregion crossing the California-Oregon line,
+and the paper does not split it by state. These two subregions are the closest
+match to the Klamath Basin but are not the same boundary as the basin's HUCs.
+
+**Species:** Ducks (dabbling and diving, by species), geese, Tundra Swan and
+American Coot, including Cinnamon Teal.
+
+**Findings:** Cinnamon Teal use-days are spread across the region, with 39% in
+the two Klamath subregions, compared with 80% for all waterfowl. Details below.
+
+## Where the data come from
+
+All counts are from aerial surveys flown for this study (pages 411-412 of the
+paper). The paper summarizes them; the survey-level counts are not in it.
+
+-   **Surveyors.** U.S. Fish and Wildlife Service and Oregon Department of Fish
+    and Game biologists: Jim Hainline (Lower Klamath and Northeast California
+    subregions, the southern part of Upper Klamath and Modoc Plateau, and
+    Madeline Plains), and Elizabeth Huggins with Meg Laws or Marty St. Louis
+    (Warner Valley, Summer Lake, Malheur, and the northern parts of Upper Klamath
+    and Modoc Plateau). The authors credit >10 to >30 years of aerial survey
+    experience.
+-   **Method.** Two single-engine, high-wing aircraft flew at 30-50 m and
+    140-150 km/hr. Where habitat blocks were large (most NWRs), pilots flew
+    parallel transects 0.4 km (Hainline) or 0.8 km (Huggins, Laws/St. Louis)
+    apart and counted birds within a 0.4-km swath. Small or linear habitats were
+    flown in a track along them. Large flocks were circled. Estimated counts
+    were dictated while flying and entered into a database.
+-   **Dates.** 2002: 3-5 Jan, 21-22 Feb, 13-14 Mar, 27-28 Mar, 18-19 Apr, 2-3 May.
+    2003: 5-6 Jan, 20-22 Feb, 12-18 Mar, 1-8 Apr, 14-18 Apr, 30 Apr-4 May. The
+    authors standardized these to 5 Jan, 21 Feb, 13 Mar, 30 Mar, 16 Apr and 3 May.
+-   **From counts to Table 4.** Use-days were calculated by assuming linear
+    change in abundance between survey dates. Average birds per day (bpd) is use-days
+    divided by 119, the number of days in 5 January-3 May. Table 4 gives total
+    use-days and the percent of them in each subregion.
+-   **Not surveyed.** Four subregions (Surprise Valley, Shasta Valley, Pueblo
+    Valley, and Honey Lake apart from the Madeline Plains) were not surveyed.
+    The surveyed area is 76% of SONEC's land, 90% of its wetlands and 96% of
+    the satellite-tagged pintail locations in 2002-2003.
+-   **Unpublished sources.** Earlier reports by the same group, Fleskes and
+    Battaglia (2002, progress report; 2004, final report, USGS Western Ecological
+    Research Center), and unpublished data cited for wetland area.
+-   **Funding.** Tuscany Research Institute, a Ducks Unlimited grant to the USGS
+    Western Ecological Research Center and the California Waterfowl Association,
+    and the USGS Science Support Program.
+
+## Table 4
+
+Transcribed from the paper (p. 422). "<1" and a dash are stored as missing.
+
+```{r fy-table4}
+lt1 <- NA_real_ # the paper prints "<1"
+
+subregions <- c(
+  "Lower Klamath", "Upper Klamath", "Northeast California",
+  "Modoc Plateau", "Summer Lake", "Warner Valley", "Malheur"
+)
+
+table4 <- tribble(
+  ~species, ~level, ~total_use_days, ~`Lower Klamath`, ~`Upper Klamath`, ~`Northeast California`, ~`Modoc Plateau`, ~`Summer Lake`, ~`Warner Valley`, ~Malheur,
+  "Dabbling ducks", "group", 68077400, 66, 12, 5, 7, 6, 4, 1,
+  "Northern Pintail", "species", 32068600, 57, 15, 4, 8, 8, 6, 1,
+  "Northern Shoveler", "species", 12606200, 84, 4, 4, 2, 3, lt1, 1,
+  "American Wigeon", "species", 9586900, 71, 10, 6, 7, 4, 2, lt1,
+  "Green-winged Teal", "species", 8355100, 74, 11, 5, 9, lt1, lt1, lt1,
+  "Mallard", "species", 3222800, 67, 8, 8, 6, 7, 2, 1,
+  "Gadwall", "species", 2141600, 66, 6, 13, 7, 6, 2, lt1,
+  "Cinnamon Teal", "species", 96300, 26, 13, 21, 18, 17, 2, 3,
+  "Wood Duck", "species", 0, NA, NA, NA, NA, NA, NA, NA,
+  "Diving ducks", "group", 14538500, 49, 41, 4, 2, 3, 1, 1,
+  "Ruddy Duck", "species", 4633600, 54, 41, 5, lt1, lt1, lt1, lt1,
+  "Scaup", "species", 4192700, 40, 49, 5, 2, 3, lt1, lt1,
+  "Bufflehead", "species", 2148400, 60, 34, 2, 3, 1, lt1, lt1,
+  "Canvasback", "species", 1687200, 58, 24, 5, 3, 8, 2, lt1,
+  "Mergansers", "species", 912400, 42, 52, lt1, 1, 1, 3, lt1,
+  "Ring-necked Duck", "species", 687100, 36, 44, 10, 3, 7, lt1, lt1,
+  "Goldeneyes", "species", 139500, 34, 53, lt1, 2, 3, 1, 7,
+  "Redhead", "species", 137700, 46, 26, 8, 9, 5, 6, 1,
+  "Geese", "group", 34558100, 72, 5, 7, 6, 4, 1, 5,
+  "Snow Goose and Ross's Goose", "species", 17531600, 73, lt1, 5, 8, 5, lt1, 9,
+  "White-fronted Goose", "species", 14973200, 79, 7, 9, 4, 1, lt1, lt1,
+  "Canada Goose", "species", 2053200, 23, 20, 7, 11, 17, 12, 9,
+  "Tundra Swan", "species", 2974170, 48, 22, 5, 11, 4, 9, lt1,
+  "American Coot", "species", 7878900, 69, 16, 7, 3, 2, 1, 1,
+  "All waterfowl", "group", 128027000, 66, 14, 6, 6, 4, 3, 2
+)
+
+# Transcription checks. Species add up to their group and the groups to the
+# total (within the paper's rounding to 100), and each row's percentages add up
+# to about 100 (each "<1" can hide up to 1 point).
+group_of <- c(
+  rep("Dabbling ducks", 8), rep("Diving ducks", 8), rep("Geese", 3),
+  "Tundra Swan", "American Coot"
+)
+species_rows <- table4 |>
+  filter(level == "species") |>
+  mutate(group = group_of)
+
+by_group <- species_rows |>
+  summarise(species_sum = sum(total_use_days), .by = group) |>
+  left_join(table4 |> select(group = species, reported = total_use_days), by = "group")
+
+top_level_sum <- table4 |>
+  filter(species %in% c("Dabbling ducks", "Diving ducks", "Geese", "Tundra Swan", "American Coot")) |>
+  pull(total_use_days) |>
+  sum()
+
+pct_sum <- table4 |>
+  filter(total_use_days > 0) |>
+  select(all_of(subregions)) |>
+  rowSums(na.rm = TRUE)
+
+stopifnot(
+  "species rows do not add up to their group" =
+    all(abs(by_group$species_sum - by_group$reported)[by_group$group %in% c("Dabbling ducks", "Diving ducks", "Geese")] <= 200),
+  "groups do not add up to All waterfowl" =
+    abs(top_level_sum - table4$total_use_days[table4$species == "All waterfowl"]) <= 200,
+  "row percentages do not add up to ~100" = all(abs(pct_sum - 100) <= 7)
+)
+
+table4 |>
+  mutate(across(all_of(subregions), \(x) ifelse(is.na(x), ifelse(total_use_days == 0, "-", "<1"), as.character(x)))) |>
+  select(-level) |>
+  kable(
+    format.args = list(big.mark = ","),
+    col.names = c("Species or group", "Total use-days", subregions),
+    align = c("l", rep("r", 8))
+  )
+```
+
+## Cinnamon Teal in the Klamath subregions
+
+Cinnamon Teal is much more evenly spread than most species. The two Klamath
+subregions hold about 39% of its use-days, against 80% for all waterfowl.
+
+```{r fy-teal}
+dist <- table4 |>
+  filter(species %in% c("Cinnamon Teal", "All waterfowl")) |>
+  pivot_longer(all_of(subregions), names_to = "subregion", values_to = "pct") |>
+  mutate(
+    subregion = factor(subregion, levels = subregions),
+    species = factor(species, levels = c("Cinnamon Teal", "All waterfowl"))
+  )
+
+ggplot(dist, aes(subregion, pct, fill = species)) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.75) +
+  scale_fill_manual(values = c("Cinnamon Teal" = "#eb6834", "All waterfowl" = "#2a78d6"), name = NULL) +
+  scale_y_continuous(labels = \(x) paste0(x, "%")) +
+  labs(
+    title = "Where spring waterfowl use-days fall, by subregion",
+    subtitle = "Average of 2002 and 2003 (Fleskes and Yee 2007, Table 4)",
+    x = NULL, y = "Share of use-days"
+  ) +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1))
+```
+
+Average birds per day (bpd) in the two Klamath subregions, from the use-days
+and the 119-day season. The percentages are rounded to whole numbers, so each
+subregion is good to about half a point, and a "<1" is counted as 0. These are approximations.
+
+```{r fy-klamath}
+klamath <- table4 |>
+  filter(total_use_days > 0) |>
+  mutate(
+    klamath_pct = coalesce(`Lower Klamath`, 0) + coalesce(`Upper Klamath`, 0),
+    klamath_use_days = total_use_days * klamath_pct / 100,
+    klamath_bpd = klamath_use_days / 119
+  )
+
+klamath |>
+  transmute(
+    `Species or group` = species,
+    `Lower Klamath (%)` = ifelse(is.na(`Lower Klamath`), "<1", as.character(`Lower Klamath`)),
+    `Upper Klamath (%)` = ifelse(is.na(`Upper Klamath`), "<1", as.character(`Upper Klamath`)),
+    `Both (%)` = klamath_pct,
+    `Approx. use-days` = round(klamath_use_days, -2),
+    `Approx. birds per day` = round(klamath_bpd, ifelse(klamath_bpd < 1000, -1, -2))
+  ) |>
+  kable(format.args = list(big.mark = ","), align = c("l", rep("r", 5)))
+
+# Guards the static text above.
+ct <- klamath |> filter(species == "Cinnamon Teal")
+aw <- klamath |> filter(species == "All waterfowl")
+stopifnot(
+  "Cinnamon Teal Klamath share is not 39%" = ct$klamath_pct == 39,
+  "All waterfowl Klamath share is not 80%" = aw$klamath_pct == 80,
+  "Cinnamon Teal bpd is not about 300" = round(ct$klamath_bpd, -2) == 300
+)
+```
+
+For Cinnamon Teal that is about `r format(round(ct$klamath_use_days, -2), big.mark = ",")`
+use-days, or roughly `r round(ct$klamath_bpd, -1)` birds per day on average
+over the season, out of about 900 for the whole study region (Table 1, p. 413).
+
+## Cautions
+
+-   **Two years.** This is a 2002-2003 snapshot, with the 2002-2003 average used
+    for Table 4. It says nothing about trends.
+-   **Spring migration, not breeding.** The surveys run 5 January-3 May and
+    include migrants passing through. They are not the CDFW May breeding index
+    in Report 1, so the two cannot be added or compared directly.
+-   **No state split.** Upper Klamath is north of the state line in Fig. 1, but
+    Lower Klamath crosses it, so California and Oregon cannot be separated.
+-   **Detection.** The authors note that drab waterfowl in small groups in
+    vegetated habitat were probably missed more often (p. 426), which is a
+    concern for Cinnamon Teal. The counts are pseudo-censuses with no precision
+    estimates.
+-   **Percentages are rounded**, and "<1" cells are unknown.
+
+## Conclusion for Report 2
+
+**We can say where Cinnamon Teal spent the spring in 2002-2003 across
+subregions, and that about 39% of its use-days were in the Lower and Upper
+Klamath subregions.** We cannot give California and Oregon separately, a
+time series, or counts for the Klamath Basin boundary itself.
+
+<!-- **Next step:** ask the authors for the survey-level counts from Fleskes and -->
+<!-- Battaglia (2004), which could be summarized by refuge and by state. -->
+
+# Report 3: Oregon Breeding Waterfowl Population Report, 2026
+
+**Source:** Walton, K., and B. Reishus. 2026. *2026 Oregon Breeding Waterfowl
+Population Report*. Oregon Department of Fish and Wildlife (ODFW), Migratory
+Game Bird Program. PDF (34 pages) in `data-raw/waterfowl/reports/`; add a
+link here if the report is posted online.
+
+**Temporal Coverage:** Annual, 1994-2026, except 2001 and 2020. The 2026 survey
+was flown April 27-29 in western Oregon and May 8-14 in eastern Oregon.
+Statewide estimates by species are given for every year (Appendix C). Estimates
+by stratum are given only for 2026, 2025 and the long-term average (LTA, the
+mean of 1994-2025).
+
+**Spatial Grain:** Stratum. Oregon has five strata and the report gives each
+species' estimate for each, plus a statewide total. Flight transects are mapped
+(Fig. 1), but observations by location are not published.
+
+**Klamath coverage:** Partial, and Oregon only. The *Southeast Seasonal Marsh*
+stratum includes Upper Klamath, Lower Klamath, Klamath Marsh, the Sprague River
+Valley and Sycan Marsh, together with many other basins in Lake, Harney and
+Malheur counties (Summer Lake, Warner Valley, Catlow Valley, Harney Basin, and
+others). The Klamath cannot be separated from them. The *Forested Wetlands*
+stratum runs along the California border north to about Quartz Mountain. The
+survey does not cover California.
+
+**Species:** 21 duck, goose, coot and crane species or groups, including Cinnamon
+Teal. Species that do not breed in Oregon (for example tundra swan and white
+geese) are ignored.
+
+**Findings:** Cinnamon Teal can be reported for the Southeast Seasonal Marsh
+stratum, which holds 89% of Oregon's. Nothing finer. Details below.
+
+## Where the data come from
+
+The counts come from ODFW's own helicopter survey, described on pages 2-5 of
+the report.
+
+-   **Surveyors.** Two ODFW biologists per flight crew, with a contracted
+    helicopter and pilot (a Bell 206 B3 flown by JL Aviation Inc. since 2014).
+    The Klamath and Lake counties and southern Harney County were flown by one
+    crew (Appendix A).
+-   **Method.** Transects run through each stratum and are ¼ mile wide (660 feet
+    each side of the centerline), covering about 4-5% of each stratum. The
+    helicopter flies at 100-200 feet. Observers record every bird on voice
+    recorders, with GPS tablets showing the transect boundaries, and the pilot
+    loops back or hovers so the observers can try to count everything. Since 2004
+    all surveys have been flown by helicopter, detection is treated as complete,
+    and no visibility correction is applied.
+-   **Counting rules.** Ducks are classed as pairs, lone drakes, lone hens (for
+    four diving species only), grouped drakes and flocks. A lone drake or group
+    of 2-4 drakes is doubled to account for an unseen hen ("total indicated
+    birds"). Larger groups of drakes are flocks and are not doubled.
+-   **To a population index.** Counts per transect are expanded by transect
+    length and stratum area to a stratum estimate, and the strata are summed. It
+    is an index, not absolute abundance. For eastern Oregon, flocks are
+    included, which differs from California, which ignores flocked shovelers
+    entirely (p. 7).
+
+## Cinnamon Teal
+
+Transcribed from Appendix B (stratum table, p. 16) and Appendix C (annual
+estimates, p. 32).
+
+```{r or-teal-tables}
+or_teal_strata <- tribble(
+  ~stratum, ~est_2026, ~est_2025, ~lta,
+  "Southeast Seasonal Marsh", 26405, 20662, 25965,
+  "Northeast Seasonal Marsh", 2160, 1198, 3991,
+  "Forested Wetlands", 259, 43, 296,
+  "Willamette Valley", 619, 697, 1552,
+  "Lower Columbia River", 295, 164, 490
+)
+
+or_teal_year <- tribble(
+  ~year, ~estimate, ~se,
+  1994, 75169, 12476,
+  1995, 40620, 6141,
+  1996, 34589, 4086,
+  1997, 49027, 7278,
+  1998, 47442, 6134,
+  1999, 44810, 6455,
+  2000, 60276, 8041,
+  2002, 38307, 5416,
+  2003, 40310, 6385,
+  2004, 31488, 4282,
+  2005, 31429, 4963,
+  2006, 22195, 3093,
+  2007, 33828, 3980,
+  2008, 23929, 3849,
+  2009, 20683, 2720,
+  2010, 24868, 4419,
+  2011, 16894, 2509,
+  2012, 23725, 3743,
+  2013, 19350, 3132,
+  2014, 31250, 5590,
+  2015, 35674, 6682,
+  2016, 23422, 4050,
+  2017, 30309, 4733,
+  2018, 37459, 7279,
+  2019, 32604, 4846,
+  2021, 26609, 4916,
+  2022, 22059, 3736,
+  2023, 11172, 1750,
+  2024, 16541, 2297,
+  2025, 22764, 4028,
+  2026, 29738, 4908
+)
+
+# Transcription checks against the report's own totals and averages.
+stopifnot(
+  "strata do not add up to the statewide 2026 estimate" =
+    abs(sum(or_teal_strata$est_2026) - 29738) <= 2,
+  "annual series does not match the report's 2026 estimate" =
+    or_teal_year$estimate[or_teal_year$year == 2026] == 29738,
+  "mean of 1994-2025 does not match the report's LTA of 32,293" =
+    abs(mean(or_teal_year$estimate[or_teal_year$year <= 2025]) - 32293) < 1,
+  "2001 and 2020 should be absent" = !any(c(2001, 2020) %in% or_teal_year$year)
+)
+
+or_teal_strata |>
+  mutate(share_2026 = est_2026 / sum(est_2026)) |>
+  kable(
+    format.args = list(big.mark = ","),
+    digits = 2,
+    col.names = c("Stratum", "2026", "2025", "LTA (1994-2025)", "Share of 2026 total"),
+    align = c("l", rep("r", 4))
+  )
+```
+
+```{r or-teal-plot}
+lta <- mean(or_teal_year$estimate[or_teal_year$year <= 2025])
+
+ggplot(or_teal_year, aes(year, estimate)) +
+  geom_hline(yintercept = lta, color = "grey50", linetype = "dashed") +
+  geom_pointrange(
+    aes(ymin = estimate - se, ymax = estimate + se),
+    color = "#eb6834", size = 0.4
+  ) +
+  geom_line(color = "#eb6834", linewidth = 0.3, alpha = 0.5) +
+  annotate("text", x = 1996.5, y = lta - 4000, label = "Long-term average", hjust = 0, size = 3, color = "grey35") +
+  scale_y_continuous(labels = scales::comma, limits = c(0, NA)) +
+  labs(
+    title = "Cinnamon Teal breeding index, Oregon statewide",
+    subtitle = "Bars are plus or minus one standard error; no survey in 2001 or 2020",
+    x = NULL, y = "Estimated birds"
+  )
+```
+
+The Southeast Seasonal Marsh stratum has about 89% of Oregon's Cinnamon Teal
+(26,405 of 29,738 in 2026, with a long-term average of 25,965), so the
+statewide series mostly reflects it. Series by stratum are not published, only
+the three values above.
+
+## Other waterfowl in the Southeast Seasonal Marsh stratum
+
+Estimates for the stratum that contains the Oregon Klamath, for 2026, with the
+statewide total for comparison.
+
+```{r or-se-species}
+or_se_species <- tribble(
+  ~species, ~se_marsh, ~statewide,
+  "Mallard", 41079, 75668,
+  "Gadwall", 50685, 62948,
+  "American Wigeon", 204, 1362,
+  "Green-winged Teal", 204, 1191,
+  "Blue-winged Teal", 41, 169,
+  "Cinnamon Teal", 26405, 29738,
+  "Northern Shoveler", 8236, 10131,
+  "Northern Pintail", 817, 1162,
+  "Wood Duck", 82, 3096,
+  "Redhead", 4414, 5639,
+  "Canvasback", 1206, 1206,
+  "Scaup", 2309, 4031,
+  "Ring-necked Duck", 2146, 4727,
+  "Goldeneye", 0, 0,
+  "Bufflehead", 1635, 2628,
+  "Ruddy Duck", 3004, 5015,
+  "Common Merganser", 715, 886,
+  "Hooded Merganser", 0, 0,
+  "Canada Goose", 24504, 45579,
+  "American Coot", 64909, 69144,
+  "Sandhill Crane", 1104, 1661
+)
+
+# Statewide values should match Table 1 (p. 6); the stratum cannot exceed them.
+stopifnot(
+  "a stratum estimate exceeds its statewide estimate" =
+    all(or_se_species$se_marsh <= or_se_species$statewide),
+  "Table 1 spot check failed" =
+    or_se_species$statewide[or_se_species$species == "Mallard"] == 75668 &&
+      or_se_species$statewide[or_se_species$species == "Canada Goose"] == 45579,
+  "Cinnamon Teal rows disagree" =
+    or_se_species$se_marsh[or_se_species$species == "Cinnamon Teal"] == or_teal_strata$est_2026[1],
+  "Summary text says 19 of 21 species were present" =
+    sum(or_se_species$se_marsh > 0) == 19 && nrow(or_se_species) == 21
+)
+
+or_se_species |>
+  mutate(share = se_marsh / statewide) |>
+  kable(
+    format.args = list(big.mark = ","),
+    digits = 2,
+    col.names = c("Species", "Southeast Seasonal Marsh", "Oregon total", "Share of Oregon total"),
+    align = c("l", "r", "r", "r")
+  )
+```
+
+Nineteen of the 21 species were present in the stratum in 2026; goldeneye and
+hooded merganser were not recorded anywhere in the state.
+
+## Cautions
+
+-   **Stratum, not Klamath.** The stratum is far larger than the Klamath Basin and
+    mixes in other basins (Harney, Malheur, Lake). The report's flight crew
+    assignments (Appendix A) group Klamath and Lake counties together as well.
+-   **An index, not abundance.** Transects cover 4-5% of each stratum and the
+    estimates are described as an index of breeding waterfowl.
+-   **Cinnamon Teal are probably undercounted.** The report says crews believe
+    they are detected less often than other species because of dark coloring and
+    their use of flooded emergent vegetation (p. 7).
+-   **Large flocks swing the stratum estimates**, mainly shoveler and gadwall in
+    the Southeast Seasonal Marsh. The report notes it is not known whether
+    these birds are breeders or late migrants.
+-   **Habitat in 2026.** Snowpack was record or near-record low in the Klamath
+    basin, though wetland conditions in Klamath, Lake and Harney counties were
+    fair (p. 6).
+-   **Comparing to Report 1.** Both are May breeding surveys, but the two states
+    use different methods (Oregon: helicopter with no visibility correction;
+    California: mostly fixed-wing plane, with visibility correction factors, and
+    no flocked shovelers). Their numbers should not be added.
+
+## Conclusion for Report 3
+
+**We cannot pull Cinnamon Teal or other waterfowl data specific to the Oregon
+Klamath from this report.** Counts are by stratum, and the stratum that holds
+the Klamath is much larger than the basin. What we can provide is the annual
+statewide Cinnamon Teal index from 1994 to 2026, its 2026 value by stratum, and
+the 2026 estimates for all species in the Southeast Seasonal Marsh stratum.
+
+**Next step:** ask ODFW's Migratory Game Bird Program (the report's authors)
+for transect-level counts or observation locations for the Klamath and Lake
+county transects (Appendix A: flown by one crew), which could be summarized for
+the Klamath Basin.
+
+# Additional reports
+
+<!--
+Copy the block below for each new report, fill it in, and add a row (or rows)
+to the `assessments` table in the Summary section.
+-->
+
+## Report 4: (to be added)
+
+**Source:**
+
+**Temporal Coverage:**
+
+**Spatial Grain:**
+
+**Klamath coverage:**
+
+**Species:**
+
+**Findings:**
