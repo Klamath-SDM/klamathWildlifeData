@@ -25,11 +25,15 @@
 #
 # One row per agency, stratum, species and year:
 #   agency, state, stratum   survey and area
-#   species                  standard common name
-#   species_reported         name as written in the report
-#   ebird_species_code       eBird code(s); more than one, separated by ";",
-#                            when the survey groups species (e.g. scaup);
-#                            NA for totals
+#   species                  the survey's name for the species or group,
+#                            standardized across reports
+#   common_name              eBird common name, the key for joining to
+#                            klamath_ebird and ebird_status. NA where there is
+#                            no single eBird species (totals, goslings).
+#   grouped                  TRUE when the survey reports several eBird
+#                            species together (scaup, goldeneyes). The group
+#                            is repeated once per eBird common name, with the
+#                            same estimate: do not add those rows together.
 #   year
 #   estimate                 population estimate (CDFW: total indicated birds
 #                            expanded to the stratum; ODFW: index of breeding
@@ -42,8 +46,8 @@
 #   source                   the report(s) the row's values come from; the
 #                            estimate comes first when reports differ
 #
-# Sections: 0 setup, 1 CDFW, 2 ODFW, 3 species and eBird codes, 4 build the
-# object, 5 checks, 6 save. Run from the package root.
+# Sections: 0 setup, 1 CDFW, 2 ODFW, 3 species and eBird names, 4 build the
+# object, 5 checks, 6 save, 7 plot. Run from the package root.
 
 # 0. Setup ---------------------------------------------------------------------
 
@@ -71,6 +75,7 @@ klamath_strata <- tribble(
 )
 
 save_data <- FALSE # section 6 writes data/waterfowl_counts.rda
+save_plot <- TRUE # section 7 writes data-raw/waterfowl_counts_plot.png
 
 # Page text is read once per file.
 .pdf_cache <- new.env()
@@ -285,7 +290,9 @@ odfw_appendix_b <- read_odfw_appendix_b(odfw_2026)
 # goose), so one survey name can map to several eBird species. The crosswalk is
 # conservative: CDFW's "Scaup" is Lesser Scaup and "Goldeneye" is Common
 # Goldeneye in CDFW's species guidelines, but the grouped names are kept so that
-# the two surveys line up. eBird codes come from ebirdst's species list.
+# the two surveys line up. The surveys are linked to eBird by common name (the
+# `common_name` column of klamath_ebird and ebird_status), so the names below
+# are eBird's.
 
 standardize_species <- function(x) {
   x <- str_squish(x)
@@ -302,9 +309,10 @@ standardize_species <- function(x) {
   )
 }
 
-# standard name -> eBird common name(s)
+# survey name -> eBird common name(s). Totals and goslings have no single eBird
+# species, so they are left out and get NA.
 ebird_names <- tribble(
-  ~species, ~ebird_common_name,
+  ~species, ~common_name,
   "Mallard", "Mallard",
   "Gadwall", "Gadwall",
   "American Wigeon", "American Wigeon",
@@ -326,20 +334,28 @@ ebird_names <- tribble(
   "Common Merganser", "Common Merganser",
   "Hooded Merganser", "Hooded Merganser",
   "Canada Goose", "Canada Goose",
-  "Canada Goose (goslings)", "Canada Goose",
   "Trumpeter Swan", "Trumpeter Swan",
   "American Coot", "American Coot",
   "Sandhill Crane", "Sandhill Crane"
 )
 
-stopifnot("this script needs the ebirdst package for species codes" = requireNamespace("ebirdst", quietly = TRUE))
+# The names should be eBird's. Check them against eBird's species list (ebirdst)
+# and against the names in klamathWildlifeData::klamath_ebird, if available.
+ebird_names <- ebird_names |>
+  mutate(grouped = n() > 1, .by = species)
 
-species_codes <- ebird_names |>
-  left_join(
-    ebirdst::ebirdst_runs |> select(species_code, ebird_common_name = common_name),
-    by = "ebird_common_name"
-  ) |>
-  summarise(ebird_species_code = paste(species_code, collapse = ";"), .by = species)
+if (requireNamespace("ebirdst", quietly = TRUE)) {
+  stopifnot(
+    "eBird names not in ebirdst's species list" =
+      all(ebird_names$common_name %in% ebirdst::ebirdst_runs$common_name)
+  )
+}
+if (requireNamespace("klamathWildlifeData", quietly = TRUE)) {
+  not_in_klamath <- setdiff(ebird_names$common_name, klamathWildlifeData::klamath_ebird$common_name)
+  if (length(not_in_klamath) > 0) {
+    message("Not in klamath_ebird (no sightings in the basin): ", paste(not_in_klamath, collapse = ", "))
+  }
+}
 
 # 4. Build the object ----------------------------------------------------------------
 
@@ -418,9 +434,11 @@ waterfowl_counts <- chosen |>
     chosen |> filter(metric == "lta") |> select(agency, stratum, species, lta = value),
     by = c("agency", "stratum", "species")
   ) |>
-  left_join(species_codes, by = "species") |>
-  select(agency, state, stratum, species, species_reported, ebird_species_code, year, estimate, se, tib, lta, source) |>
-  arrange(agency, species, year)
+  # one row per eBird common name (a grouped species is repeated, see `grouped`)
+  left_join(ebird_names, by = "species", relationship = "many-to-many") |>
+  mutate(grouped = coalesce(grouped, FALSE)) |>
+  select(agency, state, stratum, species, common_name, grouped, year, estimate, se, tib, lta, source) |>
+  arrange(agency, species, common_name, year)
 
 # 5. Checks ---------------------------------------------------------------------------
 # Each parse is compared with a total or an average the report itself gives.
@@ -486,8 +504,10 @@ ct_2026 <- waterfowl_counts |> filter(species == "Cinnamon Teal", year == 2026)
 stopifnot(
   "only the applicable strata should remain" =
     nrow(distinct(waterfowl_counts, agency, stratum)) == nrow(klamath_strata),
-  "one row per agency, species and year" =
-    !anyDuplicated(waterfowl_counts[c("agency", "species", "year")]),
+  "one row per agency, species, eBird common name and year" =
+    !anyDuplicated(waterfowl_counts[c("agency", "species", "common_name", "year")]),
+  "common_name is an eBird name or NA" =
+    all(waterfowl_counts$common_name %in% c(ebird_names$common_name, NA)),
   "CDFW Northeastern Cinnamon Teal 2026 is 28,077" = ct_2026$estimate[ct_2026$agency == "CDFW"] == 28077,
   "ODFW Southeast Seasonal Marsh Cinnamon Teal 2026 is 26,405" = ct_2026$estimate[ct_2026$agency == "ODFW"] == 26405,
   "CDFW Northeastern sandhill crane 2026 (Table 1) is 5,831" =
@@ -495,8 +515,8 @@ stopifnot(
 )
 
 # Things to look at rather than stop for
-no_code <- waterfowl_counts |> filter(is.na(ebird_species_code), species != "Total ducks") |> distinct(species)
-if (nrow(no_code) > 0) warning("No eBird code for: ", paste(no_code$species, collapse = ", "))
+no_name <- waterfowl_counts |> filter(is.na(common_name), !species %in% c("Total ducks", "Canada Goose (goslings)")) |> distinct(species)
+if (nrow(no_name) > 0) warning("No eBird common name for: ", paste(no_name$species, collapse = ", "))
 
 flagged <- cdfw_appendix_iv |> filter(parse_flag, stratum == "Northeastern California")
 if (nrow(flagged) > 0) {
@@ -518,21 +538,36 @@ if (nrow(goose_off) > 0) {
 }
 
 
-# visualize ---------------------------------------------------------------
+# 6. Save ---------------------------------------------------------------------------------
+
+write_csv(waterfowl_counts |> select(-grouped), here::here("data-raw", "waterfowl_count_draft_data.csv"))
+
+if (save_data) {
+  usethis::use_data(waterfowl_counts, overwrite = TRUE)
+}
+
+# 7. Plot ---------------------------------------------------------------------------------
+#
+# One panel per species, each with its own y-axis (mallards and coots would
+# otherwise swamp everything else), ordered from the largest estimate down.
+# California and Oregon share a panel. Grouped species (scaup, goldeneyes) are
+# repeated once per eBird name in the object, so keep one row of each here.
 
 plot_data <- waterfowl_counts |>
   filter(species != "Total ducks", !is.na(estimate)) |>
-  filter(max(estimate) > 0, .by = species) |>      # drops species never recorded (hooded merganser)
+  distinct(agency, species, year, .keep_all = TRUE) |>
+  filter(max(estimate) > 0, .by = species) |> # drops species never recorded (hooded merganser)
   mutate(
-    species = fct_reorder(species, estimate, .fun = max, .desc = TRUE),   # biggest first
+    species = fct_reorder(species, estimate, .fun = max, .desc = TRUE),
     survey = if_else(state == "CA",
-                     "California (CDFW), Northeastern stratum",
-                     "Oregon (ODFW), Southeast Seasonal Marsh")
+      "California (CDFW), Northeastern stratum",
+      "Oregon (ODFW), Southeast Seasonal Marsh"
+    )
   ) |>
   arrange(agency, species, year) |>
-  mutate(run = cumsum(c(TRUE, diff(year) > 1)), .by = c(agency, species))  # break lines across survey gaps
+  mutate(run = cumsum(c(TRUE, diff(year) > 1)), .by = c(agency, species)) # break lines across survey gaps
 
-ggplot(plot_data, aes(year, estimate, color = survey, fill = survey)) +
+waterfowl_counts_plot <- ggplot(plot_data, aes(year, estimate, color = survey, fill = survey)) +
   geom_ribbon(
     aes(ymin = pmax(estimate - se, 0), ymax = estimate + se, group = interaction(survey, run)),
     alpha = 0.15, color = NA, na.rm = TRUE
@@ -548,7 +583,7 @@ ggplot(plot_data, aes(year, estimate, color = survey, fill = survey)) +
   scale_color_manual(values = c("#2a78d6", "#eb6834"), name = NULL) +
   scale_fill_manual(values = c("#2a78d6", "#eb6834"), name = NULL) +
   labs(
-    title = "Breeding waterfowl estimates in the Klamath Basin strata",
+    title = "Breeding waterfowl estimates - Northeastern California and Southeast Seasonal Marsh Oregon",
     subtitle = "Shaded band is plus or minus one standard error where reported. Each panel has its own y-axis.",
     x = NULL, y = "Estimated birds",
     caption = "Sources: CDFW and ODFW breeding waterfowl survey reports. The surveys use different methods; compare trends, not totals."
@@ -557,20 +592,20 @@ ggplot(plot_data, aes(year, estimate, color = survey, fill = survey)) +
   theme(
     legend.position = "top", legend.justification = "left",
     plot.title = element_text(face = "bold"), plot.title.position = "plot",
-    #strip.text = element_text(face = "bold", hjust = 0),
     panel.grid.minor = element_blank(), panel.spacing = unit(1, "lines"),
     plot.caption = element_text(color = "grey40", hjust = 0)
   )
 
-# 6. Save ---------------------------------------------------------------------------------
-
-if (save_data) {
-  usethis::use_data(waterfowl_counts, overwrite = TRUE)
+if (save_plot) {
+  ggsave(
+    here("data-raw", "waterfowl_counts_plot.png"), waterfowl_counts_plot,
+    width = 11, height = 9, dpi = 150, bg = "white"
+  )
 }
 
 message(
   "waterfowl_counts: ", nrow(waterfowl_counts), " rows, ",
   n_distinct(waterfowl_counts$species), " species, ",
   paste(range(waterfowl_counts$year), collapse = "-"),
-  ". Set save_data <- TRUE to write data/waterfowl_counts.rda."
+  ". Set save_data <- TRUE to write data/waterfowl_counts.rda and save_plot <- FALSE to skip the plot."
 )
