@@ -11,7 +11,7 @@
 
 <meta name="author" content="Maddee Wiggins (FlowWest)" />
 
-<meta name="date" content="2026-11-13" />
+<meta name="date" content="2026-11-17" />
 
 <title>Waterfowl Data Exploration</title>
 
@@ -1569,7 +1569,7 @@ border-radius: 0px;
 
 <h1 class="title toc-ignore">Waterfowl Data Exploration</h1>
 <h4 class="author">Maddee Wiggins (FlowWest)</h4>
-<h4 class="date">2026-11-13</h4>
+<h4 class="date">2026-11-17</h4>
 
 </div>
 
@@ -1577,17 +1577,95 @@ border-radius: 0px;
 <div id="purpose" class="section level2">
 <h2>Purpose</h2>
 <p><strong>Can we get Cinnamon Teal, or other waterfowl, data
-specifically for the Klamath region, in both California and
+specifically for the Klamath Basin, in both California and
 Oregon?</strong></p>
 <p>This document assesses each source we are given and records whether
 it can answer that question for each state, and at what spatial grain.
-Sources are added one at a time. The summary table below is the running
-answer, and each report gets its own section after it.</p>
+Each source gets its own section after the summary.</p>
 </div>
-<div id="summary" class="section level2">
-<h2>Summary</h2>
+<div id="summary-of-findings" class="section level2">
+<h2>Summary of findings</h2>
+<p><strong>It is difficult to get waterfowl or Cinnamon Teal numbers for
+the Klamath Basin itself from the CDFW and ODFW survey data.</strong>
+Both agencies report counts for survey strata that are much larger than
+the basin, and each survey stops at its state line.</p>
+<ul>
+<li><strong>California (CDFW).</strong> The Klamath is one part of the
+Northeastern California stratum, which is the smallest area with
+Cinnamon Teal counts (28,077 in 2026). Only mallards have an index for
+individual segments, including the eight that cross the basin. The
+survey does not cover Oregon.</li>
+<li><strong>Oregon (ODFW).</strong> The Klamath is one part of the
+Southeast Seasonal Marsh stratum, which also covers the Harney, Malheur
+and Lake basins. That stratum has 89% of Oregon’s Cinnamon Teal (26,405
+in 2026). The survey does not cover California.</li>
+<li><strong>Given the use of different aircraft, counting rules and
+corrections for missed birds, it is unclear if we are able to combine
+the Oregon and California datasets.</strong></li>
+<li><strong>Closest match to the basin: Fleskes and Yee (2007).</strong>
+For spring 2002 and 2003, they report waterfowl use in a Lower Klamath
+and an Upper Klamath subregion, which together held about 39% of the
+region’s Cinnamon Teal use (and 80% of all waterfowl use). It covers
+only two years, is spring migration rather than breeding, and cannot be
+split by state.</li>
+<li><strong>What would help.</strong> Observation locations or
+segment-level counts from CDFW (segments 14-21), transect-level counts
+from ODFW for the Klamath and Lake county transects, and the
+survey-level counts behind Fleskes and Yee.</li>
+</ul>
+<pre class="r"><code>tribble(
+  ~Source, ~`Smallest area reported`, ~`Klamath Basin only?`, ~Years, ~`Cinnamon Teal`,
+  &quot;1. CDFW California survey&quot;, &quot;Northeastern California stratum&quot;, &quot;No (mallards by segment only)&quot;, &quot;1992-2026&quot;, &quot;Yes, by stratum&quot;,
+  &quot;2. Fleskes and Yee 2007&quot;, &quot;Lower and Upper Klamath subregions&quot;, &quot;Close; both states together&quot;, &quot;Spring 2002 and 2003&quot;, &quot;Yes, by subregion&quot;,
+  &quot;3. ODFW Oregon survey&quot;, &quot;Southeast Seasonal Marsh stratum&quot;, &quot;No&quot;, &quot;1994-2026&quot;, &quot;Yes, by stratum&quot;
+) |&gt;
+  kable()</code></pre>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="26%" />
+<col width="23%" />
+<col width="16%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Source</th>
+<th align="left">Smallest area reported</th>
+<th align="left">Klamath Basin only?</th>
+<th align="left">Years</th>
+<th align="left">Cinnamon Teal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1. CDFW California survey</td>
+<td align="left">Northeastern California stratum</td>
+<td align="left">No (mallards by segment only)</td>
+<td align="left">1992-2026</td>
+<td align="left">Yes, by stratum</td>
+</tr>
+<tr class="even">
+<td align="left">2. Fleskes and Yee 2007</td>
+<td align="left">Lower and Upper Klamath subregions</td>
+<td align="left">Close; both states together</td>
+<td align="left">Spring 2002 and 2003</td>
+<td align="left">Yes, by subregion</td>
+</tr>
+<tr class="odd">
+<td align="left">3. ODFW Oregon survey</td>
+<td align="left">Southeast Seasonal Marsh stratum</td>
+<td align="left">No</td>
+<td align="left">1994-2026</td>
+<td align="left">Yes, by stratum</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="assessment-by-question" class="section level2">
+<h2>Assessment by question</h2>
 <pre class="r"><code># One row per finding. Add rows here as each new report is assessed.
-# The static text is checked against the data in the Report 1 sections below,
+# The static text is checked against the data in the section 1 chunks below,
 # which stop with an error if the numbers drift.
 assessments &lt;- tribble(
   ~report, ~question, ~answer, ~detail,
@@ -1733,8 +1811,8 @@ stratum only for 2025, 2026 and the long-term average</td>
 </tbody>
 </table>
 </div>
-<div id="report-1-cdfw-california-waterfowl-breeding-population-survey" class="section level1">
-<h1>Report 1: CDFW California Waterfowl Breeding Population Survey</h1>
+<div id="cdfw-california-waterfowl-breeding-population-survey" class="section level1">
+<h1>1. CDFW California Waterfowl Breeding Population Survey</h1>
 <p><strong>Source:</strong> <a href="https://data.ca.gov/@california-department-of-fish-and-wildlife/waterfowl-breeding-population-california-1992-2022">Waterfowl
 Breeding Population - California - 1992-2022</a>, California Department
 of Fish and Wildlife (CDFW), Waterfowl Program (data package
@@ -2627,8 +2705,8 @@ tibble(
 are broken out by stratum (Appendix IV). The stratum is much larger than
 the Klamath, so none of this isolates the Klamath.</p>
 </div>
-<div id="conclusion-for-report-1" class="section level2">
-<h2>Conclusion for Report 1</h2>
+<div id="conclusion-cdfw-california" class="section level2">
+<h2>Conclusion (CDFW California)</h2>
 <p><strong>We cannot pull Cinnamon Teal data specific to the Klamath
 region of California from this dataset.</strong></p>
 <ul>
@@ -2660,9 +2738,9 @@ counts by segment and year for segments 14-21, plus any
 observation-level records with locations.</p>
 </div>
 </div>
-<div id="report-2-fleskes-and-yee-2007-spring-waterfowl-in-southern-oregon-and-northeastern-california" class="section level1">
-<h1>Report 2: Fleskes and Yee (2007), spring waterfowl in southern
-Oregon and northeastern California</h1>
+<div id="fleskes-and-yee-2007-spring-waterfowl-in-southern-oregon-and-northeastern-california" class="section level1">
+<h1>2. Fleskes and Yee (2007), spring waterfowl in southern Oregon and
+northeastern California</h1>
 <p><strong>Source:</strong> Fleskes, J. P., and J. L. Yee. 2007. <a href="https://scholarsarchive.byu.edu/wnan/vol67/iss3/10">Waterfowl
 distribution and abundance during spring migration in southern Oregon
 and northeastern California</a>. <em>Western North American
@@ -3400,8 +3478,8 @@ region (Table 1, p. 413).</p>
 2002-2003 average used for Table 4. It says nothing about trends.</li>
 <li><strong>Spring migration, not breeding.</strong> The surveys run 5
 January-3 May and include migrants passing through. They are not the
-CDFW May breeding index in Report 1, so the two cannot be added or
-compared directly.</li>
+CDFW May breeding index in section 1, so it is unclear if the two can be
+combined or compared directly.</li>
 <li><strong>No state split.</strong> Upper Klamath is north of the state
 line in Fig. 1, but Lower Klamath crosses it, so California and Oregon
 cannot be separated.</li>
@@ -3413,8 +3491,8 @@ pseudo-censuses with no precision estimates.</li>
 unknown.</li>
 </ul>
 </div>
-<div id="conclusion-for-report-2" class="section level2">
-<h2>Conclusion for Report 2</h2>
+<div id="conclusion-fleskes-and-yee" class="section level2">
+<h2>Conclusion (Fleskes and Yee)</h2>
 <p><strong>We can say where Cinnamon Teal spent the spring in 2002-2003
 across subregions, and that about 39% of its use-days were in the Lower
 and Upper Klamath subregions.</strong> We cannot give California and
@@ -3424,8 +3502,8 @@ boundary itself.</p>
 <!-- Battaglia (2004), which could be summarized by refuge and by state. -->
 </div>
 </div>
-<div id="report-3-oregon-breeding-waterfowl-population-report-2026" class="section level1">
-<h1>Report 3: Oregon Breeding Waterfowl Population Report, 2026</h1>
+<div id="odfw-oregon-breeding-waterfowl-population-survey-2026" class="section level1">
+<h1>3. ODFW Oregon Breeding Waterfowl Population Survey, 2026</h1>
 <p><strong>Source:</strong> Walton, K., and B. Reishus. 2026. <em>2026
 Oregon Breeding Waterfowl Population Report</em>. Oregon Department of
 Fish and Wildlife (ODFW), Migratory Game Bird Program. PDF (34 pages) in
@@ -3845,15 +3923,15 @@ it is not known whether these birds are breeders or late migrants.</li>
 <li><strong>Habitat in 2026.</strong> Snowpack was record or near-record
 low in the Klamath basin, though wetland conditions in Klamath, Lake and
 Harney counties were fair (p. 6).</li>
-<li><strong>Comparing to Report 1.</strong> Both are May breeding
+<li><strong>Comparing to section 1.</strong> Both are May breeding
 surveys, but the two states use different methods (Oregon: helicopter
 with no visibility correction; California: mostly fixed-wing plane, with
-visibility correction factors, and no flocked shovelers). Their numbers
-should not be added.</li>
+visibility correction factors, and no flocked shovelers). It is unclear
+if their numbers can be combined.</li>
 </ul>
 </div>
-<div id="conclusion-for-report-3" class="section level2">
-<h2>Conclusion for Report 3</h2>
+<div id="conclusion-odfw-oregon" class="section level2">
+<h2>Conclusion (ODFW Oregon)</h2>
 <p><strong>We cannot pull Cinnamon Teal or other waterfowl data specific
 to the Oregon Klamath from this report.</strong> Counts are by stratum,
 and the stratum that holds the Klamath is much larger than the basin.
@@ -3869,11 +3947,11 @@ by one crew), which could be summarized for the Klamath Basin.</p>
 <div id="additional-reports" class="section level1">
 <h1>Additional reports</h1>
 <!--
-Copy the block below for each new report, fill it in, and add a row (or rows)
+Copy the block below for each new source, fill it in, and add a row (or rows)
 to the `assessments` table in the Summary section.
 -->
-<div id="report-4-to-be-added" class="section level2">
-<h2>Report 4: (to be added)</h2>
+<div id="to-be-added" class="section level2">
+<h2>4. (to be added)</h2>
 <p><strong>Source:</strong></p>
 <p><strong>Temporal Coverage:</strong></p>
 <p><strong>Spatial Grain:</strong></p>

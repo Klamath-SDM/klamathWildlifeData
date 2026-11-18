@@ -58,18 +58,55 @@ read_report <- function(path) {
 ## Purpose
 
 **Can we get Cinnamon Teal, or other waterfowl, data specifically for the
-Klamath region, in both California and Oregon?**
+Klamath Basin, in both California and Oregon?**
 
 This document assesses each source we are given and records whether it can
-answer that question for each state, and at what spatial grain. Sources are
-added one at a time. The summary table below is the running answer, and each
-report gets its own section after it.
+answer that question for each state, and at what spatial grain. Each source
+gets its own section after the summary.
 
-## Summary
+## Summary of findings
+
+**It is difficult to get waterfowl or Cinnamon Teal numbers for the Klamath
+Basin itself from the CDFW and ODFW survey data.** Both agencies report
+counts for survey strata that are much larger than the basin, and each survey
+stops at its state line.
+
+-   **California (CDFW).** The Klamath is one part of the Northeastern
+    California stratum, which is the smallest area with Cinnamon Teal counts
+    (28,077 in 2026). Only mallards have an index for individual segments,
+    including the eight that cross the basin. The survey does not cover
+    Oregon.
+-   **Oregon (ODFW).** The Klamath is one part of the Southeast Seasonal Marsh
+    stratum, which also covers the Harney, Malheur and Lake basins. That stratum
+    has 89% of Oregon's Cinnamon Teal (26,405 in 2026). The survey does not
+    cover California.
+-   **Given the use of different aircraft, counting rules and corrections for
+    missed birds, it is unclear if we are able to combine the Oregon and
+    California datasets.**
+-   **Closest match to the basin: Fleskes and Yee (2007).** For spring 2002 and
+    2003, they report waterfowl use in a Lower Klamath and an Upper Klamath
+    subregion, which together held about 39% of the region's Cinnamon Teal use
+    (and 80% of all waterfowl use). It covers only two years, is spring
+    migration rather than breeding, and cannot be split by state.
+-   **What would help.** Observation locations or segment-level counts from
+    CDFW (segments 14-21), transect-level counts from ODFW for the Klamath and
+    Lake county transects, and the survey-level counts behind Fleskes and Yee.
+
+```{r summary-by-source}
+tribble(
+  ~Source, ~`Smallest area reported`, ~`Klamath Basin only?`, ~Years, ~`Cinnamon Teal`,
+  "1. CDFW California survey", "Northeastern California stratum", "No (mallards by segment only)", "1992-2026", "Yes, by stratum",
+  "2. Fleskes and Yee 2007", "Lower and Upper Klamath subregions", "Close; both states together", "Spring 2002 and 2003", "Yes, by subregion",
+  "3. ODFW Oregon survey", "Southeast Seasonal Marsh stratum", "No", "1994-2026", "Yes, by stratum"
+) |>
+  kable()
+```
+
+## Assessment by question
 
 ```{r summary}
 # One row per finding. Add rows here as each new report is assessed.
-# The static text is checked against the data in the Report 1 sections below,
+# The static text is checked against the data in the section 1 chunks below,
 # which stop with an error if the numbers drift.
 assessments <- tribble(
   ~report, ~question, ~answer, ~detail,
@@ -107,7 +144,7 @@ kable(
 )
 ```
 
-# Report 1: CDFW California Waterfowl Breeding Population Survey
+# 1. CDFW California Waterfowl Breeding Population Survey
 
 **Source:** [Waterfowl Breeding Population - California - 1992-2022](https://data.ca.gov/@california-department-of-fish-and-wildlife/waterfowl-breeding-population-california-1992-2022),
 California Department of Fish and Wildlife (CDFW), Waterfowl Program (data
@@ -683,7 +720,7 @@ For 2016-2022 only mallard, gadwall, Cinnamon Teal and Canada goose are broken
 out by stratum (Appendix IV). The stratum is much larger than the Klamath, so
 none of this isolates the Klamath.
 
-## Conclusion for Report 1
+## Conclusion (CDFW California)
 
 **We cannot pull Cinnamon Teal data specific to the Klamath region of
 California from this dataset.**
@@ -712,7 +749,7 @@ the Northeastern stratum series by species, and the mallard segment-level index.
 metadata) for Cinnamon Teal and other species' counts by segment and year for
 segments 14-21, plus any observation-level records with locations.
 
-# Report 2: Fleskes and Yee (2007), spring waterfowl in southern Oregon and northeastern California
+# 2. Fleskes and Yee (2007), spring waterfowl in southern Oregon and northeastern California
 
 **Source:** Fleskes, J. P., and J. L. Yee. 2007. [Waterfowl distribution and
 abundance during spring migration in southern Oregon and northeastern
@@ -934,7 +971,7 @@ over the season, out of about 900 for the whole study region (Table 1, p. 413).
     for Table 4. It says nothing about trends.
 -   **Spring migration, not breeding.** The surveys run 5 January-3 May and
     include migrants passing through. They are not the CDFW May breeding index
-    in Report 1, so the two cannot be added or compared directly.
+    in section 1, so it is unclear if the two can be combined or compared directly.
 -   **No state split.** Upper Klamath is north of the state line in Fig. 1, but
     Lower Klamath crosses it, so California and Oregon cannot be separated.
 -   **Detection.** The authors note that drab waterfowl in small groups in
@@ -943,7 +980,7 @@ over the season, out of about 900 for the whole study region (Table 1, p. 413).
     estimates.
 -   **Percentages are rounded**, and "<1" cells are unknown.
 
-## Conclusion for Report 2
+## Conclusion (Fleskes and Yee)
 
 **We can say where Cinnamon Teal spent the spring in 2002-2003 across
 subregions, and that about 39% of its use-days were in the Lower and Upper
@@ -953,7 +990,7 @@ time series, or counts for the Klamath Basin boundary itself.
 <!-- **Next step:** ask the authors for the survey-level counts from Fleskes and -->
 <!-- Battaglia (2004), which could be summarized by refuge and by state. -->
 
-# Report 3: Oregon Breeding Waterfowl Population Report, 2026
+# 3. ODFW Oregon Breeding Waterfowl Population Survey, 2026
 
 **Source:** Walton, K., and B. Reishus. 2026. *2026 Oregon Breeding Waterfowl
 Population Report*. Oregon Department of Fish and Wildlife (ODFW), Migratory
@@ -1179,12 +1216,12 @@ hooded merganser were not recorded anywhere in the state.
 -   **Habitat in 2026.** Snowpack was record or near-record low in the Klamath
     basin, though wetland conditions in Klamath, Lake and Harney counties were
     fair (p. 6).
--   **Comparing to Report 1.** Both are May breeding surveys, but the two states
+-   **Comparing to section 1.** Both are May breeding surveys, but the two states
     use different methods (Oregon: helicopter with no visibility correction;
     California: mostly fixed-wing plane, with visibility correction factors, and
-    no flocked shovelers). Their numbers should not be added.
+    no flocked shovelers). It is unclear if their numbers can be combined.
 
-## Conclusion for Report 3
+## Conclusion (ODFW Oregon)
 
 **We cannot pull Cinnamon Teal or other waterfowl data specific to the Oregon
 Klamath from this report.** Counts are by stratum, and the stratum that holds
@@ -1200,11 +1237,11 @@ the Klamath Basin.
 # Additional reports
 
 <!--
-Copy the block below for each new report, fill it in, and add a row (or rows)
+Copy the block below for each new source, fill it in, and add a row (or rows)
 to the `assessments` table in the Summary section.
 -->
 
-## Report 4: (to be added)
+## 4. (to be added)
 
 **Source:**
 
